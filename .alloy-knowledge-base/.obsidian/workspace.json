@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "artifacts/personas/andrea-zotelli.md",
+                "file": "artifacts/product-brief/business-context.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "andrea-zotelli"
+              "title": "business-context"
             }
           }
         ]
@@ -185,31 +185,32 @@
   },
   "active": "33dc3fca120b0cdb",
   "lastOpenFiles": [
+    "artifacts/question-log/what-teams-are-involved-in-the-development-process.md",
+    "artifacts/question-log/what-is-toyota-motor-corporations-actual-quarterly.md",
+    "artifacts/question-log/what-are-the-specific-capabilities-in-the-existing.md",
+    "artifacts/question-log/what-is-the-precise-current-ip-architecture-documentation.md",
+    "artifacts/question-log/what-are-the-exact-odd-requirements-from-ca.md",
+    "artifacts/question-log/what-is-the-exact-frequency-of-software-releases.md",
+    "artifacts/question-log/what-are-the-four-types-of-gates-in-the-release-process.md",
+    "artifacts/question-log/how-will-the-three-contractor-automation-project-integrate.md",
+    "artifacts/question-log/how-will-the-jp-teams-reqtify-tool-integration-work.md",
+    "artifacts/question-log/how-will-the-change-request-management-weekly-meetings.md",
+    "artifacts/question-log/how-long-does-each-component-actually-take-to-complete.md",
+    "artifacts/question-log/how-does-the-feedback-loop-from-vehicle-operations-actually.md",
+    "artifacts/question-log/does-woven-operate-with-waterfall-methodology.md",
+    "artifacts/question-log/does-the-v-model-process-change-require-organizational.md",
+    "artifacts/question-log/can-rectify-address-the-requirements-management-needs.md",
+    "artifacts/question-log/can-julia-pralle-and-eric-keranens-previous-tool-be-reused.md",
+    "artifacts/question-log",
+    "artifacts/question-log.md",
+    "artifacts/product-brief/scale-and-performance-constraints.md",
+    "artifacts/product-brief/regulatory-and-compliance-requirements.md",
+    "artifacts/product-brief/product-overview.md",
+    "artifacts/product-brief/primary-user-personas.md",
     "artifacts/personas/sanjiv-valsan.md",
     "artifacts/personas/hannah-lane.md",
     "sources/atomic-object-project-details-md.md",
     "sources/2026-02-05-systems-workshop-wrap-up-transcript-md.md",
-    "sources/2024-02-06-contributor-brief-onboarding-video-transcript-md.md",
-    "assertions/julia-pralle-and-eric-keranen-had-a-previous-tool-that.md",
-    "assertions/the-dynamic-architecture-diagram-can-automatically-identify.md",
-    "assertions/the-tech-guild-team-is-expected-to-provide-the-planned.md",
-    "assertions/the-team-needs-precise-understanding-of-current-ip.md",
-    "assertions/epic-2-aims-to-build-an-architecture-diagram-from-current.md",
-    "assertions/the-jp-team-wants-to-use-reqtify-tool-which-could.md",
-    "assertions/andrea-zotelli-is-the-key-contact-person-for-epic-1.md",
-    "assertions/epic-1-focuses-on-creating-a-dynamic-process-tool-that.md",
-    "assertions/key-inputs-include-code-prs-docs-on-git-google-docs.md",
-    "assertions/the-project-is-exploratory-in-nature-pilot-planned-for-q4.md",
-    "assertions/the-systems-engineering-tooling-support-project-aims-to-2.md",
-    "assertions/daily-release-builds-drb-are-tested-by-vehicle-operations-2.md",
-    "assertions/pre-merge-testing-includes-10-12-computing-hours-of-tests-2.md",
-    "assertions/the-team-expects-hundreds-of-contributors-working-2.md",
-    "assertions/new-features-are-merged-in-small-pull-requests-with-2.md",
-    "assertions/the-team-uses-trunk-based-development-with-everything.md",
-    "assertions/the-self-driving-car-team-tests-robots-on-public-roads-2.md",
-    "assertions/an-exploratory-project-with-three-contractors-starts-next-2.md",
-    "assertions/operating-conditions-odds-are-not-explicitly-included-for-2.md",
-    "assertions/sanjief-created-a-comprehensive-table-showing-requirement.md",
-    "assertions/a2-2203-arastradero-2-led-a-systems-workshop-wrap-up.md"
+    "sources/2024-02-06-contributor-brief-onboarding-video-transcript-md.md"
   ]
 }
