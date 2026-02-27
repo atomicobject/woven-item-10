@@ -1,0 +1,198 @@
+{
+  "main": {
+    "id": "687490c5f8b715d7",
+    "type": "split",
+    "children": [
+      {
+        "id": "0b1e2f472dcd1466",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1f5aee5864617992",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "artifacts/internal-stakeholders/Andrea_Zotelli_Systems_Requirements.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Andrea_Zotelli_Systems_Requirements"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7791935b25af8704",
+    "type": "split",
+    "children": [
+      {
+        "id": "028ac91bee3f295b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ead0fd43049104e3",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "36f5502bee7c9cc9",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "454cad4077bbe37e",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "5617b5aa808ac4fe",
+    "type": "split",
+    "children": [
+      {
+        "id": "a83044ede3e8619e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cd94904d5d5e8016",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "source/2026-02-26-1_andrea-interview.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 2026-02-26-1_andrea-interview"
+            }
+          },
+          {
+            "id": "779761d0eb83aa07",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "source/2026-02-26-1_andrea-interview.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 2026-02-26-1_andrea-interview"
+            }
+          },
+          {
+            "id": "04700b6b396193e9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "a65670b3e17136d8",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "2eb760c9d39744ed",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "source/2026-02-26-1_andrea-interview.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 2026-02-26-1_andrea-interview"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "1f5aee5864617992",
+  "lastOpenFiles": [
+    "artifacts/internal-stakeholders/Hannah_Lane_Systems.md",
+    "artifacts/internal-stakeholders/Eric_Keranen_Architecture_Tooling.md",
+    "artifacts/internal-stakeholders/Andrea_Zotelli_Systems_Requirements.md",
+    "source/2026-02-26-1_andrea-interview.md",
+    "source/2026-02-25-1_discovery-questions.md",
+    "source/2026-02-24_internal-huddle.md",
+    "prompts/assertion-prompt.md",
+    "source/2026-02-23-1_release-tools-deepdive.md",
+    "source/2026-02-05_kickoff.md"
+  ]
+}
