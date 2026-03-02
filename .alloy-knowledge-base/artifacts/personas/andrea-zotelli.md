@@ -17,7 +17,7 @@ createdBy: llm
 
 ## Background
 
-Andrea joined Woven by Toyota at the end of October 2024, working primarily on writing requirements and setting up structure in JAMA for systems verification and validation. She's dealing with a massive backlog of undocumented requirements for self-driving car software components and is writing component-level requirements from zero using scattered sources. She works within a complex multi-organizational structure involving Woven, Denso, and other companies in Toyota's 'one team' approach and serves as the primary stakeholder contact for Epic 1.
+Andrea joined Woven by Toyota at the end of October 2025, working primarily on writing requirements and setting up structure in JAMA for systems verification and validation. She's dealing with a massive backlog of undocumented requirements for self-driving car software components and is writing component-level requirements from zero using scattered sources. She works within a complex multi-organizational structure involving Woven, Denso, and other companies in Toyota's 'one team' approach and serves as the primary stakeholder contact for Epic 1.
 
 ## Goals
 
