@@ -185,10 +185,12 @@
   },
   "active": "33dc3fca120b0cdb",
   "lastOpenFiles": [
+    "sources/2026-02-24-internal-huddle-md.md",
+    "sources/atomic-object-project-details-md.md",
+    "sources/2026-02-26-2-andrea-interview-debrief-md.md",
     "sources/2026-02-26-1-andrea-interview-md.md",
     "sources/2026-02-25-2-discovery-questions-pt2-md.md",
     "sources/2026-02-25-1-discovery-questions-md.md",
-    "sources/2026-02-26-2-andrea-interview-debrief-md.md",
     "artifacts/question-log.md",
     "artifacts/product-brief.md",
     "artifacts/personas.md",
@@ -204,13 +206,11 @@
     "assertions/communication-challenges-exist-with-teams-in-japan-due-to.md",
     "sources/2026-02-23-1-release-tools-deepdive-md.md",
     "sources/glossary-ladder-diagram-md.md",
-    "sources/atomic-object-project-details-md.md",
     "sources/2024-02-06-contributor-brief-onboarding-video-transcript-md.md",
     "sources/2026-02-05-systems-workshop-wrap-up-transcript-md.md",
     "artifacts/product-brief/business-context.md",
     "artifacts/question-log/what-is-toyota-motor-corporations-actual-quarterly.md",
     "artifacts/question-log/what-are-the-specific-capabilities-in-the-existing.md",
-    "artifacts/question-log/what-is-the-precise-current-ip-architecture-documentation.md",
     "artifacts/question-log"
   ]
 }
