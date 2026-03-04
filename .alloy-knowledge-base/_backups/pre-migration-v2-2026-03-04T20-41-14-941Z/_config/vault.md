@@ -1,9 +1,9 @@
 ---
 type: vault-meta
-schemaVersion: 3
+schemaVersion: 2
 createdBy: alloy-mcp@1.8.1
 createdAt: 2026-02-26T20:48:48.797Z
-lastMigratedAt: 2026-03-04T20:41:15.019Z
+lastMigratedAt: 2026-02-26T20:48:48.797Z
 lastMigratedBy: alloy-mcp
 ---
 
