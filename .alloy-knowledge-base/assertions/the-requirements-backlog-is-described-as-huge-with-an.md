@@ -12,6 +12,14 @@ createdBy: llm
 
 The requirements backlog is described as 'huge' with an estimated timeline of 3 years (until beginning of 2029) to have the autonomous vehicle in production on streets.
 
+## Connections
+
+- relates-to:: [[toyota-demanded-formal-requirements-documentation-1-2-years]] (strength: 0.8)
+- relates-to:: [[the-team-has-been-developing-self-driving-car-software-for]] (strength: 0.6)
+- relates-to:: [[component-level-requirements-are-being-written-from-zero]] (strength: 0.6)
+- relates-to:: [[lane-change-requirements-alone-contain-approximately-600]] (strength: 0.4)
+- relates-to:: [[andrea-started-in-october-2024-and-is-dealing-with-a]] (strength: 0.8)
+
 ## Sources
 
 - [[2026-02-26-1_andrea-interview.md]] (lines 562-938)

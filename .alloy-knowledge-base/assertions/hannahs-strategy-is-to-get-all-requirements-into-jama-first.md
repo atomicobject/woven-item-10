@@ -17,6 +17,11 @@ Hannah's strategy is to get all requirements into JAMA first to establish ground
 ## Connections
 
 - relates-to:: [[hannah-identified-key-tooling-needs-including-automated]] (strength: 0.6)
+- relates-to:: [[jama-is-the-desired-central-repository-for-requirements]] (strength: 0.8)
+- relates-to:: [[lane-change-requirements-alone-contain-approximately-600]] (strength: 0.6)
+- relates-to:: [[the-primary-goal-of-item-10-is-to-create-a-single-source-of]] (strength: 0.6)
+- relates-to:: [[product-delivery-is-responsible-for-delivering-overall-pass]] (strength: 0.6)
+- relates-to:: [[hannah-manually-copies-requirements-from-git-repositories]] (strength: 0.6)
 
 ## Sources
 

@@ -20,6 +20,9 @@ Woven is currently working backwards by writing requirements to match existing s
 - relates-to:: [[the-arene-platform-team-primarily-based-in-japan-already]] (strength: 0.4)
 - supports:: [[toyota-sends-requirements-in-japanese-with-different]] (strength: 0.4)
 - supports:: [[requirements-must-be-reviewed-by-product-delivery-teams]] (strength: 0.4)
+- relates-to:: [[the-team-has-been-developing-self-driving-car-software-for]] (strength: 0.8)
+- relates-to:: [[component-level-requirements-are-being-written-from-zero]] (strength: 0.8)
+- relates-to:: [[code-is-identified-as-the-single-source-of-truth-for]] (strength: 0.6)
 
 ## Sources
 

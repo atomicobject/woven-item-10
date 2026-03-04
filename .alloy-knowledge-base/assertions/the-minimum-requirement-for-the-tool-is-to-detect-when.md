@@ -15,6 +15,11 @@ The minimum requirement for the tool is to detect when something in the original
 ## Connections
 
 - relates-to:: [[the-team-conducted-a-multi-day-workshop-with-product-three]] (strength: 0.4)
+- relates-to:: [[changes-in-original-requirements-should-notify-the-creator]] (strength: 0.8)
+- relates-to:: [[nathan-proposed-implementing-webhooks-into-git-to-detect]] (strength: 0.6)
+- relates-to:: [[hannah-identified-key-tooling-needs-including-automated]] (strength: 0.6)
+- supports:: [[epic-1-will-establish-complete-traceability-overview-for]] (strength: 0.4)
+- relates-to:: [[jama-is-the-desired-central-repository-for-requirements]] (strength: 0.4)
 
 ## Sources
 

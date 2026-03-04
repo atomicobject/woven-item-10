@@ -19,6 +19,11 @@ Requirements are stored inconsistently across teams - lane change requirements i
 - refines:: [[hannah-manually-copies-requirements-from-git-repositories]] (strength: 0.6)
 - refines:: [[developers-are-creating-unofficial-communication-channels]] (strength: 0.4)
 - refines:: [[lane-change-requirements-alone-contain-approximately-600]] (strength: 0.4)
+- relates-to:: [[each-development-team-perception-braking-etc-stores-their]] (strength: 0.8)
+- relates-to:: [[teams-currently-store-requirements-across-multiple]] (strength: 0.8)
+- relates-to:: [[julia-mentioned-that-information-is-scattered-across]] (strength: 0.6)
+- supports:: [[jama-is-the-desired-central-repository-for-requirements]] (strength: 0.6)
+- supports:: [[andreas-primary-pain-point-is-lack-of-consolidated]] (strength: 0.6)
 
 ## Sources
 
