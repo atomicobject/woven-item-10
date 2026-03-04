@@ -5,10 +5,10 @@
     "totalDurationMs": 0,
     "assertionsCreated": 76,
     "connectionsCreated": 254,
-    "artifactsGenerated": 0,
+    "artifactsGenerated": 1,
     "ingestionRuns": 2,
-    "llmCalls": 9,
-    "llmCost": 0.34232745,
+    "llmCalls": 10,
+    "llmCost": 0.36894944999999996,
     "searchQueries": 0,
     "featureUsage": {
       "sidebar_tab_changed": 9
