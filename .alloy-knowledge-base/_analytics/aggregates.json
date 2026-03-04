@@ -7,11 +7,11 @@
     "connectionsCreated": 254,
     "artifactsGenerated": 0,
     "ingestionRuns": 2,
-    "llmCalls": 8,
-    "llmCost": 0.30146744999999997,
+    "llmCalls": 9,
+    "llmCost": 0.34232745,
     "searchQueries": 0,
     "featureUsage": {
-      "sidebar_tab_changed": 4
+      "sidebar_tab_changed": 9
     },
     "toolInvocations": {}
   }
