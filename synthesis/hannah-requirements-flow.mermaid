@@ -1,0 +1,67 @@
+---
+title: "Hannah's Process: PRD → JAMA (Requirements & Tests)"
+---
+
+flowchart TD
+    A["📄 PDM team delivers PRD\n(quarterly features & requirements list)"] --> B["Open PRD and identify\nprioritized SWRDs\n(highest priority first)"]
+
+    B --> C{"Review requirements\nwith behavior team:\nimplementable this quarter?"}
+
+    C -->|"Aligned &\nimplementable"| D["Sign off on PRD\nfor the quarter"]
+    C -->|"Priority mismatch"| E["Negotiate priorities\nwith behavior team"]
+    C -->|"Incomplete / TBDs /\ncontent issues"| F["Send feedback to\nPDM team → CA"]
+    C -->|"⚠️ Blocked but\nneed to move forward"| G_direct["Proceed anyway:\n'get everything into JAMA first'\nto drive urgency with metrics"]
+
+    E --> C
+    F -->|"Revised requirement\nreturned (may happen\nwithout notification)"| C
+    F -.->|"No response or\nresolution stalls"| G_direct
+
+    D --> G["Open SWRD link from PRD\n(stored in Git)"]
+    G_direct --> G
+
+    G --> H["Copy requirement verbatim\ninto JAMA"]
+    H --> I["Record Git version number,\nlink, and timestamp in JAMA\n(e.g. v2.0 — for audit trail)"]
+
+    I --> J["Paste requirement into LLM\n(Gemini via WOVI)"]
+    J --> K["LLM rewrites requirement\nin plain English\n(many are poorly translated\nfrom Japanese)"]
+
+    K --> L["Identify all inputs\nand their types\n(e.g. boolean, signal)"]
+
+    L --> M["Generate test cases\nusing logic rules"]
+
+    M --> M1["✓ Nominal true case:\nverify output matches spec"]
+    M --> M2["✓ Nominal false case:\nverify output matches spec"]
+    M --> M3["✓ State transitions:\ntrue→false, false→true"]
+    M --> M4["✓ Edge cases:\nsignal loss, latching behavior"]
+
+    M1 --> N["LLM drafts SWQT\n(gets ~90% of the way)"]
+    M2 --> N
+    M3 --> N
+    M4 --> N
+
+    N --> O["Hannah reviews LLM output\nto verify logic holds\n(manual ~10% refinement)"]
+
+    O --> P["Enter SWQT into JAMA\nand link upward to SWRD"]
+
+    P --> Q{"More SWRDs\nin PRD?"}
+    Q -->|"Yes\n(~700 per quarter\nfor lane change alone)"| G
+    Q -->|"No"| R["All requirements & test cases\nin JAMA for the quarter"]
+
+    R --> S["Traceability goal:\nSWRD ↔ SWQT ↔ Unit test in Git\n(aspiration — not yet automated)"]
+
+    %% Ongoing version control concern
+    V["⚠️ Ongoing pain point:\nCA updates requirements in Git\nwithout notification"] -.-> I
+    V -.->|"Discovered during\nquarterly re-review"| C
+
+    style A fill:#4a90d9,color:#fff
+    style D fill:#5cb85c,color:#fff
+    style E fill:#f0ad4e,color:#fff
+    style F fill:#d9534f,color:#fff
+    style G_direct fill:#f0ad4e,color:#fff
+    style R fill:#5cb85c,color:#fff
+    style S fill:#5bc0de,color:#fff
+    style V fill:#d9534f,color:#fff
+    style M1 fill:#e8f5e9
+    style M2 fill:#e8f5e9
+    style M3 fill:#fff3e0
+    style M4 fill:#fce4ec
