@@ -1,0 +1,18 @@
+[
+  {
+    "date": "2026-03-04",
+    "sessions": 2,
+    "totalDurationMs": 0,
+    "assertionsCreated": 76,
+    "connectionsCreated": 254,
+    "artifactsGenerated": 1,
+    "ingestionRuns": 2,
+    "llmCalls": 10,
+    "llmCost": 0.36894944999999996,
+    "searchQueries": 0,
+    "featureUsage": {
+      "sidebar_tab_changed": 9
+    },
+    "toolInvocations": {}
+  }
+]

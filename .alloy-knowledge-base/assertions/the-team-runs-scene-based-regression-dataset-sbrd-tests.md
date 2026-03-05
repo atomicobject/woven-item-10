@@ -15,6 +15,10 @@ The team runs Scene-Based Regression Dataset (SBRD) tests every time code change
 ## Connections
 
 - refines:: [[communication-challenges-exist-with-teams-in-japan-due-to]] (strength: 0.4)
+- relates-to:: [[sbrd-is-used-to-capture-higher-level-behavioral]] (strength: 0.6)
+- relates-to:: [[woven-processes-three-types-of-requirements-swrds]] (strength: 0.4)
+- relates-to:: [[jama-is-the-desired-central-repository-for-requirements]] (strength: 0.4)
+- relates-to:: [[verification-asks-did-we-build-it-right-focusing-on]] (strength: 0.4)
 
 ## Sources
 

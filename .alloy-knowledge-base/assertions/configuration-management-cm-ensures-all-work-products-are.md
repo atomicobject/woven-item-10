@@ -15,6 +15,9 @@ Configuration Management (CM) ensures all work products are versioned, traceable
 ## Connections
 
 - supports:: [[problem-resolution-management-prm-tracks-and-resolves]] (strength: 0.4)
+- relates-to:: [[the-team-currently-struggles-with-messy-version-control]] (strength: 0.6)
+- relates-to:: [[jama-is-the-desired-central-repository-for-requirements]] (strength: 0.4)
+- relates-to:: [[the-core-process-chart-cpc-is-the-standard-software]] (strength: 0.6)
 
 ## Sources
 

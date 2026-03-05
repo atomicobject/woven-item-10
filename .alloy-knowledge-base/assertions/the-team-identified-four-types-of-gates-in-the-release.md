@@ -17,6 +17,9 @@ The team identified four types of gates in the release process: integration gate
 - refines:: [[the-project-aims-to-automate-the-manual-changelog]] (strength: 0.4)
 - refines:: [[the-team-lacks-clear-documentation-of-the-clients-change]] (strength: 0.6)
 - supports:: [[the-current-change-management-process-follows-a-v-shape]] (strength: 0.4)
+- relates-to:: [[the-team-is-working-on-toyotas-gate-system-for-integration]] (strength: 0.8)
+- relates-to:: [[wovens-development-process-includes-multiple-teams]] (strength: 0.4)
+- relates-to:: [[v-v-activities-are-structured-along-the-urd-syrd-swrd-scrd]] (strength: 0.4)
 
 ## Sources
 
