@@ -1,0 +1,187 @@
+Dan Maser
+00:01
+um let me see if i can get a hold of nate all right he said he is trying to connect it was fun what were you gonna say um i was also
+
+Julia
+00:15
+like a high level general questions um i was wondering how long is the current contract
+
+Dan Maser
+00:21
+actually because i think mohammed was yeah i think i can can i don't know if i'll confirm that with Sam, our contract person, I believe it was the end of March. I'm not sure if it's longer than that. I was going to talk...
+
+Julia
+00:35
+The end of March is right there.
+
+Dan Maser
+00:37
+Let me see. I'll double check that because we started slower so we have more hours so it should be longer than that. Also I think we're making like I was going to talk... Well, let's dig in because I have... I want to talk that because I think we're finishing... We're wrapping discovery so we should be good to keep moving on this and i'm not massively concerned depending on the solution but i let me i'll follow up async with sam specifically on the details of that
+
+Julia
+01:07
+yeah that's the time you also reached out to me i should also kind of add yeah it's good
+
+Dan Maser
+01:11
+i will i will connect with you i'll get that answer after this meeting um really quickly oh Nate can't make it either. But so a few things I want to first and foremost, just confirm something with you guys. In terms of the JAMA flow for the intake JAMA flow in the desired standard pattern. So regardless of the quality, you know, we've been hearing from Hannah and Nick that, you know, the qualities and you guys as well. Like there's sometimes the SWRDs from CA are just not good. Right. But I want to confirm that regardless of the quality, you still want the SWRDs to go into JAMA and at least one SWQT case to be created.
+
+Julia
+02:05
+Yeah. I mean, SWQT is what we're going to do manually anyway.
+
+Dan Maser
+02:09
+Yeah. But yeah, I just, I want to make sure that we're aligned on that, like, regardless of the quality, they should be in JAMA because that's where you want them to be because that's where you're going to have the visibility to say, hey, X amount of these are crap. Okay, I wanted to align on that and make sure we were crystal clear on that. And then also that the SWQT is also at least one test case is being created regardless of the quality of that, even if it needs more work from the CA or product folks beforehand.
+
+Julia
+02:44
+I mean, I would not necessarily start creating test cases if we don't have approval on the agreement on the requirement itself.
+
+Dan Maser
+02:52
+Okay.
+
+Julia
+02:52
+We might have some that we can start with. Okay.
+
+Dan Maser
+02:57
+okay that makes sense so then definitely bring everything to jama but not necessarily on the sw
+
+Julia
+03:03
+qt is what you're saying yeah the sw qt i'm less concerned because this is basically we're working
+
+Dan Maser
+03:09
+on them right now right exactly yeah great okay um okay so in terms of next steps i mean the big thing that i wanted to make like to get alignment on is julia i know you're out um you're well i want to confirm are you out monday and tuesday of next week yeah okay if possible we would love on wednesday if we could schedule ideally an hour if we have to cut it shorter we can cut it shorter but we'd love to do like a like a discovery share out um and then really where we're talking about like the discovery share out and then really just like giving you kind of like a roadmap of next steps and just that we're aligning on like okay based on this like this is what we're thinking in terms of the solution and this is really what we want to do next and really get alignment from y'all on that um and so our in an ideal world it'd be 60 minutes if you can only do 45 or 30 like we'll make it work but ideally we just want to get that as quickly or get that done as quickly as possible so that we can get that alignment and keep moving forward on that um does that does that sound like it might work for you i know you're probably coming back to a lot of work on wednesday
+
+Julia
+04:21
+yeah so and i also just learned that there's a workshop i'm expected to attend and i don't have anything on my calendar yet so that's the hot part about it so let's get you something and i see how i can move it around once i have more information on the workshop because they're just building the agenda right now um worst case i have to move it to a friday okay um yeah that
+
+Dan Maser
+04:42
+Yeah, this Friday or next Friday?
+
+Julia
+04:44
+Next Friday.
+
+Dan Maser
+04:45
+Okay, yeah. I mean, we will make whatever can work, we'll make it work. But especially because then you're out the following week too, right? So we really just, obviously, you're allowed to leave, not saying anything like that. But I just want to make sure that we're like crystal clear and like we're giving you the feedback and like our suggestions on how we want to solve this. And we just get that check from y'all that that makes sense.
+
+Julia
+05:09
+Yeah.
+
+Dan Maser
+05:11
+Great. I mean, that was the big thing that I wanted to make sure that we had. So we can pin that down. Along with contract length stuff, I will pin down that meeting time. So we can set it up for Wednesday. And if it has to get pushed to Friday, we can push it to Friday.
+
+Julia
+05:27
+So now maybe you could extend the one that we already have scheduled for one hour instead of half. Do we have one meeting? We have one meeting scheduled for this stand-up at 1 p.m. on Wednesday. Yeah. Yep.
+
+Dan Maser
+05:46
+So that was going to be my follow-up was in terms of – so Gus hasn't been able to be here the past two weeks or the past two times because he has – like he was like, I have no idea why I accidentally agreed to 1 p.m. because he has things on Wednesday and Thursday at 1 p.m. So he was wondering in terms of moving forward if there's – well, a few things. First of all, Andrea, exactly what you're saying is like, there's a few that I think we can kind of just make one meeting separately. But he was wondering if we might be able to shift the stand up, the scanned up day movie or the stand up time moving forward, just to best accommodate for him. We were looking at some schedules. And I know, Julia, you're super busy. So I didn't want to like carve out a specific time. I saw like 4 p.m. looked decent. But also the other thing was, I know you're gone Monday, Tuesday of next week. So on Wednesday, we could, I think that's a great idea of just like, let's just find a time and do that instead of stand up. And then I can go ahead and look for the other days of the week. Because I know then you're gone the next week. So we can try and schedule that around. But yeah, Gus was just like, if there's any way we can change this, because it's not ideal that it's just me.
+
+Julia
+06:59
+Yeah. Let me know what, what time's best, it works best for you. And then I see breaking over.
+
+Dan Maser
+07:05
+Okay. I mean, I saw, I think like, it's hard. Cause I know we're working in time zones. So I didn't, we didn't want to do anything too early for you, obviously. Cause that's not fair. Um, I think like, well, we can talk, but I think 4 PM was a good time for us. If that works for you, 4 PM Eastern standard, really any time across that four to five block, we were available for like a 15 minute segment. But also if you want to try, if we want to try scheduling that Wednesday meeting for just four to 5 p.m. for the Discovery Shareout and Next Steps alignment, if that works for you and if it has to get bumped, it can get bumped. How does that sound?
+
+Julia
+07:42
+Two conflicting meetings during that time. Let me see my calendar. No, let me do that later for you guys then or the morning. You can do later. I'm okay with later.
+
+Dan Maser
+07:55
+Yeah, we can do later if it's necessary. I'm looking at mine and Gus's and Nate's calendar as well. I mean, Wednesday. Oh, shit. It's funny because I'm going between the Atomic Google Calendar and then the Toyota Google Calendar. It's a joy. Let me see. I don't want to waste our time now. We can, I can throw some times out that might work for Wednesday for the overview first, and then we can go from there. I'm assuming you guys work like your Google calendars are, you try and keep them as updated as possible. And so that's kind of what's kosher for lack of a better word. Yeah. Great. All right. So I got clarity on the JAMA flow. discovery share out trying to move standups. Um, and then Nate should have confirmed architecture interview schedulings by the end of the day. So I'll confirm that. But, um, I mean, besides that, we feel like you are a hundred percent right, uh, in terms of like meeting with Hannah and Nick to get good clarity. Uh, I did want to follow up with one quick question because I know you mentioned julia about how really trying to make sure the the nick's um nick's formatting might be different and from what we were looking through his was very similar are you were you thinking of the swrd formatting or which part of the formatting were you thinking that it might be different because he didn't seem to think it was that different but i wanted to follow up with you on that
+
+Julia
+09:35
+yeah that would be the sprd formatting or if they both have git yep they both use git yep which is great and then i'm concerned like if we may because we do have swrds also in other formats yes andrea i think in uh jama all i could find is jama and git okay so were you saying because he
+
+Dan Maser
+09:58
+was kind of taking us through when we were talking about the formatting he was talking about you know like the reason description specifications and he was noticing that like he hasn't seen any difference and formatting, which is good. But that said, we want to build this to scale. So in terms of, I'll ask you kind of a two-part question. Going back to the different places, do you know any offhand, and we'll investigate this later, but like Urban, I know you said they're kind of following out anyways, but do you know any offhand that do use Java instead of Git for the SWRDs?
+
+Julia
+10:30
+Yeah, I think in the document that we share, I have added a Java link. to some of the requirements. I mean, another option would be because it's so unclear and in the future might get different formats even, if there also would be the possibility to build something for us that this is more selectable in the sense of, you know, we know how a JAMA format looks like that we want to have.
+
+Dan Maser
+11:02
+Yeah, yeah, yeah.
+
+Julia
+11:03
+How can we pull information from different sources in that structure can i define what goes where basically right um on a git structure or jama
+
+Dan Maser
+11:14
+structure yeah um yeah that would be the easiest yeah um no that makes sense i can i'll run that through with gus as well but yeah no i'm we were really encouraged how similar those two processes looked so i think that was encouraging but i wanted to follow up with that because i know So, yeah, I just wanted to confirm that that's what you meant when you...
+
+Julia
+11:36
+Yeah, that might be the case between their both features, but maybe that's not the case. I know it's not the case for all ISWREs, so we might just have to find one example for you, and I think I linked it in me trying to find it in our document.
+
+Dan Maser
+11:50
+Perfect. Okay. I will make sure to check that. link so that we can get a good picture of some of the differing structure because that would be helpful so we will check on that um I know we're at time anything for us in terms of yeah any anything for us that that we need I know there's no meetings tomorrow so we won't have stand-up um so we'll just we will be we're starting synthesis today on those discovery shareouts and um I'm excited I mean it seems like we've had really good interviews so this feels like a fun problem to help you guys with so maybe not fun in your sense of the word but yeah
+
+Julia
+12:35
+but it's um the only thing i could think of is there was also i also added it to the doc that we have um thrown around from product is also rectify as one potential Yes. ...tool that would work at least on the linkage aspect. So it seems to be a tool and we haven't spent enough time to understand it fully. Andrea also learned that we might get demo licenses.
+
+Speaker 3
+13:04
+Oh, okay.
+
+Julia
+13:06
+Thomas was saying something that we might have demo licenses to try that. But it's basically just putting together requirements from different sources and gives us the capability to link it in the sense of what we would do in JAMA, like downstream or upstream elements that at least it would solve.
+
+Dan Maser
+13:30
+Yeah.
+
+Julia
+13:31
+Yeah.
+
+Dan Maser
+13:31
+We can absolutely look into that, especially at the beginning of next week, as we've now like kind of understood the problem just looking into that and you're saying it sounds like if you have demo license even better because then we can actually potentially like we'll find a way to look
+
+Julia
+13:47
+into it but yeah like actually do you can do it that's the part i'm i'm a bit unsure about this is just a new idea that was thrown around from different teams now as you know why don't we use this tool um so yeah if if there's any tool out there that you might want to you know use for this purpose rectify might be the one because it's been asked for many teams yeah i remember earlier in
+
+Dan Maser
+14:11
+the kickoff you were saying there was no one who had any previous experience with rectify right or am i mishearing that okay okay yep okay it was just the previous system okay that makes sense it was the previous architecture i was mishearing that okay oh yeah that was a different one yeah yep okay all right um we will look into that and then i will follow up with you gus and i will follow up with you on contract length and then also just to get that meeting on the board and a different stand-up time and then like i said if we have to push it that's okay if we push it um we'll probably just with the time in between we'll look more into the rectify stuff so we'll try and throw some stuff into that for that meeting but if not we'll do that afterwards so awesome yeah
+
+Julia
+14:53
+and then just let me know what time i should change the stand-up tool yes i can try to do the 4 p.m yeah there's some conflicts usually at 1pm for me but I can I can do
+
+Dan Maser
+15:05
+alright I'll if you'll be on Slack today right I'll just message you guys on Slack and we'll figure that out thank you so much I appreciate it Julia
+
+Julia
+15:13
+thank you bye
+
+Speaker 4
+16:26
+Okay.
