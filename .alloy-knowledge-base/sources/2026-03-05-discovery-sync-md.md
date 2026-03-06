@@ -4,11 +4,26 @@ type: source
 name: 2026-03-05_discovery-sync.md
 path: 2026-03-05_discovery-sync.md
 format: raw-transcript
-topics: [general]
+topics:
+  - general
 status: complete
 ingestedAt: 2026-03-06T15:29:31.462Z
 fileSize: 24620
-extractedAssertionIds: [a--gB-QPi-G8Cr, a-uS5Nh7XImPYU, a-LAZM6497cqu7, a-EXHG1-xKTdJS, a-u8DoFVEtvw6a, a-Fz4WHaedvrG2, a-jmK-xhKPCzxh, a-vNAa7BXN1m9G, a-Vg0inrZ-FX0Q, a-1ddNL1JtA09j, a-RanZMVqJxijQ, a-amSBarkb6qfl]
+extractedAssertionIds:
+  - a--gB-QPi-G8Cr
+  - a-uS5Nh7XImPYU
+  - a-LAZM6497cqu7
+  - a-EXHG1-xKTdJS
+  - a-u8DoFVEtvw6a
+  - a-Fz4WHaedvrG2
+  - a-jmK-xhKPCzxh
+  - a-vNAa7BXN1m9G
+  - a-Vg0inrZ-FX0Q
+  - a-1ddNL1JtA09j
+  - a-RanZMVqJxijQ
+  - a-amSBarkb6qfl
+createdAt: '2026-03-06T16:12:37.192Z'
+updatedAt: '2026-03-06T16:12:37.192Z'
 ---
 
 **Gus Schissler**: Okay.

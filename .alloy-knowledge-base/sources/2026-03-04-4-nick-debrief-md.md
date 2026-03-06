@@ -4,11 +4,20 @@ type: source
 name: 2026-03-04-4_nick_debrief.md
 path: 2026-03-04-4_nick_debrief.md
 format: raw-transcript
-topics: [general]
+topics:
+  - general
 status: complete
 ingestedAt: 2026-03-06T15:28:50.500Z
 fileSize: 6228
-extractedAssertionIds: [a-H0lcHy_21V6t, a-WvwLqpCs3zjV, a-DSBnH7FnATu4, a-iXedPbeAcV8t, a-6xcbuiH0CECk, a-WbycmY7MSP1U]
+extractedAssertionIds:
+  - a-H0lcHy_21V6t
+  - a-WvwLqpCs3zjV
+  - a-DSBnH7FnATu4
+  - a-iXedPbeAcV8t
+  - a-6xcbuiH0CECk
+  - a-WbycmY7MSP1U
+createdAt: '2026-03-06T16:12:37.192Z'
+updatedAt: '2026-03-06T16:12:37.192Z'
 ---
 
 # Nick Carcione Interview — Debrief
