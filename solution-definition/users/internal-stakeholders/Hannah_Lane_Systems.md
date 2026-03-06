@@ -1,5 +1,9 @@
 # Hannah Lane
 
+> **Discovery-Refined Profile** · Last Updated: 2026-03-06
+> Source interviews: User Interview (2026-03-03), Post-Interview Debrief (2026-03-03), Interview Synthesis (2026-03-05)
+> Change level: **Minor** — profile was already substantially updated after the 2026-03-03 interview. Additions from synthesis noted with ➕.
+
 ## 1. Basic Information
 
 - **Role/Title**: Systems & Validation Engineer (Function Lead — Out-of-Lane Maneuvers / Lane Change)
@@ -15,7 +19,7 @@ Hannah is the systems and validation engineering point of contact for lane chang
 1. **Requirements intake & assembly**: Takes SWRDs (Software Work/Interface Requirements Documents) from upstream sources (Toyota → CA → PDM team) and copies them verbatim into JAMA with version tracking. She is responsible for making requirements legible and actionable for the behavior development team.
 2. **Test case authorship**: Writes SWQTs (Software Work/Interface Qualification Tests) for each SWRD in JAMA. She uses LLMs (WOVI + Gemini) to translate dense, poorly-translated requirements into plain English, then authors test cases based on input/output logic and edge cases.
 
-She was initially hired to tackle this work solo; the team has since expanded so that each member owns a specific function area (in-lane, urban, roll-out, etc.).
+She was initially hired to tackle this work solo; the team has since expanded so that each member owns a specific function area (in-lane — Nick Carcione, urban, roll-out, etc.). Hannah is the de facto process lead and quality reference for other practitioners on the team — Nick uses her WOVI prompt and defers to her for SWQT quality review. ➕
 
 ## 3. Project Involvement (Item 10 / Epic 1)
 
@@ -26,10 +30,12 @@ She was initially hired to tackle this work solo; the team has since expanded so
 
 ## 4. Goals and Success Criteria
 
-- Get all lane change SWRDs and associated SWQTs into JAMA — even imperfect ones — so the team has a ground truth to point to: *"We're passing zero out of 7,000 test cases"* as a forcing function for action.
-- Establish version-controlled traceability: SWRD in JAMA → SWQT → unit test in Git, with pass/fail visibility.
-- Ensure the behavior team actually aligns on and accepts the prioritized requirements before she signs off on the quarterly PRD.
-- Reduce manual overhead so that the copy-paste and test-writing work can be automated or semi-automated.
+- Get all lane change SWRDs and associated SWQTs into JAMA — even imperfect ones — so the team has a ground truth to point to: *"We're passing zero out of 7,000 test cases"* as a forcing function for action. (**Visible failure as organizational leverage** — a deliberate strategy, not just completeness for its own sake.) ✓
+- Establish version-controlled traceability: SWRD in JAMA → SWQT → unit test in Git, with pass/fail visibility. ✓
+- Ensure the behavior team actually aligns on and accepts the prioritized requirements before she signs off on the quarterly PRD. ✓
+- Reduce manual overhead so that the copy-paste and test-writing work can be automated or semi-automated. ✓
+
+**Important nuance**: Hannah sometimes minimizes the aggregate effort of SWRD ingestion ("it should be kind of negligible work, just a copy-and-paste job"), but elsewhere confirms doing it ~700 times at significant time cost. ➕ Don't let her minimization anchor the team's estimate — the aggregate cost is real and automation has high ROI even if each individual step feels small.
 
 ## 5. Concerns and Pain Points
 
@@ -121,12 +127,12 @@ She's pragmatic about it: *"It's not 2019 anymore."* Year-over-year improvement 
 
 ## 9. Key Relationships
 
-- **Julia Pralle**: Manager / team lead. Hannah defers to Julia on process decisions even when she disagrees (e.g., PDM layer insertion).
-- **PDM Team / Masutani-san**: The intermediary group between CA and Hannah's team. Hannah is skeptical of this layer's effectiveness. Masutani-san owns the PRD for lane transitions and is responsible for flagging changes.
-- **CA Team**: The Toyota-adjacent group that authors and versions the SWRDs. Won't communicate directly with Woven; Hannah can only send feedback through PDM.
-- **Behavior Development Team**: The ultimate consumers of her work. She must get their buy-in before signing off on a quarterly PRD. Currently misaligned on priorities.
-- **Andrea Zotelli**: Peer on Julia's team; Andrea is newer (Oct 2025) and focuses on similar intake work. Hannah has longer institutional context.
-- **Nick (TBD)**: Another function lead to be interviewed; may have a similar or different workflow.
+- **Julia Pralle**: Manager / team lead. Hannah defers to Julia on process decisions even when she disagrees (e.g., PDM layer insertion). Their perspectives on the PDM layer diverge meaningfully — Hannah is skeptical, Julia endorses it. ✓
+- **PDM Team / Masutani-san**: The intermediary group between CA and Hannah's team. Masutani-san owns the PRD for lane transitions and is responsible for flagging changes — Hannah describes this as "a massive ask" given the volume. ✓
+- **CA Team**: The Toyota-adjacent group that authors and versions the SWRDs. Won't communicate directly with Woven; Hannah can only send feedback through PDM. ✓
+- **Behavior Development Team**: The ultimate consumers of her work. She must get their buy-in before signing off on a quarterly PRD. Currently blocked on PRD sign-off due to HMI priority misalignment. ✓
+- **Andrea Zotelli**: Peer on Julia's team; Andrea is newer (Oct 2025) and works on the bottom-up component-level backlog. Andrea frequently relies on Hannah for institutional knowledge — Hannah is a knowledge concentration point for the team. ➕
+- **Nick Carcione**: In-lane function lead; uses Hannah's WOVI prompt and defers to her as quality reference for SWQTs. Nick's "halt and comment" approach to bad SWRDs contrasts with Hannah's "get it all in" strategy. ➕
 
 ## 10. Communication Preferences
 
@@ -144,10 +150,13 @@ She's pragmatic about it: *"It's not 2019 anymore."* Year-over-year improvement 
 
 ## 12. Notes and Context
 
-- Requirements for lane change alone: ~600 SWRDs (as of last year), estimated ~7,000 SWQTs total.
-- All lane change SWRDs live in Git; perception team used Google Docs; mapping team used JAMA directly — tooling is not uniform.
-- SWRD-to-SWQT is currently ~1:1 (at minimum), though theoretically could be many-to-one or one-to-many.
-- She's currently blocked on PRD sign-off because behavior team and PDM team priorities are misaligned (HMI example).
-- Her strategy of "zero out of 7,000 passing" as a stakeholder forcing function reflects strong systems-thinking instincts.
+- Requirements for lane change alone: ~600 SWRDs (as of last year), estimated ~7,000 SWQTs total. ✓
+- All lane change SWRDs live in Git; perception team used Google Docs; mapping team used JAMA directly — tooling is not uniform. ✓
+- SWRD-to-SWQT is currently ~1:1 (at minimum), though theoretically could be many-to-one or one-to-many. ✓
+- She's currently blocked on PRD sign-off because behavior team and PDM team priorities are misaligned (HMI example). ✓
+- Her strategy of "zero out of 7,000 passing" as a stakeholder forcing function reflects strong systems-thinking instincts. ✓
+- Hannah is a **knowledge concentration risk** for the team: Andrea asks her for document pointers, Nick uses her WOVI prompt and checks his SWQTs with her. If her capacity is constrained, multiple team members are impacted. ➕
+- Behavior developers are already going directly to CA to get requirements clarified, bypassing the official process. Hannah acknowledges this creates version confusion but won't block it because "they're getting work done." Any tooling that makes the formal process slower will accelerate this bypass. ➕
+- **Open question from synthesis**: Is there a way to subscribe to Git file changes (e.g., GitHub webhooks, watch features) that Hannah doesn't know about? The solution to her #1 pain point may be simpler than building something new. ➕
 
-*Source: Hannah Lane User Interview (2026-03-03), Post-Interview Debrief (2026-03-03), Atomic Object Project Details (SOW/Epic 1). Profile substantially updated after interview.*
+*Source: Hannah Lane User Interview (2026-03-03), Post-Interview Debrief (2026-03-03), Interview Synthesis (2026-03-05), Atomic Object Project Details (SOW/Epic 1).*
