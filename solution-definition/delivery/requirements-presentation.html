@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>example presentation ui</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* === DESIGN TOKENS === */
+    :root {
+      --atomic-red: #FD4F57;
+      --atomic-black: #4C4845;
+      --atomic-teal: #3295BD;
+      --atomic-purple: #A5488B;
+      --atomic-gold: #DCAD66;
+      --atomic-med-gray: #595959;
+      --atomic-light-gray: #C3C3C3;
+      --atomic-off-white: #F7F7F7;
+      --atomic-white: #FFFFFF;
+
+      --surface-page: #F7F7F7;
+      --surface-card: #FFFFFF;
+      --surface-code: #1e1e1e;
+      --surface-section: #FD4F57;
+      --surface-info: #E8F4F8;
+
+      --font-heading: 'Merriweather', 'Georgia', serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-code: 'SF Mono', 'Monaco', 'Consolas', monospace;
+
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-7: 30px;
+      --space-8: 40px;
+      --space-10: 60px;
+      --space-12: 80px;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-full: 50%;
+
+      --shadow-sm: 0 4px 10px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.05);
+      --shadow-lg: 0 8px 20px rgba(0,0,0,0.12);
+      --shadow-xl: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    /* === RESET === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--surface-page);
+      color: var(--atomic-black);
+      line-height: 1.6;
+    }
+
+    /* === SLIDES === */
+    .slide {
+      min-height: 100vh;
+      padding: var(--space-10) var(--space-12);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide-default { background: var(--surface-page); }
+    .slide-white   { background: var(--surface-card); }
+    .slide-section {
+      background: var(--surface-section);
+      align-items: center;
+      text-align: center;
+    }
+    .slide-section::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
+    .slide-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.05);
+      pointer-events: none;
+    }
+
+    /* === TYPOGRAPHY === */
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--atomic-red);
+      line-height: 1.15;
+      margin-bottom: var(--space-6);
+    }
+    .slide-title h1 { font-size: 72px; }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--atomic-black);
+      line-height: 1.2;
+      margin-bottom: var(--space-6);
+      padding-left: var(--space-6);
+      border-left: 5px solid var(--atomic-red);
+    }
+    .slide-section h2 {
+      font-size: 64px;
+      color: var(--atomic-white);
+      border-left: none;
+      padding-left: 0;
+    }
+
+    h3 {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--atomic-med-gray);
+      margin-bottom: var(--space-4);
+    }
+    h4 {
+      font-family: var(--font-heading);
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--atomic-black);
+      margin-bottom: 10px;
+    }
+    p, li {
+      font-size: 21px;
+      color: var(--atomic-black);
+      line-height: 1.65;
+    }
+    ul { padding-left: var(--space-6); }
+    li { margin-bottom: 10px; }
+
+    .subtitle {
+      font-size: 30px;
+      font-weight: 300;
+      color: var(--atomic-med-gray);
+      margin-bottom: var(--space-8);
+      max-width: 780px;
+    }
+    .key-message {
+      font-size: 30px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.88);
+      margin-top: var(--space-6);
+      max-width: 780px;
+    }
+    .section-eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--atomic-red);
+      margin-bottom: 14px;
+    }
+    .highlight-red  { color: var(--atomic-red); }
+    .highlight-teal { color: var(--atomic-teal); }
+    .highlight-gold { color: var(--atomic-gold); }
+
+    /* === GRID === */
+    .grid { display: grid; gap: 32px; margin-top: var(--space-8); }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    /* === CARDS === */
+    .card {
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      padding: var(--space-7);
+      box-shadow: var(--shadow-md);
+      border-top: 4px solid var(--atomic-teal);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .card.red    { border-top-color: var(--atomic-red); }
+    .card.gold   { border-top-color: var(--atomic-gold); }
+    .card.purple { border-top-color: var(--atomic-purple); }
+    .card.muted  { border-top-color: var(--atomic-light-gray); opacity: 0.65; }
+    .card p      { font-size: 17px; color: var(--atomic-med-gray); margin-top: 8px; }
+    .card-icon   { font-size: 34px; margin-bottom: 12px; display: block; }
+
+    /* === COLUMN COMPARISON === */
+    .column-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: var(--space-8);
+    }
+    .col-card {
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-md);
+    }
+    .col-card.bad  { border-top: 5px solid var(--atomic-red); }
+    .col-card.good { border-top: 5px solid var(--atomic-teal); }
+    .col-header {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: var(--space-6);
+    }
+    .col-card.bad  .col-header { color: var(--atomic-red); }
+    .col-card.good .col-header { color: var(--atomic-teal); }
+    .col-card p, .col-card li  { font-size: 19px; }
+
+    /* === PROCESS STEPS === */
+    .process-steps {
+      display: flex;
+      align-items: flex-start;
+      margin-top: var(--space-8);
+    }
+    .process-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 39px; left: 50%;
+      width: 100%; height: 2px;
+      background: var(--atomic-light-gray);
+    }
+    .step-circle {
+      width: 80px; height: 80px;
+      border-radius: var(--radius-full);
+      border: 3px solid var(--atomic-teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-code);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--atomic-teal);
+      background: var(--surface-card);
+      z-index: 1;
+      transition: transform 0.2s, border-color 0.2s, color 0.2s;
+      margin-bottom: 16px;
+    }
+    .process-step:hover .step-circle {
+      transform: scale(1.1);
+      border-color: var(--atomic-red);
+      color: var(--atomic-red);
+    }
+    .step-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--atomic-black);
+      margin-bottom: 6px;
+    }
+    .step-desc { font-size: 15px; color: var(--atomic-med-gray); padding: 0 10px; }
+
+    /* === METAPHOR BOX === */
+    .metaphor-box {
+      background: var(--surface-info);
+      border-left: 5px solid var(--atomic-teal);
+      border-radius: var(--radius-md);
+      padding: var(--space-7);
+      margin-top: var(--space-8);
+    }
+    .metaphor-box p { font-size: 21px; color: var(--atomic-black); }
+
+    /* === PERSONA CARD === */
+    .persona-card {
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      padding: var(--space-7);
+      box-shadow: var(--shadow-md);
+      border-top: 4px solid var(--atomic-teal);
+    }
+    .persona-name {
+      font-family: var(--font-heading);
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--atomic-black);
+      margin-bottom: 4px;
+    }
+    .persona-role {
+      font-size: 14px;
+      color: var(--atomic-teal);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      display: block;
+      text-transform: uppercase;
+    }
+    .persona-card > p { font-size: 16px; color: var(--atomic-med-gray); margin-bottom: 12px; }
+    .persona-card ul  { padding-left: 18px; }
+    .persona-card li  { font-size: 15px; color: var(--atomic-med-gray); margin-bottom: 6px; }
+
+    /* === TABLE === */
+    .table-wrap { margin-top: var(--space-8); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 17px; }
+    th {
+      background: var(--atomic-off-white);
+      font-weight: 700;
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--atomic-light-gray);
+      color: var(--atomic-black);
+    }
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--atomic-light-gray);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-must   { background: #FDE8E9; color: var(--atomic-red); }
+    .badge-should { background: #E8F4F8; color: var(--atomic-teal); }
+    .badge-could  { background: #F5F0FF; color: var(--atomic-purple); }
+
+    /* === TITLE SLIDE === */
+    .slide-title { background: var(--surface-card); }
+    .title-meta {
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--atomic-light-gray);
+      display: flex;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .title-meta-item { font-size: 15px; color: var(--atomic-med-gray); }
+    .title-meta-label { font-weight: 700; color: var(--atomic-black); display: block; margin-bottom: 2px; }
+
+    /* === STAT CALLOUT === */
+    .stat-row { display: flex; gap: 32px; margin-top: var(--space-8); }
+    .stat-box {
+      flex: 1;
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      padding: var(--space-7);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--atomic-red);
+      line-height: 1;
+      display: block;
+    }
+    .stat-label { font-size: 16px; color: var(--atomic-med-gray); margin-top: 10px; }
+
+    /* === QUESTION ITEM === */
+    .question-item {
+      background: var(--surface-card);
+      border-left: 4px solid var(--atomic-gold);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 18px 24px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .question-item p    { font-size: 18px; color: var(--atomic-black); }
+    .question-status    { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; color: var(--atomic-gold); }
+    .question-status.blocking { color: var(--atomic-red); }
+
+    /* === SLIDE NUMBER === */
+    .slide-number {
+      position: absolute;
+      bottom: 28px;
+      left: var(--space-12);
+      font-family: var(--font-code);
+      font-size: 12px;
+      color: var(--atomic-light-gray);
+      letter-spacing: 1.5px;
+    }
+
+    /* === NAV PILL === */
+    .nav-pill {
+      position: fixed;
+      bottom: 24px; right: 32px;
+      background: var(--surface-card);
+      border-radius: 24px;
+      padding: 9px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+      font-family: var(--font-code);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--atomic-med-gray);
+      z-index: 1000;
+    }
+
+    /* === SCROLL REVEAL === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.10s; }
+    .reveal-delay-2 { transition-delay: 0.20s; }
+    .reveal-delay-3 { transition-delay: 0.32s; }
+    .reveal-delay-4 { transition-delay: 0.44s; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .slide { padding: 60px 48px; }
+      h1 { font-size: 44px; }
+      .slide-title h1 { font-size: 54px; }
+      h2 { font-size: 34px; }
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .slide { padding: 48px 24px; min-height: auto; padding-bottom: 60px; }
+      h1 { font-size: 36px; }
+      .slide-title h1 { font-size: 42px; }
+      h2 { font-size: 28px; }
+      .slide-section h2 { font-size: 40px; }
+      .grid-2, .grid-3, .column-cards { grid-template-columns: 1fr; gap: 24px; }
+      .stat-row { flex-direction: column; }
+      .process-steps { flex-direction: column; gap: 24px; }
+      .process-step::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-pill" id="nav-pill">1 / 21</div>
+
+<!-- ============================================================
+  01 — TITLE
+============================================================ -->
+<section class="slide slide-title" id="slide-1">
+  <div class="section-eyebrow reveal">Product Requirements Document · 2026-03-09</div>
+  <h1 class="reveal reveal-delay-1">Woven Requirements<br>Automation</h1>
+  <p class="subtitle reveal reveal-delay-2">
+    Automating the intake and consolidation of software requirements from Toyota/CA sources into JAMA for Woven's SV&amp;V team.
+  </p>
+  <div class="title-meta reveal reveal-delay-3">
+    <div class="title-meta-item">
+      <span class="title-meta-label">Delivery Lead</span>
+      Gus Schissler, Atomic Object
+    </div>
+    <div class="title-meta-item">
+      <span class="title-meta-label">Status</span>
+      In Progress
+    </div>
+    <div class="title-meta-item">
+      <span class="title-meta-label">Pilot Scope</span>
+      Lane Change SWRDs → JAMA
+    </div>
+    <div class="title-meta-item">
+      <span class="title-meta-label">Sources</span>
+      16 stakeholder interviews &amp; sessions
+    </div>
+  </div>
+  <span class="slide-number">01</span>
+</section>
+
+<!-- ============================================================
+  02 — SECTION: THE PROBLEM
+============================================================ -->
+<section class="slide slide-section" id="slide-2">
+  <h2 class="reveal">The Problem</h2>
+  <p class="key-message reveal reveal-delay-1">
+    Requirements arrive scattered, change without warning,<br>and are consolidated entirely by hand.
+  </p>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">02</span>
+</section>
+
+<!-- ============================================================
+  03 — TWO REQUIREMENTS PROBLEMS
+============================================================ -->
+<section class="slide slide-default" id="slide-3">
+  <div class="section-eyebrow reveal">Context</div>
+  <h2 class="reveal reveal-delay-1">Two Requirements Problems at Woven</h2>
+  <div class="column-cards reveal reveal-delay-2">
+    <div class="col-card bad">
+      <div class="col-header">Bottom-Up (Internal)</div>
+      <p>Autonomous driving software was written before formal requirements were established. Knowledge is tribal and scattered inside Woven.</p>
+      <p style="margin-top:14px; font-size:16px; color:var(--atomic-med-gray);">Lower priority — internal to Woven, more available solutions.</p>
+    </div>
+    <div class="col-card good">
+      <div class="col-header">Top-Down ← Our Focus</div>
+      <p>Requirements flowing from Toyota via the CA liaison team into Woven are scattered across tools, poorly structured, and change without any notification reaching the right teams.</p>
+      <p style="margin-top:14px; font-size:16px; color:var(--atomic-teal);">Externally constrained, harder to solve. <strong>Confirmed priority by Julia Pralle.</strong></p>
+    </div>
+  </div>
+  <span class="slide-number">03</span>
+</section>
+
+<!-- ============================================================
+  04 — WHERE REQUIREMENTS LIVE
+============================================================ -->
+<section class="slide slide-white" id="slide-4">
+  <div class="section-eyebrow reveal">Pain Point</div>
+  <h2 class="reveal reveal-delay-1">Where Requirements Live Today</h2>
+  <p class="reveal reveal-delay-2" style="font-size:21px; color:var(--atomic-med-gray); margin-bottom:0;">No single source of truth. No centralized visibility.</p>
+  <div class="grid grid-3 reveal reveal-delay-3">
+    <div class="card red">
+      <span class="card-icon">📁</span>
+      <h4>Git Repositories</h4>
+      <p>SWRDs as markdown/YAML. Primary source for Lane Change. Not directly surfaced — accessed via PDM docs.</p>
+    </div>
+    <div class="card red">
+      <span class="card-icon">📋</span>
+      <h4>JAMA</h4>
+      <p>Requirements management platform. Ground truth — but populated manually by copy-paste from Git.</p>
+    </div>
+    <div class="card red">
+      <span class="card-icon">📄</span>
+      <h4>Google Docs</h4>
+      <p>PRD and URD documents from CA/PDM team. Nick reviews these daily alongside Git files.</p>
+    </div>
+    <div class="card red">
+      <span class="card-icon">🌐</span>
+      <h4>Confluence</h4>
+      <p>Additional documentation. No systematic connection to JAMA or change tracking.</p>
+    </div>
+    <div class="card red">
+      <span class="card-icon">📊</span>
+      <h4>Spreadsheets</h4>
+      <p>URD spreadsheets from CA. Japanese + English descriptions — used for context only.</p>
+    </div>
+    <div class="card red">
+      <span class="card-icon">💬</span>
+      <h4>Tribal Knowledge</h4>
+      <p>TBDs only resolvable by developers — who often don't know the answer either.</p>
+    </div>
+  </div>
+  <span class="slide-number">04</span>
+</section>
+
+<!-- ============================================================
+  05 — SCALE OF THE PROBLEM
+============================================================ -->
+<section class="slide slide-default" id="slide-5">
+  <div class="section-eyebrow reveal">Scale</div>
+  <h2 class="reveal reveal-delay-1">The Manual Burden</h2>
+  <div class="stat-row reveal reveal-delay-2">
+    <div class="stat-box">
+      <span class="stat-number">600+</span>
+      <p class="stat-label">Lane change SWRDs managed manually by Hannah</p>
+    </div>
+    <div class="stat-box">
+      <span class="stat-number">Weeks</span>
+      <p class="stat-label">To document each component (e.g. Lane Change) — could be reduced to days</p>
+    </div>
+    <div class="stat-box">
+      <span class="stat-number">0</span>
+      <p class="stat-label">Automated notifications when Toyota updates requirements mid-quarter</p>
+    </div>
+    <div class="stat-box">
+      <span class="stat-number">~90%</span>
+      <p class="stat-label">LLM test case effectiveness — but still requires full manual curation</p>
+    </div>
+  </div>
+  <span class="slide-number">05</span>
+</section>
+
+<!-- ============================================================
+  06 — SECTION: USERS
+============================================================ -->
+<section class="slide slide-section" id="slide-6">
+  <h2 class="reveal">Who's Affected</h2>
+  <p class="key-message reveal reveal-delay-1">
+    Four personas. One broken pipeline.
+  </p>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">06</span>
+</section>
+
+<!-- ============================================================
+  07 — USER PERSONAS
+============================================================ -->
+<section class="slide slide-white" id="slide-7">
+  <div class="section-eyebrow reveal">Primary Personas</div>
+  <h2 class="reveal reveal-delay-1">The People We're Building For</h2>
+  <div class="grid grid-2 reveal reveal-delay-2">
+    <div class="persona-card">
+      <div class="persona-name">Hannah Lane</div>
+      <span class="persona-role">Systems &amp; Validation Engineer — Lane Change</span>
+      <p>Primary user with the most acute pain. Manages 600+ lane change SWRDs, manually copying them into JAMA and tracking versions by hand. Uses Wovey (LLM) for test case drafting at ~90% effectiveness.</p>
+      <ul>
+        <li>Opens PRD → URD → Git docs → manually creates JAMA entry</li>
+        <li>Tracks changes by maintaining version numbers in JAMA entries</li>
+        <li>No automated alert when Toyota updates requirements mid-quarter</li>
+      </ul>
+    </div>
+    <div class="persona-card" style="border-top-color: var(--atomic-gold);">
+      <div class="persona-name">Nick Carcione</div>
+      <span class="persona-role" style="color:var(--atomic-gold);">Systems V&amp;V Engineer — In-Lane</span>
+      <p>Reviews SWRDs from three sources to assess usability. Rejects overly prescriptive requirements and feeds back to product/CA teams.</p>
+      <ul>
+        <li>Many SWRDs written for rules-based TSS-4, not Woven's ML approach</li>
+        <li>No way to pre-filter TBD-heavy or low-quality SWRDs before review</li>
+        <li>Relies entirely on manual change detection</li>
+      </ul>
+    </div>
+    <div class="persona-card" style="border-top-color: var(--atomic-purple);">
+      <div class="persona-name">Andrea Zotelli</div>
+      <span class="persona-role" style="color:var(--atomic-purple);">SV&amp;V Manager — Product Delivery</span>
+      <p>Reverse-engineering requirements from existing code. Struggling with scattered sources, Japan timezone barriers, and tribal knowledge gaps. Targeting production by early 2029.</p>
+      <ul>
+        <li>Asks developers to resolve TBDs — often they don't know either</li>
+        <li>Searches Confluence, GitHub, Google Docs separately for every component</li>
+      </ul>
+    </div>
+    <div class="persona-card" style="border-top-color: var(--atomic-red);">
+      <div class="persona-name">Julia Pralle</div>
+      <span class="persona-role" style="color:var(--atomic-red);">SV&amp;V Manager — Product Management</span>
+      <p>Manages the overall requirements flow. Implementing a formal approval phase and Change Requirement Board (CRB) for mid-quarter changes. Confirmed top-down intake as the priority.</p>
+      <ul>
+        <li>Requirements change "every single day" mid-quarter</li>
+        <li>Needs intake progress visibility across capability groups</li>
+        <li>CRB process needs automated change data to function</li>
+      </ul>
+    </div>
+  </div>
+  <span class="slide-number">07</span>
+</section>
+
+<!-- ============================================================
+  08 — JOBS TO BE DONE
+============================================================ -->
+<section class="slide slide-default" id="slide-8">
+  <div class="section-eyebrow reveal">Jobs to Be Done</div>
+  <h2 class="reveal reveal-delay-1">What the System Must Accomplish</h2>
+  <div class="grid grid-3 reveal reveal-delay-2">
+    <div class="card">
+      <span class="card-icon">📥</span>
+      <h4>Intake &amp; Consolidation</h4>
+      <p>Gather requirements from scattered sources and structure them into JAMA with full context and version tracking.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔔</span>
+      <h4>Change Detection &amp; Notification</h4>
+      <p>Detect when Toyota updates requirements and alert systems engineers before the impact is missed.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🧪</span>
+      <h4>Test Case Generation</h4>
+      <p>Auto-generate SWQT structure from approved requirements using LLM, reducing manual drafting from hours to minutes.</p>
+    </div>
+    <div class="card gold">
+      <span class="card-icon">🔍</span>
+      <h4>Requirement Filtering</h4>
+      <p>Surface problematic SWRDs (TBDs, over-prescriptive, legacy TSS-4) to reduce wasted review time upstream.</p>
+    </div>
+    <div class="card gold">
+      <span class="card-icon">🔗</span>
+      <h4>Visibility &amp; Traceability</h4>
+      <p>Trace requirements → test cases → implementation. Understand coverage and the blast radius of any change.</p>
+    </div>
+    <div class="card muted">
+      <span class="card-icon">🏗️</span>
+      <h4>Multi-Source (Phase 2+)</h4>
+      <p>Other capability groups, non-Git sources, SBRD handling. Deferred until pilot success is demonstrated.</p>
+    </div>
+  </div>
+  <span class="slide-number">08</span>
+</section>
+
+<!-- ============================================================
+  09 — SECTION: THE SOLUTION
+============================================================ -->
+<section class="slide slide-section" id="slide-9">
+  <h2 class="reveal">The Solution</h2>
+  <p class="key-message reveal reveal-delay-1">
+    Automate the pipeline from Git-based SWRDs into structured JAMA entries — with change detection and gated test case generation.
+  </p>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">09</span>
+</section>
+
+<!-- ============================================================
+  10 — INPUT-OUTPUT MAP
+============================================================ -->
+<section class="slide slide-white" id="slide-10">
+  <div class="section-eyebrow reveal">Proposed Solution</div>
+  <h2 class="reveal reveal-delay-1">Input–Output Map</h2>
+  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); margin-bottom:0;">
+    Three layers: what users provide, what the tooling does, and what gets produced.
+  </p>
+  <div class="reveal reveal-delay-3" style="margin-top: 32px; background: var(--surface-card); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); overflow: hidden;">
+    <img src="io-map.png" alt="Input-Output Map: User Input, Tooling, and Output Destination layers of the proposed requirements automation solution" style="width: 100%; height: auto; display: block; border-radius: var(--radius-md);">
+  </div>
+  <span class="slide-number">10</span>
+</section>
+
+<!-- ============================================================
+  11 — SOLUTION ARCHITECTURE
+============================================================ -->
+<section class="slide slide-default" id="slide-11">
+  <div class="section-eyebrow reveal">Architecture</div>
+  <h2 class="reveal reveal-delay-1">How It Works</h2>
+  <div class="process-steps reveal reveal-delay-2">
+    <div class="process-step">
+      <div class="step-circle">1</div>
+      <div class="step-title">Change Detection</div>
+      <div class="step-desc">Daily polling of Git for lane change SWRD updates vs. last-processed version</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">2</div>
+      <div class="step-title">Parse &amp; Extract</div>
+      <div class="step-desc">Structured extraction: header · reason · description · interface · specification</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">3</div>
+      <div class="step-title">JAMA Population</div>
+      <div class="step-desc">Create or update JAMA entries with source link, commit version, and timestamp</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">4</div>
+      <div class="step-title">Notify</div>
+      <div class="step-desc">Digest to Hannah &amp; team — what changed, which SWRDs, links to source diff</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">5</div>
+      <div class="step-title">Test Case Gen</div>
+      <div class="step-desc">After CA/product approval, LLM generates SWQT candidates for human curation</div>
+    </div>
+  </div>
+  <div class="metaphor-box reveal reveal-delay-3">
+    <p><strong>Key design decision:</strong> Test case generation is <span class="highlight-teal">gated by upstream approval</span> — the system only generates tests after CA or product sign-off. This avoids building tests for SWRDs that will be rejected.</p>
+  </div>
+  <span class="slide-number">11</span>
+</section>
+
+<!-- ============================================================
+  12 — SYSTEM COMPONENTS
+============================================================ -->
+<section class="slide slide-default" id="slide-12">
+  <div class="section-eyebrow reveal">System Components</div>
+  <h2 class="reveal reveal-delay-1">What Gets Built</h2>
+  <div class="grid grid-2 reveal reveal-delay-2">
+    <div class="card">
+      <h4>Git Polling Service</h4>
+      <p>Daily job that checks for SWRD changes. Polling is the MVP — simpler than webhooks, requires no changes to Woven's infrastructure.</p>
+    </div>
+    <div class="card">
+      <h4>Change Diff Engine</h4>
+      <p>Compares old vs. new SWRD versions and surfaces what changed at section level: interface, specification, reason.</p>
+    </div>
+    <div class="card">
+      <h4>SWRD Parser</h4>
+      <p>Extracts structured metadata from SWRD source. Standard format: header → reason → description → interface → specification.</p>
+    </div>
+    <div class="card">
+      <h4>JAMA API Client</h4>
+      <p>Programmatically creates/updates requirements in JAMA. Existing Python REST client available. Must respect JAMA hierarchy and container structure.</p>
+    </div>
+    <div class="card gold">
+      <h4>Notification System</h4>
+      <p>Sends change digests via Slack/email. Flags mid-quarter changes with affected test cases for developer and manager review.</p>
+    </div>
+    <div class="card gold">
+      <h4>LLM Integration</h4>
+      <p>Calls AI service (Claude, ChatGPT, or OpenAI — subject to Woven access approval) to generate SWQT structure. Output requires human curation before JAMA entry.</p>
+    </div>
+  </div>
+  <span class="slide-number">12</span>
+</section>
+
+<!-- ============================================================
+  13 — SECTION: SCOPE
+============================================================ -->
+<section class="slide slide-section" id="slide-13">
+  <h2 class="reveal">Scope</h2>
+  <p class="key-message reveal reveal-delay-1">
+    Pilot: Lane Change SWRDs from Git → JAMA.<br>Everything else is Phase 2.
+  </p>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">13</span>
+</section>
+
+<!-- ============================================================
+  14 — IN / OUT OF SCOPE
+============================================================ -->
+<section class="slide slide-white" id="slide-14">
+  <div class="section-eyebrow reveal">Phase 1 Boundaries</div>
+  <h2 class="reveal reveal-delay-1">What's In and What's Out</h2>
+  <div class="column-cards reveal reveal-delay-2">
+    <div class="col-card good">
+      <div class="col-header">✓ In Scope (Pilot)</div>
+      <ul style="padding-left:20px;">
+        <li style="font-size:18px; margin-bottom:10px;">Lane change SWRDs from Git repository</li>
+        <li style="font-size:18px; margin-bottom:10px;">Automated SWRD extraction and JAMA population</li>
+        <li style="font-size:18px; margin-bottom:10px;">Change detection via polling (daily cadence)</li>
+        <li style="font-size:18px; margin-bottom:10px;">Change notification to Hannah and systems engineers</li>
+        <li style="font-size:18px; margin-bottom:10px;">Gated test case (SWQT) generation via LLM</li>
+        <li style="font-size:18px; margin-bottom:10px;">JAMA source linkage and version history</li>
+        <li style="font-size:18px; margin-bottom:10px;">Sandbox POC with mock data before production integration</li>
+      </ul>
+    </div>
+    <div class="col-card bad">
+      <div class="col-header">✗ Out of Scope (Pilot)</div>
+      <ul style="padding-left:20px;">
+        <li style="font-size:18px; margin-bottom:10px;">SBRDs and TPIDs (separate workflow)</li>
+        <li style="font-size:18px; margin-bottom:10px;">Multi-source consolidation beyond Git</li>
+        <li style="font-size:18px; margin-bottom:10px;">SWRD quality filtering or upstream prioritization</li>
+        <li style="font-size:18px; margin-bottom:10px;">Scope translation: system-of-systems → IPA</li>
+        <li style="font-size:18px; margin-bottom:10px;">Integration with CA/Toyota upstream systems</li>
+        <li style="font-size:18px; margin-bottom:10px;">Architecture diagram generation (separate PRD)</li>
+        <li style="font-size:18px; margin-bottom:10px;">Bottom-up requirements backfilling from existing code</li>
+      </ul>
+    </div>
+  </div>
+  <span class="slide-number">14</span>
+</section>
+
+<!-- ============================================================
+  15 — USER STORIES
+============================================================ -->
+<section class="slide slide-default" id="slide-15">
+  <div class="section-eyebrow reveal">Requirements</div>
+  <h2 class="reveal reveal-delay-1">Key User Stories</h2>
+  <div class="table-wrap reveal reveal-delay-2">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Story</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RG-001</strong></td>
+          <td>Hannah</td>
+          <td>Notified when lane change SWRDs change at source, with a summary of what changed and a link.</td>
+          <td><span class="badge badge-must">Must</span></td>
+        </tr>
+        <tr>
+          <td><strong>RG-002</strong></td>
+          <td>Hannah</td>
+          <td>Lane change SWRDs automatically structured and entered into JAMA — no manual copy-paste.</td>
+          <td><span class="badge badge-must">Must</span></td>
+        </tr>
+        <tr>
+          <td><strong>RG-006</strong></td>
+          <td>Developer</td>
+          <td>Notified when an SWRD I'm implementing is updated mid-quarter, with a flag in JAMA marking it modified.</td>
+          <td><span class="badge badge-must">Must</span></td>
+        </tr>
+        <tr>
+          <td><strong>RG-003</strong></td>
+          <td>Hannah</td>
+          <td>System auto-generates initial SWQT structure for curation after CA/product approval of the SWRD.</td>
+          <td><span class="badge badge-should">Should</span></td>
+        </tr>
+        <tr>
+          <td><strong>RG-004</strong></td>
+          <td>Nick</td>
+          <td>See which SWRDs contain incomplete specs (TBDs) before review — sort/filter by TBD density.</td>
+          <td><span class="badge badge-should">Should</span></td>
+        </tr>
+        <tr>
+          <td><strong>RG-005</strong></td>
+          <td>Julia</td>
+          <td>Dashboard showing SWRD count by status: ingested, pending review, rejected, approved for development.</td>
+          <td><span class="badge badge-should">Should</span></td>
+        </tr>
+        <tr>
+          <td><strong>RG-007</strong></td>
+          <td>Andrea</td>
+          <td>Consolidated knowledge base for reverse-engineering — all docs indexed without searching tools separately.</td>
+          <td><span class="badge badge-could">Could</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="slide-number">15</span>
+</section>
+
+<!-- ============================================================
+  16 — SECTION: OPEN QUESTIONS
+============================================================ -->
+<section class="slide slide-section" id="slide-16">
+  <h2 class="reveal">Open Questions</h2>
+  <p class="key-message reveal reveal-delay-1">
+    Several blocking unknowns must be resolved before implementation begins.
+  </p>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">16</span>
+</section>
+
+<!-- ============================================================
+  17 — BLOCKING QUESTIONS
+============================================================ -->
+<section class="slide slide-white" id="slide-17">
+  <div class="section-eyebrow reveal">Blocking</div>
+  <h2 class="reveal reveal-delay-1">Must Answer Before Building</h2>
+  <div style="margin-top:28px;" class="reveal reveal-delay-2">
+    <div class="question-item">
+      <p><strong>Source integration layer:</strong> Can we access Git repositories directly for SWRDs, or must we go through Woven's documentation layer (PRD Google Docs from PDM team)? This shapes the entire integration architecture.</p>
+      <div class="question-status blocking">🔴 Blocking — no infrastructure access confirmed yet</div>
+    </div>
+    <div class="question-item">
+      <p><strong>JAMA structure and import configuration:</strong> How is JAMA configured for this project? What are its data validation rules? How does automation target the correct container in the hierarchy?</p>
+      <div class="question-status blocking">🔴 Blocking — hierarchy known, containers undefined</div>
+    </div>
+    <div class="question-item">
+      <p><strong>AI service API access:</strong> Can the system call external AI APIs (Claude, ChatGPT, OpenAI) inside Woven's environment? Are there restrictions, approval processes, or preferred alternatives?</p>
+      <div class="question-status blocking">🔴 Blocking — no evidence this has been explored</div>
+    </div>
+    <div class="question-item">
+      <p><strong>GitHub/Stargate access for Atomic team:</strong> Will the team be granted access to Woven's requirements repositories? Access request is planned for week of 2026-03-09.</p>
+      <div class="question-status blocking">🔴 Blocking — access not yet requested</div>
+    </div>
+    <div class="question-item">
+      <p><strong>Solution interface model:</strong> Is this a UI, a CLI, or a fully automatic background service? How does Hannah manually trigger test case generation when ready?</p>
+      <div class="question-status">🟡 Open — no UX/interface decisions made yet</div>
+    </div>
+  </div>
+  <span class="slide-number">17</span>
+</section>
+
+<!-- ============================================================
+  18 — CONSTRAINTS
+============================================================ -->
+<section class="slide slide-default" id="slide-18">
+  <div class="section-eyebrow reveal">Constraints</div>
+  <h2 class="reveal reveal-delay-1">What We Can't Change</h2>
+  <div class="grid grid-3 reveal reveal-delay-2">
+    <div class="card red">
+      <h4>Human Review Is Irreplaceable</h4>
+      <p>Julia, CA, or product must validate ingested requirements. Automation makes review faster — it cannot eliminate it.</p>
+    </div>
+    <div class="card red">
+      <h4>Quarterly Release Cadence</h4>
+      <p>Requirements lock per quarter. Mid-quarter changes go through the emerging CRB (Change Requirement Board) process.</p>
+    </div>
+    <div class="card red">
+      <h4>Teams Won't Move Their Docs</h4>
+      <p>Established practices exist for where requirements live. The solution must work with existing sources, not ideal organization.</p>
+    </div>
+    <div class="card gold">
+      <h4>Can't Create Requirements</h4>
+      <p>The system only gathers and structures pre-existing requirements. Tribal knowledge in developers' heads cannot be automated away.</p>
+    </div>
+    <div class="card gold">
+      <h4>Process Still Being Defined</h4>
+      <p>Woven is implementing the CRB process now. The target workflow is not yet stable — but that's an opportunity to shape it.</p>
+    </div>
+    <div class="card">
+      <h4>Polling vs. Webhooks</h4>
+      <p>Polling is the MVP (up to 24hr latency). Webhooks require GitHub Actions infrastructure changes and are deferred.</p>
+    </div>
+  </div>
+  <span class="slide-number">18</span>
+</section>
+
+<!-- ============================================================
+  19 — SECTION: NEXT STEPS
+============================================================ -->
+<section class="slide slide-section" id="slide-19">
+  <h2 class="reveal">Next Steps</h2>
+  <p class="key-message reveal reveal-delay-1">
+    Resolve infrastructure unknowns first. Then build the sandbox POC.
+  </p>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">19</span>
+</section>
+
+<!-- ============================================================
+  20 — IMMEDIATE PRIORITIES
+============================================================ -->
+<section class="slide slide-white" id="slide-20">
+  <div class="section-eyebrow reveal">Action Plan</div>
+  <h2 class="reveal reveal-delay-1">Immediate Priorities</h2>
+  <div class="process-steps reveal reveal-delay-2" style="margin-top:48px;">
+    <div class="process-step">
+      <div class="step-circle">①</div>
+      <div class="step-title">Request Repo Access</div>
+      <div class="step-desc">Submit GitHub/Stargate access request for Woven's requirements repositories (week of Mar 9)</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">②</div>
+      <div class="step-title">Resolve Integration Layer</div>
+      <div class="step-desc">Determine if direct Git access is feasible or if the documentation layer is required</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">③</div>
+      <div class="step-title">JAMA API Exploration</div>
+      <div class="step-desc">Map field structures, container hierarchy, validation rules, and import capabilities</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">④</div>
+      <div class="step-title">AI API Approval</div>
+      <div class="step-desc">Confirm access to external AI APIs inside Woven's environment or identify an approved alternative</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">⑤</div>
+      <div class="step-title">Sandbox POC</div>
+      <div class="step-desc">Mock pipeline with sample SWRDs to validate the approach before production integration</div>
+    </div>
+  </div>
+  <div class="metaphor-box reveal reveal-delay-3">
+    <p><strong>POC scope:</strong> Mock Git repo → polling script → SWRD parser → mock JAMA output → mock LLM test case generation. Validates the conceptual flow independently of infrastructure constraints.</p>
+  </div>
+  <span class="slide-number">20</span>
+</section>
+
+<!-- ============================================================
+  21 — GLOSSARY
+============================================================ -->
+<section class="slide slide-default" id="slide-21">
+  <div class="section-eyebrow reveal">Reference</div>
+  <h2 class="reveal reveal-delay-1">Glossary</h2>
+  <div class="grid grid-2 reveal reveal-delay-2" style="margin-top:28px;">
+    <div>
+      <div class="question-item" style="border-left-color:var(--atomic-teal);">
+        <p><strong>SWRD</strong> — Software Requirements Document. Functional requirements from Toyota. Must be reinterpreted for Woven's IPA scope.</p>
+      </div>
+      <div class="question-item" style="border-left-color:var(--atomic-teal);">
+        <p><strong>SWQT</strong> — Software Work/Interface Qualification Test. Test case derived from an SWRD, stored in JAMA with preconditions and test steps.</p>
+      </div>
+      <div class="question-item" style="border-left-color:var(--atomic-teal);">
+        <p><strong>JAMA</strong> — Woven's requirements management system. Authoritative record for internal requirements and test cases.</p>
+      </div>
+      <div class="question-item" style="border-left-color:var(--atomic-teal);">
+        <p><strong>CA</strong> — Customer Applications. Toyota's Japan-based liaison team that translates requirements from TMC to Woven.</p>
+      </div>
+      <div class="question-item" style="border-left-color:var(--atomic-teal);">
+        <p><strong>CRB</strong> — Change Requirement Board. Emerging formal process at Woven to handle and track mid-quarter requirement changes.</p>
+      </div>
+    </div>
+    <div>
+      <div class="question-item" style="border-left-color:var(--atomic-med-gray);">
+        <p><strong>URD</strong> — User Requirements Document. Parent-level requirement from Toyota; translated into SWRDs by the CA and product teams.</p>
+      </div>
+      <div class="question-item" style="border-left-color:var(--atomic-med-gray);">
+        <p><strong>PRD</strong> — Product Requirements Document. Quarterly scoped doc listing which SWRDs are in scope for development that quarter.</p>
+      </div>
+      <div class="question-item" style="border-left-color:var(--atomic-med-gray);">
+        <p><strong>IPA</strong> — Internal Product. Woven's internal product boundary/scope; SWRDs from Toyota must be reinterpreted for IPA level.</p>
+      </div>
+      <div class="question-item" style="border-left-color:var(--atomic-med-gray);">
+        <p><strong>Wovey</strong> — Woven's internal LLM tool. Hannah uses it for test case drafting (~90% effectiveness, manual curation required).</p>
+      </div>
+      <div class="question-item" style="border-left-color:var(--atomic-med-gray);">
+        <p><strong>TSS-4</strong> — Toyota Safety System 4. Legacy rules-based production system; its outdated prescriptive requirements still appear in incoming SWRDs despite Woven's ML approach.</p>
+      </div>
+    </div>
+  </div>
+  <span class="slide-number">21</span>
+</section>
+
+<script>
+  // Scroll-reveal via IntersectionObserver
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Nav pill — current slide counter
+  const slides = document.querySelectorAll('.slide');
+  const navPill = document.getElementById('nav-pill');
+
+  const slideObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const num = entry.target.id.replace('slide-', '');
+        navPill.textContent = `${num} / ${slides.length}`;
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(s => slideObserver.observe(s));
+</script>
+
+</body>
+</html>
