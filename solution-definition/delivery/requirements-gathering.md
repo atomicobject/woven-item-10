@@ -337,6 +337,26 @@ Successfully automating this pipeline will:
 
 ---
 
+## Appendix: Notable Quotes
+
+> **"All I do is copy things into JAMA."**
+> — Hannah Lane, unprompted, when introduced as "someone who knows everything" *(2026-03-03-1_hannah-interview.md, ~06:46)*
+
+> **"These test cases were defined mostly with the help of LLMs — I didn't type all of this by hand. It's not 2019 anymore."**
+> — Hannah Lane, describing her SWQT workflow *(2026-03-03-1_hannah-interview.md, ~21:00)*
+
+> **"A year ago it got me about 70% of the way there. Now I'd say it gets me about 90%."**
+> — Hannah Lane, on LLM-assisted test case generation via Wovey *(2026-03-03-1_hannah-interview.md, ~30:00)*
+
+> **"I haven't done a lot of this recently — I mostly got as far as the review part. But I know that one of my teammates had written a prompt in our internal AI tool, WOVI."**
+> — Nick Carcione, when asked to demonstrate test case generation *(2026-03-04-3_nick_user_interview.md, ~25:09)*
+> *Note: Nick references using "Hannah's prompt" rather than having his own workflow — illustrating that AI adoption in this team is informal and person-to-person, not systematic.*
+
+> **"My strategy right now... is to just get everything into JAMA. Then I can say, 'We're passing zero out of 7,000 test cases,' which I think will drive action faster than trying to describe the problem in words."**
+> — Hannah Lane, on her approach to incomplete requirements *(2026-03-03-1_hannah-interview.md, ~49:00)*
+
+---
+
 ## Appendix: Glossary
 
 - **SWRD:** Software Requirements Document. Functional requirements from Toyota, typically at system-of-systems scope. Must be reinterpreted for Woven's internal product (IPA) scope.
