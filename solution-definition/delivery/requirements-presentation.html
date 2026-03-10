@@ -587,7 +587,8 @@
   <cite class="reveal reveal-delay-2" style="display: block; font-style: normal; font-size: 22px; color: var(--atomic-med-gray); margin-top: 36px; font-family: var(--font-body);">
     Hannah Lane — Systems &amp; Validation Engineer, Woven
   </cite>
-  <span class="slide-number">07</span>
+  <p class="reveal reveal-delay-3" style="font-size: 15px; color: var(--atomic-med-gray); margin-top: 20px; font-style: italic; max-width: 560px; margin-left: auto; margin-right: auto;">Hyperbole — but telling. Said unprompted, before the interview even began.</p>
+  <span class="slide-number">06</span>
 </section>
 
 <!-- ============================================================
@@ -598,7 +599,7 @@
   <p class="key-message reveal reveal-delay-1">
     Four personas. One broken pipeline.
   </p>
-  <span class="slide-number" style="color:rgba(255,255,255,0.35);">08</span>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">07</span>
 </section>
 
 <!-- ============================================================
@@ -735,7 +736,7 @@
     <div class="col-card bad" style="border-top-color: var(--atomic-gold);">
       <div class="col-header" style="color: var(--atomic-gold);">Nick — Aware, Not Adopted</div>
       <p>Knows the tool exists because a teammate built it. Would use <em>Hannah's</em> prompt — doesn't have his own workflow. Still in review phase; hasn't generated a test case yet.</p>
-      <p style="margin-top:16px; font-size:16px; color:var(--atomic-med-gray);">"I know that one of my teammates had written a prompt in WOVI."</p>
+      <p style="margin-top:16px; font-size:16px; color:var(--atomic-med-gray);">"I know that one of my teammates had written a prompt in Wovey."</p>
     </div>
   </div>
   <div class="metaphor-box reveal reveal-delay-4">
@@ -745,7 +746,38 @@
 </section>
 
 <!-- ============================================================
-  12b — CORE FUNCTIONALITY
+  13 — CONSTRAINTS
+============================================================ -->
+<section class="slide slide-default" id="slide-constraints">
+  <div class="section-eyebrow reveal">Constraints</div>
+  <h2 class="reveal reveal-delay-1">What We Can't Change</h2>
+  <div class="grid grid-3 reveal reveal-delay-2">
+    <div class="card red">
+      <h4>CA Authorship Is Out of Scope</h4>
+      <p>Hannah and Nick can highlight issues with incoming requirements, but cannot fix them at the source. The quality of what CA writes is outside Woven's control.</p>
+    </div>
+    <div class="card red">
+      <h4>Quarterly Release Cadence</h4>
+      <p>Requirements lock per quarter. Mid-quarter changes go through the emerging CRB (Change Requirement Board) process.</p>
+    </div>
+    <div class="card red">
+      <h4>Teams Won't Move Their Docs</h4>
+      <p>Established practices exist for where requirements live. The solution must work with existing sources, not ideal organization.</p>
+    </div>
+    <div class="card red">
+      <h4>Intake Only — Not Authorship</h4>
+      <p>The tool structures what Toyota and CA have already written. It does not generate, author, or invent requirements.</p>
+    </div>
+    <div class="card red">
+      <h4>Process Still Being Defined</h4>
+      <p>Woven is implementing the CRB process now. The target workflow is not yet stable — but that's an opportunity to shape it.</p>
+    </div>
+  </div>
+  <span class="slide-number">13</span>
+</section>
+
+<!-- ============================================================
+  14 — CORE FUNCTIONALITY
 ============================================================ -->
 <section class="slide slide-white" id="slide-core-func">
   <div class="section-eyebrow reveal">Proposed Solution</div>
@@ -834,7 +866,7 @@
     </div>
   </div>
 
-  <span class="slide-number">13</span>
+  <span class="slide-number">14</span>
 </section>
 
 <!-- ============================================================
@@ -976,7 +1008,7 @@
       <line x1="1175" y1="594" x2="1175" y2="630" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom2-g)"/>
     </svg>
   </div>
-  <span class="slide-number">14</span>
+  <span class="slide-number">15</span>
 </section>
 
 <!-- ============================================================
@@ -986,7 +1018,7 @@
   <div class="section-eyebrow reveal">Proposed Solution</div>
   <h2 class="reveal reveal-delay-1">Input–Output Map — With Add-ons</h2>
   <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); margin-bottom:0;">
-    Three layers: what users provide, what the tooling does, and what gets produced.
+    The full vision — additional capabilities unlocked as access and trust are established. Dashed nodes are ideal iterations beyond the pilot.
   </p>
   <div class="reveal reveal-delay-3" style="margin-top: 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden;">
     <svg viewBox="0 0 1680 610" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
@@ -1172,7 +1204,7 @@
       <line x1="1115" y1="521" x2="1115" y2="536" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom-g)"/>
     </svg>
   </div>
-  <span class="slide-number">15</span>
+  <span class="slide-number">16</span>
 </section>
 
 <!-- ============================================================
@@ -1203,8 +1235,8 @@
         </div>
         <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px 20px 16px; border-top:3px solid var(--atomic-med-gray); box-shadow:var(--shadow-sm);">
           <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-med-gray); margin-bottom:8px;">Needs GitHub + PRD Access</div>
-          <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Auto-Fetch</div>
-          <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.5;">Tool proactively watches for changes and pulls new SWRDs without any user action.</div>
+          <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Batch Import via PRD</div>
+          <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.5;">Tool reads the PRD, discovers all linked SWRDs, and imports them in bulk — no individual copy-paste required.</div>
         </div>
       </div>
     </div>
@@ -1231,7 +1263,51 @@
   <div class="metaphor-box reveal reveal-delay-4">
     <p><strong>Key principle:</strong> The paste-text → manual-copy path is <span class="highlight-teal">useful immediately, with zero access dependencies.</span> Every layer of access we obtain makes it faster and more automatic — but it's never blocked.</p>
   </div>
-  <span class="slide-number">16</span>
+  <span class="slide-number">17</span>
+</section>
+
+<!-- ============================================================
+  16 — SOLUTION ARCHITECTURE
+============================================================ -->
+<section class="slide slide-default" id="slide-11">
+  <div class="section-eyebrow reveal">Architecture</div>
+  <h2 class="reveal reveal-delay-1">How It Works</h2>
+  <div class="process-steps reveal reveal-delay-2">
+    <div class="process-step">
+      <div class="step-circle">1</div>
+      <div class="step-title">Provide Input</div>
+      <div class="step-desc">User opens tool and provides SWRD — paste text, paste a link, or batch import via PRD</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">2</div>
+      <div class="step-title">Parse &amp; Translate</div>
+      <div class="step-desc">Tool structures the raw SWRD and converts it to plain English simultaneously — no separate step</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">3</div>
+      <div class="step-title">Review &amp; Curate</div>
+      <div class="step-desc">User reviews the output, flags issues, and approves or edits before anything is written</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">4</div>
+      <div class="step-title">Submit Requirement to JAMA</div>
+      <div class="step-desc">Approved SWRD entry goes into JAMA — manually or via API — with source link and version timestamp</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">5</div>
+      <div class="step-title">Generate Test Cases</div>
+      <div class="step-desc">After CA/product approval, LLM generates SWQT candidates — user reviews and curates</div>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">6</div>
+      <div class="step-title">Submit Test Case to JAMA</div>
+      <div class="step-desc">Curated SWQT is written to JAMA linked to its parent SWRD — completing the traceability chain</div>
+    </div>
+  </div>
+  <div class="metaphor-box reveal reveal-delay-3">
+    <p><strong>Build philosophy — Read-Only First:</strong> The system starts by <span class="highlight-teal">reading and surfacing</span> — change detection, notifications, translations — before it ever writes anything to JAMA. Humans validate before automation takes over. Test case generation is gated by upstream CA/product sign-off; the tool never creates tests for SWRDs that haven't been approved. This sequencing builds trust before it builds dependency.</p>
+  </div>
+  <span class="slide-number">18</span>
 </section>
 
 <!-- ============================================================
@@ -1300,108 +1376,22 @@
       <button style="background:var(--atomic-teal); color:white; border:none; border-radius:6px; padding:8px 20px; font-size:14px; font-weight:600; cursor:pointer; font-family:var(--font-body);">Send to JAMA ↑</button>
     </div>
   </div>
-  <span class="slide-number">16</span>
+  <span class="slide-number">19</span>
 </section>
 
 <!-- ============================================================
-  16 — SOLUTION ARCHITECTURE
-============================================================ -->
-<section class="slide slide-default" id="slide-11">
-  <div class="section-eyebrow reveal">Architecture</div>
-  <h2 class="reveal reveal-delay-1">How It Works</h2>
-  <div class="process-steps reveal reveal-delay-2">
-    <div class="process-step">
-      <div class="step-circle">1</div>
-      <div class="step-title">Change Detection</div>
-      <div class="step-desc">Daily polling of Git for lane change SWRD updates vs. last-processed version</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">2</div>
-      <div class="step-title">Parse &amp; Extract</div>
-      <div class="step-desc">Structured extraction: header · reason · description · interface · specification</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">3</div>
-      <div class="step-title">JAMA Population</div>
-      <div class="step-desc">Create or update JAMA entries with source link, commit version, and timestamp</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">4</div>
-      <div class="step-title">Notify</div>
-      <div class="step-desc">Digest to Hannah &amp; team — what changed, which SWRDs, links to source diff</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">5</div>
-      <div class="step-title">Test Case Gen</div>
-      <div class="step-desc">After CA/product approval, LLM generates SWQT candidates for human curation</div>
-    </div>
-  </div>
-  <div class="metaphor-box reveal reveal-delay-3">
-    <p><strong>Build philosophy — Read-Only First:</strong> The system starts by <span class="highlight-teal">reading and surfacing</span> — change detection, notifications, translations — before it ever writes anything to JAMA. Humans validate before automation takes over. Test case generation is gated by upstream CA/product sign-off; the tool never creates tests for SWRDs that haven't been approved. This sequencing builds trust before it builds dependency.</p>
-  </div>
-  <span class="slide-number">16</span>
-</section>
-
-<!-- ============================================================
-  15 — SYSTEM COMPONENTS
-============================================================ -->
-<section class="slide slide-default" id="slide-12">
-  <div class="section-eyebrow reveal">System Components</div>
-  <h2 class="reveal reveal-delay-1">What Gets Built</h2>
-  <div class="grid grid-3 reveal reveal-delay-2">
-    <div class="card">
-      <h4>SWRD Parser</h4>
-      <p>Extracts structured metadata from SWRD source. Standard format: header → reason → description → interface → specification.</p>
-    </div>
-    <div class="card">
-      <h4>JAMA API Client</h4>
-      <p>Programmatically creates/updates requirements in JAMA. Existing Python REST client available. Short-term strategy: use JAMA as a <em>dumping ground</em> — get everything in first, then refine quality. Hannah's instinct: once it's all in JAMA, "passing zero out of 7,000 test cases" drives urgency faster than words.</p>
-    </div>
-    <div class="card">
-      <h4>Git Polling Service</h4>
-      <p>Daily job that checks for SWRD changes. Polling is the MVP — simpler than webhooks, requires no changes to Woven's infrastructure.</p>
-    </div>
-    <div class="card">
-      <h4>Change Diff Engine</h4>
-      <p>Compares old vs. new SWRD versions and surfaces what changed at section level: interface, specification, reason.</p>
-    </div>
-    <div class="card gold">
-      <h4>Requirements Monitor</h4>
-      <p>Watches for SWRD changes via Git polling. Maintains a version log (CSV or lightweight DB) as the source-of-truth for what's been processed. Sends change digests via Slack or email — what changed, which SWRDs, link to source diff.</p>
-    </div>
-    <div class="card gold">
-      <h4>LLM Integration</h4>
-      <p>Calls AI service (Claude, ChatGPT, or OpenAI — subject to Woven access approval) to generate SWQT structure. Output requires human curation before JAMA entry.</p>
-    </div>
-    <div class="card gold">
-      <h4>PRD Bulk Fetcher</h4>
-      <p>Reads the PRD Google Doc and auto-discovers all linked SWRDs — no manual copy-paste required. Requires Google Drive access; treated as an enhancement above the baseline paste-raw-text path.</p>
-    </div>
-    <div class="card gold">
-      <h4>Bulk JAMA Creator</h4>
-      <p>After human review and approval, submits a validated batch of requirements to JAMA in a single operation. Gating on approval directly addresses the risk of writing bad data at scale before the process is proven.</p>
-    </div>
-    <div class="card gold">
-      <h4>Requirement Quality Analyzer</h4>
-      <p>Before test generation runs, evaluates the requirement for known issues — TBDs, over-prescriptiveness, incomplete translation — and surfaces a flag. If the requirement isn't ready, the user sees that first.</p>
-    </div>
-  </div>
-  <span class="slide-number">17</span>
-</section>
-
-<!-- ============================================================
-  18 — SECTION: SCOPE
+  20 — SECTION: NEXT STEPS
 ============================================================ -->
 <section class="slide slide-section" id="slide-13">
-  <h2 class="reveal">Scope</h2>
+  <h2 class="reveal">Next Steps</h2>
   <p class="key-message reveal reveal-delay-1">
-    Pilot: Lane Change SWRDs from Git → JAMA.<br>Everything else is Phase 2.
+    Resolve infrastructure unknowns first. Then build the sandbox POC.
   </p>
-  <span class="slide-number" style="color:rgba(255,255,255,0.35);">18</span>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">20</span>
 </section>
 
 <!-- ============================================================
-  19 — IN / OUT OF SCOPE
+  21 — IN / OUT OF SCOPE
 ============================================================ -->
 <section class="slide slide-white" id="slide-14">
   <div class="section-eyebrow reveal">Phase 1 Boundaries</div>
@@ -1432,90 +1422,14 @@
       </ul>
     </div>
   </div>
-  <span class="slide-number">19</span>
-</section>
-
-<!-- ============================================================
-  20 — USER STORIES
-============================================================ -->
-<section class="slide slide-default" id="slide-15">
-  <div class="section-eyebrow reveal">Requirements</div>
-  <h2 class="reveal reveal-delay-1">Key User Stories</h2>
-  <div class="table-wrap reveal reveal-delay-2">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>User</th>
-          <th>Story</th>
-          <th>Priority</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>RG-001</strong></td>
-          <td>Hannah</td>
-          <td>Notified when lane change SWRDs change at source, with a summary of what changed and a link.</td>
-          <td><span class="badge badge-must">Must</span></td>
-        </tr>
-        <tr>
-          <td><strong>RG-002</strong></td>
-          <td>Hannah</td>
-          <td>Lane change SWRDs automatically structured and entered into JAMA — no manual copy-paste.</td>
-          <td><span class="badge badge-must">Must</span></td>
-        </tr>
-        <tr>
-          <td><strong>RG-006</strong></td>
-          <td>Developer</td>
-          <td>Notified when an SWRD I'm implementing is updated mid-quarter, with a flag in JAMA marking it modified.</td>
-          <td><span class="badge badge-must">Must</span></td>
-        </tr>
-        <tr>
-          <td><strong>RG-003</strong></td>
-          <td>Hannah</td>
-          <td>System auto-generates initial SWQT structure for curation after CA/product approval of the SWRD.</td>
-          <td><span class="badge badge-should">Should</span></td>
-        </tr>
-        <tr>
-          <td><strong>RG-004</strong></td>
-          <td>Nick</td>
-          <td>See which SWRDs contain incomplete specs (TBDs) before review — sort/filter by TBD density.</td>
-          <td><span class="badge badge-should">Should</span></td>
-        </tr>
-        <tr>
-          <td><strong>RG-005</strong></td>
-          <td>Julia</td>
-          <td>Dashboard showing SWRD count by status: ingested, pending review, rejected, approved for development.</td>
-          <td><span class="badge badge-should">Should</span></td>
-        </tr>
-        <tr>
-          <td><strong>RG-007</strong></td>
-          <td>Andrea</td>
-          <td>Consolidated knowledge base for reverse-engineering — all docs indexed without searching tools separately.</td>
-          <td><span class="badge badge-could">Could</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <span class="slide-number">20</span>
-</section>
-
-<!-- ============================================================
-  21 — SECTION: OPEN QUESTIONS
-============================================================ -->
-<section class="slide slide-section" id="slide-16">
-  <h2 class="reveal">Open Questions</h2>
-  <p class="key-message reveal reveal-delay-1">
-    Several blocking unknowns must be resolved before implementation begins.
-  </p>
-  <span class="slide-number" style="color:rgba(255,255,255,0.35);">21</span>
+  <span class="slide-number">21</span>
 </section>
 
 <!-- ============================================================
   22 — BLOCKING QUESTIONS
 ============================================================ -->
 <section class="slide slide-white" id="slide-17">
-  <div class="section-eyebrow reveal">Blocking</div>
+  <div class="section-eyebrow reveal">Open Questions</div>
   <h2 class="reveal reveal-delay-1">Must Answer Before Building</h2>
   <div style="margin-top:28px;" class="reveal reveal-delay-2">
     <div class="question-item">
@@ -1543,95 +1457,21 @@
 </section>
 
 <!-- ============================================================
-  23 — CONSTRAINTS
+  24 — SECTION: APPENDIX
 ============================================================ -->
-<section class="slide slide-default" id="slide-18">
-  <div class="section-eyebrow reveal">Constraints</div>
-  <h2 class="reveal reveal-delay-1">What We Can't Change</h2>
-  <div class="grid grid-3 reveal reveal-delay-2">
-    <div class="card red">
-      <h4>Human Review Is Irreplaceable</h4>
-      <p>Julia, CA, or product must validate ingested requirements. Automation makes review faster — it cannot eliminate it.</p>
-    </div>
-    <div class="card red">
-      <h4>Quarterly Release Cadence</h4>
-      <p>Requirements lock per quarter. Mid-quarter changes go through the emerging CRB (Change Requirement Board) process.</p>
-    </div>
-    <div class="card red">
-      <h4>Teams Won't Move Their Docs</h4>
-      <p>Established practices exist for where requirements live. The solution must work with existing sources, not ideal organization.</p>
-    </div>
-    <div class="card gold">
-      <h4>Can't Create Requirements</h4>
-      <p>The system only gathers and structures pre-existing requirements. Tribal knowledge in developers' heads cannot be automated away.</p>
-    </div>
-    <div class="card gold">
-      <h4>Process Still Being Defined</h4>
-      <p>Woven is implementing the CRB process now. The target workflow is not yet stable — but that's an opportunity to shape it.</p>
-    </div>
-    <div class="card">
-      <h4>Polling vs. Webhooks</h4>
-      <p>Polling is the MVP (up to 24hr latency). Webhooks require GitHub Actions infrastructure changes and are deferred.</p>
-    </div>
-  </div>
-  <span class="slide-number">23</span>
-</section>
-
-<!-- ============================================================
-  24 — SECTION: NEXT STEPS
-============================================================ -->
-<section class="slide slide-section" id="slide-19">
-  <h2 class="reveal">Next Steps</h2>
+<section class="slide slide-section" id="slide-appendix">
+  <h2 class="reveal">Appendix</h2>
   <p class="key-message reveal reveal-delay-1">
-    Resolve infrastructure unknowns first. Then build the sandbox POC.
+    Reference material.
   </p>
   <span class="slide-number" style="color:rgba(255,255,255,0.35);">24</span>
 </section>
 
 <!-- ============================================================
-  23 — IMMEDIATE PRIORITIES
-============================================================ -->
-<section class="slide slide-white" id="slide-20">
-  <div class="section-eyebrow reveal">Action Plan</div>
-  <h2 class="reveal reveal-delay-1">Immediate Priorities</h2>
-  <div class="process-steps reveal reveal-delay-2" style="margin-top:48px;">
-    <div class="process-step">
-      <div class="step-circle">①</div>
-      <div class="step-title">Request Repo Access</div>
-      <div class="step-desc">Submit GitHub/Stargate access request for Woven's requirements repositories (week of Mar 9)</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">②</div>
-      <div class="step-title">Resolve Integration Layer</div>
-      <div class="step-desc">Determine if direct Git access is feasible or if the documentation layer is required</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">③</div>
-      <div class="step-title">JAMA API Exploration</div>
-      <div class="step-desc">Map field structures, container hierarchy, validation rules, and import capabilities</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">④</div>
-      <div class="step-title">AI API Approval</div>
-      <div class="step-desc">Confirm access to external AI APIs inside Woven's environment or identify an approved alternative</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">⑤</div>
-      <div class="step-title">Sandbox POC</div>
-      <div class="step-desc">Mock pipeline with sample SWRDs to validate the approach before production integration</div>
-    </div>
-  </div>
-  <div class="metaphor-box reveal reveal-delay-3">
-    <p><strong>POC scope:</strong> Mock Git repo → polling script → SWRD parser → mock JAMA output → mock LLM test case generation. Validates the conceptual flow independently of infrastructure constraints.</p>
-  </div>
-  <span class="slide-number">25</span>
-</section>
-
-<!-- ============================================================
-  26 — GLOSSARY
+  25 — GLOSSARY
 ============================================================ -->
 <section class="slide slide-default" id="slide-21">
-  <div class="section-eyebrow reveal">Reference</div>
+  <div class="section-eyebrow reveal">Appendix</div>
   <h2 class="reveal reveal-delay-1">Glossary</h2>
   <div class="grid grid-2 reveal reveal-delay-2" style="margin-top:28px;">
     <div>
@@ -1669,7 +1509,7 @@
       </div>
     </div>
   </div>
-  <span class="slide-number">26</span>
+  <span class="slide-number">23</span>
 </section>
 
 <script>
