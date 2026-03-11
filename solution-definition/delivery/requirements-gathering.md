@@ -2,11 +2,11 @@
 
 **Status:** In Progress
 
-**Last Updated:** 2026-03-09
+**Last Updated:** 2026-03-10
 
 **Owner:** Gus Schissler (Delivery Lead, Atomic Object)
 
-**Sources:** 2026-02-05_kickoff.md, 2026-02-23-1_release-tools-deepdive.md, 2026-02-26-1_andrea-interview.md, 2026-02-26-2_andrea-interview-debrief.md, 2026-02-27_gus-dan-alloy-assertion-mapping.md, 2026-03-02-1_julia-interview.md, 2026-03-02-2_julia-interview-debrief.md, 2026-03-03-1_hannah-interview.md, 2026-03-03-2_hannah-interview-debrief.md, 2026-03-04-1_standup.md, 2026-03-04-3_nick-user-interview.md, 2026-03-04-4_nick-debrief.md, 2026-03-05_discovery-sync.md, 2026-03-05_standup.md, 2026-03-06_solutioning.md
+**Sources:** 2026-02-05_kickoff.md, 2026-02-23-1_release-tools-deepdive.md, 2026-02-26-1_andrea-interview.md, 2026-02-26-2_andrea-interview-debrief.md, 2026-02-27_gus-dan-alloy-assertion-mapping.md, 2026-03-02-1_julia-interview.md, 2026-03-02-2_julia-interview-debrief.md, 2026-03-03-1_hannah-interview.md, 2026-03-03-2_hannah-interview-debrief.md, 2026-03-04-1_standup.md, 2026-03-04-3_nick-user-interview.md, 2026-03-04-4_nick-debrief.md, 2026-03-05_discovery-sync.md, 2026-03-05_standup.md, 2026-03-06_solutioning.md, 2026-03-10-slide-deck-debrief.md
 
 ---
 
@@ -84,21 +84,27 @@ Successfully automating this pipeline will:
 
 **Phase 1: Lane Change Requirements Consolidation (Pilot)**
 
-- **Source:** Lane change SWRDs (confirmed as most mature starting point). SWRDs are stored in Git repositories but are accessed by Hannah's team through an intermediate documentation layer (PRD documents from the PDM team that link to Git). Whether the system can integrate directly with Git or must work through Woven's documentation layer is an **open infrastructure question** that must be resolved before implementation **(2026-03-03-2_hannah-interview-debrief.md)**
+The solution is structured as three independent systems in priority order. Each system is independently useful and buildable; Systems 2 and 3 unlock progressively as infrastructure access is established.
 
-- **Automated requirement extraction:** Parse SWRD files from whatever source layer is accessible (Git directly or documentation layer); extract metadata (title, description, interface, specification sections); structure into JAMA-compatible format **(core requirement, 2026-03-06_solutioning.md)**
+#### System 1 — Requirements Creation (first priority; POC already built, no access dependencies)
 
-- **Source-to-JAMA pipeline:** Automate data flow from the requirement source into JAMA without manual copy-paste. The exact integration point (direct Git access vs. documentation layer) depends on what infrastructure access is available **(proposed, 2026-03-06_solutioning.md)**
+- **Structured JAMA requirements entry:** Parse SWRD content and structure it into JAMA-compatible format. Whether raw content is passed through as-is or transformed into plain English via LLM is an open question to confirm with Hannah **(core requirement, 2026-03-06_solutioning.md; open question, 2026-03-10-slide-deck-debrief.md)**
 
-- **Change detection (polling-based):** Polling of requirement source to detect SWRD version changes; compare against previously-processed version; identify what changed. Mechanism depends on whether Git-level access (commit-based diffing) or documentation-layer access (document versioning) is available **(proposed architecture, 2026-02-23-1_release-tools-deepdive.md)**
+- **Gated test case generation:** Use LLM-based approach (similar to Hannah's existing Wovey prompt) to generate SWQT structure from SWRD; output to JAMA for manual curation. Test cases generated only after upstream approval/agreement (CA or product sign-off) **(proposed, 2026-03-06_solutioning.md; clarified, 2026-03-05_standup.md)**
 
-- **Change notification:** Alert designated stakeholders (Hannah, systems engineers) when changes are detected; surface which SWRDs changed and provide summary **(core capability, 2026-03-06_solutioning.md)**
+- **JAMA source linkage and version history:** Maintain source linkage (source location, version/commit, timestamp) in JAMA for traceability; support version history tracking **(core requirement, 2026-03-03-1_hannah-interview.md)**
 
-- **Automated test case generation:** Use LLM-based approach (similar to Hannah's existing Wovey prompt) to generate SWQT structure from SWRD; output to JAMA **(proposed, 2026-03-06_solutioning.md)**
+#### System 2 — Automated Gathering (needs Git + Google Drive access)
 
-- **Conditional test case gating:** Test cases should only be created after upstream approval/agreement on the requirement (CA or product sign-off) to avoid writing tests for problematic SWRDs **(clarified, 2026-03-05_standup.md)**
+- **Lane change SWRDs from Git repository (pilot scope):** SWRDs are stored in Git repositories but accessed by Hannah's team through an intermediate documentation layer (PRD documents from the PDM team). Whether the system can integrate directly with Git or must work through the documentation layer is an **open infrastructure question** **(2026-03-03-2_hannah-interview-debrief.md)**
 
-- **JAMA linkage and versioning:** Maintain source linkage (source location, version/commit, timestamp) in JAMA for traceability; support version history tracking **(core requirement, 2026-03-03-1_hannah-interview.md)**
+- **Automated SWRD discovery and batch import from PRD:** Rather than one-by-one manual hunt, read the quarterly PRD to discover all in-scope SWRD links and batch-import them into System 1 for processing **(proposed, 2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
+
+#### System 3 — Change Management (extends System 2's access layer; scope may narrow depending on Reqtify)
+
+- **Change detection (polling-based):** Poll the Git repository on a set cadence (TBD with Hannah) to detect SWRD version changes; diff old vs. new; surface what specifically changed by section **(proposed architecture, 2026-02-23-1_release-tools-deepdive.md)**
+
+- **Change notification:** Alert designated stakeholders (Hannah, systems engineers) when changes are detected; surface which SWRDs changed and provide diff summary. Notification channel (Slack, email, JAMA flag) TBD **(core capability, 2026-03-06_solutioning.md)**
 
 **Phase 1 Deliverables:**
 

@@ -394,18 +394,66 @@
     }
 
     /* === NAV PILL === */
-    .nav-pill {
+    .slide-nav {
       position: fixed;
-      bottom: 24px; right: 32px;
-      background: var(--surface-card);
-      border-radius: 24px;
-      padding: 9px 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
-      font-family: var(--font-code);
+      bottom: 20px;
+      right: 20px;
       font-size: 13px;
-      font-weight: 600;
       color: var(--atomic-med-gray);
+      background: rgba(255,255,255,0.95);
+      padding: 10px 16px;
+      border-radius: 24px;
       z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+      font-weight: 600;
+      opacity: 1;
+      min-width: 140px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .slide-nav-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .slide-nav-timer {
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--atomic-med-gray);
+      opacity: 0.7;
+    }
+    .slide-nav-tracks {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 7px;
+    }
+    .slide-nav-track {
+      height: 2px;
+      border-radius: 1px;
+      background: rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .slide-nav-track-fill {
+      height: 100%;
+      border-radius: 1px;
+      transition: width 0.4s ease;
+    }
+    #slide-progress-fill {
+      background: var(--atomic-light-gray);
+      width: 2%;
+    }
+    #countdown-timer {
+      transition: color 1s ease;
+    }
+    .slide-nav-help {
+      font-size: 10px;
+      margin-top: 5px;
+      opacity: 0.45;
+      font-weight: 400;
     }
 
     /* === SCROLL REVEAL === */
@@ -443,13 +491,24 @@
 </head>
 <body>
 
-<div class="nav-pill" id="nav-pill">1 / 24</div>
+<div class="slide-nav" id="slide-nav" title="Double-click to reset timer">
+  <div class="slide-nav-top">
+    <span id="slide-counter">1 / 1</span>
+    <span class="slide-nav-timer" id="countdown-timer">30m</span>
+  </div>
+  <div class="slide-nav-tracks">
+    <div class="slide-nav-track">
+      <div class="slide-nav-track-fill" id="slide-progress-fill"></div>
+    </div>
+  </div>
+  <div class="slide-nav-help">Scroll to navigate</div>
+</div>
 
 <!-- ============================================================
   01 — TITLE
 ============================================================ -->
 <section class="slide slide-title" id="slide-1">
-  <div class="section-eyebrow reveal">Product Requirements Document · 2026-03-09</div>
+  <div class="section-eyebrow reveal">Product Requirements Document · 2026-03-11</div>
   <h1 class="reveal reveal-delay-1">Woven Requirements<br>Automation</h1>
   <p class="subtitle reveal reveal-delay-2">
     Automating the intake and consolidation of software requirements from Toyota/CA sources into JAMA for Woven's SV&amp;V team.
@@ -469,7 +528,7 @@
     </div>
     <div class="title-meta-item">
       <span class="title-meta-label">Sources</span>
-      16 stakeholder interviews &amp; sessions
+      4 stakeholder interviews
     </div>
   </div>
   <span class="slide-number">01</span>
@@ -481,7 +540,7 @@
 <section class="slide slide-section" id="slide-2">
   <h2 class="reveal">The Problem</h2>
   <p class="key-message reveal reveal-delay-1">
-    Requirements arrive scattered, change without warning,<br>and are consolidated entirely by hand.
+    Requirements arrive scattered, change without warning,<br>and are consolidated entirely manually.
   </p>
   <span class="slide-number" style="color:rgba(255,255,255,0.35);">02</span>
 </section>
@@ -493,15 +552,15 @@
   <div class="section-eyebrow reveal">Context</div>
   <h2 class="reveal reveal-delay-1">Two Requirements Problems at Woven</h2>
   <div class="column-cards reveal reveal-delay-2">
+    <div class="col-card good">
+      <div class="col-header">Top-Down</div>
+      <p>Requirements flowing from Toyota via the CA liaison team into Woven are scattered across tools, poorly structured, and change without any notification reaching the right teams.</p>
+      <p style="margin-top:14px; font-size:16px; color:var(--atomic-teal);">Externally constrained, harder to solve. <strong>Confirmed priority by Julia Pralle.</strong></p>
+    </div>
     <div class="col-card bad">
       <div class="col-header">Bottom-Up (Internal)</div>
       <p>Autonomous driving software was written before formal requirements were established. Knowledge is tribal and scattered inside Woven.</p>
-      <p style="margin-top:14px; font-size:16px; color:var(--atomic-med-gray);">Lower priority — internal to Woven, more available solutions.</p>
-    </div>
-    <div class="col-card good">
-      <div class="col-header">Top-Down ← Our Focus</div>
-      <p>Requirements flowing from Toyota via the CA liaison team into Woven are scattered across tools, poorly structured, and change without any notification reaching the right teams.</p>
-      <p style="margin-top:14px; font-size:16px; color:var(--atomic-teal);">Externally constrained, harder to solve. <strong>Confirmed priority by Julia Pralle.</strong></p>
+      <p style="margin-top:14px; font-size:16px; color:var(--atomic-med-gray);">Lower priority — internal to Woven, more available solutions. <strong>Out of scope for this effort.</strong></p>
     </div>
   </div>
   <span class="slide-number">03</span>
@@ -550,29 +609,20 @@
 </section>
 
 <!-- ============================================================
-  05 — SCALE OF THE PROBLEM
+  05 — WHY THIS MATTERS
 ============================================================ -->
 <section class="slide slide-default" id="slide-5">
-  <div class="section-eyebrow reveal">Scale</div>
-  <h2 class="reveal reveal-delay-1">The Manual Burden</h2>
-  <div class="stat-row reveal reveal-delay-2">
-    <div class="stat-box">
-      <span class="stat-number">600+</span>
-      <p class="stat-label">Lane change SWRDs managed manually by Hannah</p>
-    </div>
-    <div class="stat-box">
-      <span class="stat-number">Weeks</span>
-      <p class="stat-label">To document each component (e.g. Lane Change) — could be reduced to days</p>
-    </div>
-    <div class="stat-box">
-      <span class="stat-number">0</span>
-      <p class="stat-label">Automated notifications when Toyota updates requirements mid-quarter</p>
-    </div>
-    <div class="stat-box">
-      <span class="stat-number">~90%</span>
-      <p class="stat-label">LLM test case effectiveness — but still requires full manual curation</p>
-    </div>
+  <div class="section-eyebrow reveal">Why This Matters</div>
+  <h2 class="reveal reveal-delay-1">The Scale of the Problem</h2>
+  <p class="reveal reveal-delay-2" style="font-size:24px; color:var(--atomic-med-gray); max-width:820px; margin-bottom:0;">
+    There are <strong style="color:var(--atomic-black);">hundreds of requirements</strong> across many different functional areas — and every single one is being handled manually today.
+  </p>
+  <div class="metaphor-box reveal reveal-delay-3" style="margin-top:40px; max-width:820px;">
+    <p>Lane Change alone has 600+ SWRDs. Each must be found, read, interpreted, and entered into JAMA by hand — then tracked for changes, linked to test cases, and updated whenever Toyota revises them. There is no automated alert when something changes mid-quarter. There is no single place to see what's been processed and what hasn't.</p>
   </div>
+  <p class="reveal reveal-delay-4" style="font-size:20px; color:var(--atomic-med-gray); max-width:820px; margin-top:32px;">
+    The problem isn't that the work is too hard — it's that the work doesn't have to be entirely manual.
+  </p>
   <span class="slide-number">05</span>
 </section>
 
@@ -592,22 +642,11 @@
 </section>
 
 <!-- ============================================================
-  08 — SECTION: USERS
-============================================================ -->
-<section class="slide slide-section" id="slide-6">
-  <h2 class="reveal">Who's Affected</h2>
-  <p class="key-message reveal reveal-delay-1">
-    Four personas. One broken pipeline.
-  </p>
-  <span class="slide-number" style="color:rgba(255,255,255,0.35);">07</span>
-</section>
-
-<!-- ============================================================
   08 — USER PERSONAS
 ============================================================ -->
 <section class="slide slide-white" id="slide-7">
-  <div class="section-eyebrow reveal">Primary Personas</div>
-  <h2 class="reveal reveal-delay-1">The People We're Building For</h2>
+  <div class="section-eyebrow reveal">User Research</div>
+  <h2 class="reveal reveal-delay-1">What We Heard: Four Interviews</h2>
   <div class="grid grid-2 reveal reveal-delay-2">
     <div class="persona-card">
       <div class="persona-name">Hannah Lane</div>
@@ -649,7 +688,7 @@
       </ul>
     </div>
   </div>
-  <span class="slide-number">08</span>
+  <span class="slide-number">07</span>
 </section>
 
 <!-- ============================================================
@@ -674,20 +713,39 @@
       <h4>Test Case Generation</h4>
       <p>Auto-generate SWQT structure from approved requirements using LLM, reducing manual drafting from hours to minutes.</p>
     </div>
-    <div class="card gold">
-      <span class="card-icon">🔍</span>
-      <h4>Requirement Filtering</h4>
-      <p>Surface problematic SWRDs (TBDs, over-prescriptive, legacy TSS-4) to reduce wasted review time upstream.</p>
+  </div>
+  <span class="slide-number">08</span>
+</section>
+
+<!-- ============================================================
+  PILOT SCOPE
+============================================================ -->
+<section class="slide slide-white" id="slide-14">
+  <div class="section-eyebrow reveal">Phase 1 Boundaries</div>
+  <h2 class="reveal reveal-delay-1">What's In and What's Out</h2>
+  <div class="column-cards reveal reveal-delay-2">
+    <div class="col-card good">
+      <div class="col-header">✓ In Scope (Pilot)</div>
+      <ul style="padding-left:20px;">
+        <li style="font-size:18px; margin-bottom:10px;"><strong style="color:var(--atomic-purple); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; vertical-align:middle; margin-right:6px;">System 1</strong> Structured JAMA requirements entry from SWRD content</li>
+        <li style="font-size:18px; margin-bottom:10px;"><strong style="color:var(--atomic-purple); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; vertical-align:middle; margin-right:6px;">System 1</strong> Gated test case (SWQT) generation via LLM</li>
+        <li style="font-size:18px; margin-bottom:10px;"><strong style="color:var(--atomic-purple); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; vertical-align:middle; margin-right:6px;">System 1</strong> JAMA source linkage and version history</li>
+        <li style="font-size:18px; margin-bottom:10px;"><strong style="color:var(--atomic-teal); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; vertical-align:middle; margin-right:6px;">System 2</strong> Lane change SWRDs from Git repository (pilot scope)</li>
+        <li style="font-size:18px; margin-bottom:10px;"><strong style="color:var(--atomic-teal); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; vertical-align:middle; margin-right:6px;">System 2</strong> Automated SWRD discovery and batch import from PRD</li>
+        <li style="font-size:18px; margin-bottom:10px;"><strong style="color:var(--atomic-gold); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; vertical-align:middle; margin-right:6px;">System 3</strong> Change detection via polling</li>
+        <li style="font-size:18px; margin-bottom:10px;"><strong style="color:var(--atomic-gold); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; vertical-align:middle; margin-right:6px;">System 3</strong> Change notification to Hannah and systems engineers</li>
+      </ul>
     </div>
-    <div class="card gold">
-      <span class="card-icon">🔗</span>
-      <h4>Visibility &amp; Traceability</h4>
-      <p>Trace requirements → test cases → implementation. Understand coverage and the blast radius of any change.</p>
-    </div>
-    <div class="card muted">
-      <span class="card-icon">🏗️</span>
-      <h4>Multi-Source (Phase 2+)</h4>
-      <p>Other capability groups, non-Git sources, SBRD handling. Deferred until pilot success is demonstrated.</p>
+    <div class="col-card bad">
+      <div class="col-header">✗ Out of Scope (Pilot)</div>
+      <ul style="padding-left:20px;">
+        <li style="font-size:18px; margin-bottom:10px;">SBRDs and TPIDs (separate workflow)</li>
+        <li style="font-size:18px; margin-bottom:10px;">Multi-source consolidation beyond Git</li>
+        <li style="font-size:18px; margin-bottom:10px;">SWRD quality filtering or upstream prioritization</li>
+        <li style="font-size:18px; margin-bottom:10px;">Scope translation: system-of-systems → IPA</li>
+        <li style="font-size:18px; margin-bottom:10px;">Integration with CA/Toyota upstream systems</li>
+        <li style="font-size:18px; margin-bottom:10px;">Bottom-up requirements backfilling from existing code</li>
+      </ul>
     </div>
   </div>
   <span class="slide-number">09</span>
@@ -697,7 +755,7 @@
   10 — SECTION: THE SOLUTION
 ============================================================ -->
 <section class="slide slide-section" id="slide-9">
-  <h2 class="reveal">The Solution</h2>
+  <h2 class="reveal">The MVP Solution</h2>
   <p class="key-message reveal reveal-delay-1">
     Automate the pipeline from Git-based SWRDs into structured JAMA entries — with change detection and gated test case generation.
   </p>
@@ -705,44 +763,29 @@
 </section>
 
 <!-- ============================================================
-  11 — QUOTE: HANNAH LLM
-============================================================ -->
-<section class="slide slide-default" id="slide-q2" style="align-items: center; text-align: center;">
-  <div class="section-eyebrow reveal" style="color: var(--atomic-med-gray); letter-spacing: 2px;">The Opportunity</div>
-  <blockquote class="reveal reveal-delay-1" style="font-family: var(--font-heading); font-size: 40px; font-weight: 700; color: var(--atomic-black); line-height: 1.4; max-width: 860px; margin: 32px auto 0; quotes: none;">
-    "A year ago it got me about <span class="highlight-gold">70%</span> of the way there. Now I'd say it gets me about <span class="highlight-teal">90%</span>."
-  </blockquote>
-  <cite class="reveal reveal-delay-2" style="display: block; font-style: normal; font-size: 20px; color: var(--atomic-med-gray); margin-top: 36px; font-family: var(--font-body);">
-    Hannah Lane — on LLM-assisted test case generation via Wovey
-  </cite>
-  <span class="slide-number">11</span>
-</section>
-
-<!-- ============================================================
-  12 — AI ADOPTION GAP
+  11 — AI ADOPTION GAP
 ============================================================ -->
 <section class="slide slide-white" id="slide-q3">
   <div class="section-eyebrow reveal">Insight</div>
-  <h2 class="reveal reveal-delay-1">AI Awareness ≠ AI Adoption</h2>
-  <p class="reveal reveal-delay-2" style="font-size: 21px; color: var(--atomic-med-gray); max-width: 700px;">
-    The tooling exists — but informal, person-to-person. The solution can change that.
+  <h2 class="reveal reveal-delay-1">Less Writing, More Reviewing</h2>
+  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:760px;">
+    Hannah has already figured out that AI can do most of this work. She's shifted from manual authoring to reviewing and curating AI output.
   </p>
-  <div class="column-cards reveal reveal-delay-3">
-    <div class="col-card good">
-      <div class="col-header">Hannah — Fully Integrated</div>
-      <p>Built her own Wovey prompt for SWQT generation. Uses it on every requirement. Getting ~90% of the way there — then manually curates the rest.</p>
-      <p style="margin-top:16px; font-size:16px; color:var(--atomic-med-gray);">"I didn't type all of this by hand. It's not 2019 anymore."</p>
-    </div>
-    <div class="col-card bad" style="border-top-color: var(--atomic-gold);">
-      <div class="col-header" style="color: var(--atomic-gold);">Nick — Aware, Not Adopted</div>
-      <p>Knows the tool exists because a teammate built it. Would use <em>Hannah's</em> prompt — doesn't have his own workflow. Still in review phase; hasn't generated a test case yet.</p>
-      <p style="margin-top:16px; font-size:16px; color:var(--atomic-med-gray);">"I know that one of my teammates had written a prompt in Wovey."</p>
-    </div>
+  <div class="reveal reveal-delay-3" style="margin-top:28px; display:flex; flex-direction:column; gap:20px; max-width:820px;">
+    <blockquote style="font-family: var(--font-heading); font-size: 26px; font-weight: 700; color: var(--atomic-black); line-height: 1.4; quotes: none; padding-left: var(--space-6); border-left: 4px solid var(--atomic-gold); margin:0;">
+      "A year ago it got me about <span class="highlight-gold">70%</span> of the way there. Now I'd say it gets me about <span class="highlight-teal">90%</span>."
+    </blockquote>
+    <blockquote style="font-family: var(--font-heading); font-size: 26px; font-weight: 700; color: var(--atomic-black); line-height: 1.4; quotes: none; padding-left: var(--space-6); border-left: 4px solid var(--atomic-teal); margin:0;">
+      "I didn't type all of this by hand. <span class="highlight-teal">It's not 2019 anymore.</span>"
+    </blockquote>
+    <cite style="display: block; font-style: normal; font-size: 15px; color: var(--atomic-med-gray); padding-left: var(--space-6); font-family: var(--font-body);">
+      Hannah Lane — Systems &amp; Validation Engineer, Woven
+    </cite>
   </div>
   <div class="metaphor-box reveal reveal-delay-4">
-    <p><strong>The implication:</strong> AI-assisted requirements work is spreading person-to-person, not systematically. A built-in LLM pipeline removes the adoption barrier — <span class="highlight-teal">every user gets the same capability automatically</span>, not just those who know Hannah.</p>
+    <p><strong>The takeaway:</strong> Hannah already uses Wovey to generate test cases at ~90% effectiveness — then reviews and curates the output. She's doing <span class="highlight-teal">less manual writing and more reviewing</span>. Our tool systematizes this workflow so it's built into the process, not dependent on a single person's initiative.</p>
   </div>
-  <span class="slide-number">12</span>
+  <span class="slide-number">11</span>
 </section>
 
 <!-- ============================================================
@@ -765,559 +808,431 @@
       <p>Established practices exist for where requirements live. The solution must work with existing sources, not ideal organization.</p>
     </div>
     <div class="card red">
-      <h4>Intake Only — Not Authorship</h4>
-      <p>The tool structures what Toyota and CA have already written. It does not generate, author, or invent requirements.</p>
-    </div>
-    <div class="card red">
       <h4>Process Still Being Defined</h4>
       <p>Woven is implementing the CRB process now. The target workflow is not yet stable — but that's an opportunity to shape it.</p>
     </div>
+  </div>
+  <span class="slide-number">12</span>
+</section>
+
+<!-- ============================================================
+  14 — THREE-SYSTEM OVERVIEW
+============================================================ -->
+<section class="slide slide-default" id="slide-systems-overview">
+  <div class="section-eyebrow reveal">Proposed Solution</div>
+  <h2 class="reveal reveal-delay-1">Three Systems, One Pipeline</h2>
+  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:760px;">
+    The solution has three distinct parts — each one buildable independently, each one unlocking the next.
+  </p>
+  <div class="grid grid-3 reveal reveal-delay-3" style="margin-top:32px;">
+    <div class="card purple" style="position:relative;">
+      <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-purple); margin-bottom:10px;">System 1 · First Priority</div>
+      <span class="card-icon">✍️</span>
+      <h4>Requirements Creation</h4>
+      <p>Takes raw SWRD content and structures it into plain-English, JAMA-ready entries — with a gated test case draft. We have a proof of concept working.</p>
+      <div style="margin-top:14px; font-size:13px; font-weight:700; color:var(--atomic-teal);">✓ POC built, no access dependencies</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-teal); margin-bottom:10px;">System 2</div>
+      <span class="card-icon">📡</span>
+      <h4>Automated Gathering</h4>
+      <p>Reads the quarterly PRD, discovers all in-scope SWRDs, and batch-imports them — replacing the manual one-by-one hunt across Git and Google Docs.</p>
+      <div style="margin-top:14px; font-size:13px; color:var(--atomic-med-gray);">Needs: Git + Google Drive access</div>
+    </div>
+    <div class="card gold">
+      <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-gold); margin-bottom:10px;">System 3</div>
+      <span class="card-icon">🔔</span>
+      <h4>Change Management</h4>
+      <p>Watches for Toyota requirement updates mid-quarter and alerts the right engineers before the impact is missed. Extends System 2's access layer.</p>
+      <div style="margin-top:14px; font-size:13px; color:var(--atomic-med-gray);">Needs: System 2 access + polling cadence</div>
+    </div>
+  </div>
+  <div class="metaphor-box reveal reveal-delay-4" style="margin-top:28px;">
+    <p>Each system is independently useful. System 1 works on day one with zero access dependencies. Systems 2 and 3 unlock progressively as we get access to Git, Google Drive, and JAMA's API.</p>
   </div>
   <span class="slide-number">13</span>
 </section>
 
 <!-- ============================================================
-  14 — CORE FUNCTIONALITY
+  14b — FULL PIPELINE MAP
 ============================================================ -->
-<section class="slide slide-white" id="slide-core-func">
+<section class="slide slide-white" id="slide-pipeline-map">
   <div class="section-eyebrow reveal">Proposed Solution</div>
-  <h2 class="reveal reveal-delay-1">Core Functionality</h2>
-  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:780px;">
-    Two subsystems: the basic SWRD-to-JAMA intake flow, and a monitor that keeps requirements current when Toyota changes them.
-  </p>
-
-  <!-- Row 1: SWRD → JAMA Pipeline -->
-  <div class="reveal reveal-delay-3" style="margin-top: 28px;">
-    <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#A5488B; margin-bottom:12px;">SWRD → JAMA Pipeline</div>
-    <div style="display:flex; align-items:stretch; gap:0;">
-
-      <div style="flex:1; background:var(--surface-card); border-radius:var(--radius-lg) 0 0 var(--radius-lg); padding:28px 28px; box-shadow:var(--shadow-md); border:2px solid #E0D6F5; border-right:none; display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <div style="width:48px; height:48px; border-radius:var(--radius-full); background:#EDE8F8; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
-          <span style="font-size:22px;">📥</span>
-        </div>
-        <div style="font-family:var(--font-heading); font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Fetch Raw SWRD Data</div>
-        <p style="font-size:13px; color:var(--atomic-med-gray); line-height:1.5; margin:0;">Pull from Git — by paste, link, or automated polling.</p>
-      </div>
-
-      <div style="display:flex; align-items:center; justify-content:center; width:48px; background:var(--surface-card); border-top:2px solid #E0D6F5; border-bottom:2px solid #E0D6F5; flex-shrink:0;">
-        <svg width="24" height="12" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 8H28M28 8L21 1M28 8L21 15" stroke="#A5488B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-
-      <div style="flex:1; background:var(--surface-card); padding:28px 28px; box-shadow:var(--shadow-md); border:2px solid #E0D6F5; border-left:none; border-right:none; display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <div style="width:48px; height:48px; border-radius:var(--radius-full); background:#EDE8F8; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
-          <span style="font-size:22px;">✍️</span>
-        </div>
-        <div style="font-family:var(--font-heading); font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Generate Requirements</div>
-        <p style="font-size:13px; color:var(--atomic-med-gray); line-height:1.5; margin:0;">LLM structures raw SWRD text into plain-English JAMA-ready entries.</p>
-      </div>
-
-      <div style="display:flex; align-items:center; justify-content:center; width:48px; background:var(--surface-card); border-top:2px solid #E0D6F5; border-bottom:2px solid #E0D6F5; flex-shrink:0;">
-        <svg width="24" height="12" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 8H28M28 8L21 1M28 8L21 15" stroke="#A5488B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-
-      <div style="flex:1; background:var(--surface-card); border-radius:0 var(--radius-lg) var(--radius-lg) 0; padding:28px 28px; box-shadow:var(--shadow-md); border:2px solid #E0D6F5; border-left:none; display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <div style="width:48px; height:48px; border-radius:var(--radius-full); background:#EDE8F8; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
-          <span style="font-size:22px;">🧪</span>
-        </div>
-        <div style="font-family:var(--font-heading); font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Generate Test Case(s)</div>
-        <p style="font-size:13px; color:var(--atomic-med-gray); line-height:1.5; margin:0;">Once approved, auto-draft SWQT candidates for human review and JAMA submission.</p>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Row 2: Requirements Monitor -->
-  <div class="reveal reveal-delay-4" style="margin-top: 24px;">
-    <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-teal); margin-bottom:12px;">Requirements Monitor</div>
-    <div style="display:flex; align-items:stretch; gap:0;">
-
-      <div style="flex:1; background:var(--surface-card); border-radius:var(--radius-lg) 0 0 var(--radius-lg); padding:28px 28px; box-shadow:var(--shadow-md); border:2px solid #D6EEF5; border-right:none; display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <div style="width:48px; height:48px; border-radius:var(--radius-full); background:#E8F4F8; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
-          <span style="font-size:22px;">🔍</span>
-        </div>
-        <div style="font-family:var(--font-heading); font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Poll Git for Changes</div>
-        <p style="font-size:13px; color:var(--atomic-med-gray); line-height:1.5; margin:0;">Job watches SWRD files against the last-processed version.</p>
-      </div>
-
-      <div style="display:flex; align-items:center; justify-content:center; width:48px; background:var(--surface-card); border-top:2px solid #D6EEF5; border-bottom:2px solid #D6EEF5; flex-shrink:0;">
-        <svg width="24" height="12" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 8H28M28 8L21 1M28 8L21 15" stroke="#3295BD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-
-      <div style="flex:1; background:var(--surface-card); padding:28px 28px; box-shadow:var(--shadow-md); border:2px solid #D6EEF5; border-left:none; border-right:none; display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <div style="width:48px; height:48px; border-radius:var(--radius-full); background:#E8F4F8; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
-          <span style="font-size:22px;">🔀</span>
-        </div>
-        <div style="font-family:var(--font-heading); font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Diff Old vs. New</div>
-        <p style="font-size:13px; color:var(--atomic-med-gray); line-height:1.5; margin:0;">Identifies what changed at section level — interface, specification, or reason.</p>
-      </div>
-
-      <div style="display:flex; align-items:center; justify-content:center; width:48px; background:var(--surface-card); border-top:2px solid #D6EEF5; border-bottom:2px solid #D6EEF5; flex-shrink:0;">
-        <svg width="24" height="12" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 8H28M28 8L21 1M28 8L21 15" stroke="#3295BD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-
-      <div style="flex:1; background:var(--surface-card); border-radius:0 var(--radius-lg) var(--radius-lg) 0; padding:28px 28px; box-shadow:var(--shadow-md); border:2px solid #D6EEF5; border-left:none; display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <div style="width:48px; height:48px; border-radius:var(--radius-full); background:#E8F4F8; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
-          <span style="font-size:22px;">🔔</span>
-        </div>
-        <div style="font-family:var(--font-heading); font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Alert the Team</div>
-        <p style="font-size:13px; color:var(--atomic-med-gray); line-height:1.5; margin:0;">Digest to Hannah &amp; engineers — which SWRDs changed, what changed, link to diff.</p>
-      </div>
-
-    </div>
-  </div>
-
-  <span class="slide-number">14</span>
-</section>
-
-<!-- ============================================================
-  14 — INPUT-OUTPUT MAP (CORE)
-============================================================ -->
-<section class="slide slide-white" id="slide-10-core">
-  <div class="section-eyebrow reveal">Proposed Solution</div>
-  <h2 class="reveal reveal-delay-1">Input–Output Map</h2>
-  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); margin-bottom:0;">
-    The core path: how a requirement moves from SWRD into JAMA.
-  </p>
-  <div class="reveal reveal-delay-3" style="margin-top: 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden;">
-    <svg viewBox="0 0 1680 720" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-      <defs>
-        <marker id="iom2-a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#888"/></marker>
-        <marker id="iom2-g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#43A047"/></marker>
-        <marker id="iom2-o" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#FB8C00"/></marker>
-        <marker id="iom2-t" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#4DD0E1"/></marker>
-      </defs>
-
-      <!-- ── SWIMLANE BACKGROUNDS ── -->
-      <rect x="0" y="0" width="1680" height="165" fill="#D6EEF8"/>
-      <rect x="0" y="165" width="1680" height="200" fill="#ECE8F8"/>
-      <rect x="0" y="365" width="1680" height="355" fill="#D0F0EE"/>
-      <line x1="115" y1="165" x2="1680" y2="165" stroke="#C0C0C0" stroke-width="1"/>
-      <line x1="115" y1="365" x2="1680" y2="365" stroke="#C0C0C0" stroke-width="1"/>
-
-      <!-- ── LANE LABELS ── -->
-      <rect x="0" y="0" width="115" height="165" fill="#9AC0D8"/>
-      <text x="57" y="74" fill="#102030" font-size="15" font-weight="700" text-anchor="middle">User</text>
-      <text x="57" y="93" fill="#102030" font-size="15" font-weight="700" text-anchor="middle">Input</text>
-      <rect x="0" y="165" width="115" height="200" fill="#B8A8DC"/>
-      <text x="57" y="265" fill="#201040" font-size="15" font-weight="700" text-anchor="middle">Tooling</text>
-      <rect x="0" y="365" width="115" height="355" fill="#70B8B2"/>
-      <text x="57" y="535" fill="#082828" font-size="13" font-weight="700" text-anchor="middle">Output</text>
-      <text x="57" y="554" fill="#082828" font-size="13" font-weight="700" text-anchor="middle">Destination</text>
-
-      <!-- ── USER INPUT HEXAGONS (C2 cx=430, C3 cx=880) ── -->
-      <polygon points="368,50 388,30 472,30 492,50 492,66 472,86 388,86 368,66" fill="#C5E4F5" stroke="#5BA4D5" stroke-width="2"/>
-      <text x="430" y="52" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">Paste link to</text>
-      <text x="430" y="67" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">requirement</text>
-      <polygon points="804,50 824,30 936,30 956,50 956,66 936,86 824,86 804,66" fill="#C5E4F5" stroke="#5BA4D5" stroke-width="2"/>
-      <text x="880" y="52" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">Directly paste original</text>
-      <text x="880" y="67" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">requirement into tool</text>
-
-      <!-- ── ACCESS GATES (Git only) ── -->
-      <rect x="397" y="116" width="66" height="40" rx="4" fill="#E53935"/>
-      <text x="430" y="131" fill="white" font-size="10" font-weight="700" text-anchor="middle">Git</text>
-      <text x="430" y="145" fill="white" font-size="10" font-weight="700" text-anchor="middle">Access</text>
-
-      <!-- ── TOOLING ROW 1 (C2 cx=430, C3 cx=880, C5 cx=1330) ── -->
-      <rect x="335" y="198" width="190" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
-      <text x="430" y="223" fill="#281858" font-size="11" font-weight="700" text-anchor="middle">Requirement Fetcher</text>
-      <text x="430" y="238" fill="#281858" font-size="11" text-anchor="middle">(single requirement detail)</text>
-      <rect x="790" y="198" width="180" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
-      <text x="880" y="223" fill="#281858" font-size="11" font-weight="700" text-anchor="middle">Requirements Generator</text>
-      <text x="880" y="238" fill="#281858" font-size="11" text-anchor="middle">(plain english)</text>
-      <rect x="1248" y="198" width="165" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
-      <text x="1330" y="232" fill="#281858" font-size="12" font-weight="700" text-anchor="middle">Test Generator</text>
-
-      <!-- ── TOOLING ROW 2 ── -->
-      <rect x="335" y="282" width="190" height="56" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
-      <text x="430" y="315" fill="#281858" font-size="11" font-weight="700" text-anchor="middle">Requirements Monitor</text>
-
-      <!-- ── OUTPUT ROW 1: primary outputs ── -->
-      <rect x="338" y="395" width="184" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="430" y="414" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">User alert: this</text>
-      <text x="430" y="429" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">requirement changed</text>
-      <rect x="970" y="395" width="120" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="1030" y="414" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">Copy Paste</text>
-      <text x="1030" y="429" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">into JAMA</text>
-      <rect x="1410" y="395" width="120" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="1470" y="414" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">Copy Paste</text>
-      <text x="1470" y="429" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">into JAMA</text>
-
-      <!-- ── OUTPUT ROW 2: JAMA API access gates ── -->
-      <rect x="820" y="465" width="74" height="46" rx="4" fill="#E53935"/>
-      <text x="857" y="484" fill="white" font-size="10" font-weight="700" text-anchor="middle">JAMA API</text>
-      <text x="857" y="498" fill="white" font-size="10" font-weight="700" text-anchor="middle">Access</text>
-      <rect x="1270" y="465" width="74" height="46" rx="4" fill="#E53935"/>
-      <text x="1307" y="484" fill="white" font-size="10" font-weight="700" text-anchor="middle">JAMA API</text>
-      <text x="1307" y="498" fill="white" font-size="10" font-weight="700" text-anchor="middle">Access</text>
-
-      <!-- ── OUTPUT ROW 3: Known Folder gates ── -->
-      <rect x="688" y="548" width="74" height="46" rx="4" fill="#E53935"/>
-      <text x="725" y="565" fill="white" font-size="10" font-weight="700" text-anchor="middle">Known</text>
-      <text x="725" y="579" fill="white" font-size="10" font-weight="700" text-anchor="middle">Folder</text>
-      <text x="725" y="592" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">Structure</text>
-      <rect x="1138" y="548" width="74" height="46" rx="4" fill="#E53935"/>
-      <text x="1175" y="565" fill="white" font-size="10" font-weight="700" text-anchor="middle">Known</text>
-      <text x="1175" y="579" fill="white" font-size="10" font-weight="700" text-anchor="middle">Folder</text>
-      <text x="1175" y="592" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">Structure</text>
-
-      <!-- ── OUTPUT ROW 4: final auto-post outputs ── -->
-      <rect x="651" y="630" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="725" y="648" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">Automatically post to</text>
-      <text x="725" y="661" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">JAMA in correct</text>
-      <text x="725" y="674" fill="#083028" font-size="9.5" text-anchor="middle">folder/location</text>
-      <rect x="818" y="630" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="892" y="648" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">Automatically post to</text>
-      <text x="892" y="661" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">JAMA in "automation"</text>
-      <text x="892" y="674" fill="#083028" font-size="9.5" text-anchor="middle">folder</text>
-      <rect x="1101" y="630" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="1175" y="648" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">Automatically post to</text>
-      <text x="1175" y="661" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">JAMA in correct</text>
-      <text x="1175" y="674" fill="#083028" font-size="9.5" text-anchor="middle">folder/location</text>
-      <rect x="1266" y="630" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="1340" y="648" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">Automatically post to</text>
-      <text x="1340" y="661" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">JAMA in "automation"</text>
-      <text x="1340" y="674" fill="#083028" font-size="9.5" text-anchor="middle">folder</text>
-
-      <!-- ── CONNECTIONS ── -->
-      <line x1="430" y1="86" x2="430" y2="116" stroke="#888" stroke-width="1.5" marker-end="url(#iom2-a)"/>
-      <line x1="430" y1="156" x2="430" y2="198" stroke="#888" stroke-width="1.5" marker-end="url(#iom2-a)"/>
-      <line x1="880" y1="86" x2="880" y2="198" stroke="#888" stroke-width="1.5" marker-end="url(#iom2-a)"/>
-      <!-- Req Fetcher → Req Generator → Test Generator -->
-      <line x1="525" y1="228" x2="790" y2="228" stroke="#888" stroke-width="1.5" marker-end="url(#iom2-a)"/>
-      <line x1="970" y1="228" x2="1248" y2="228" stroke="#888" stroke-width="1.5" marker-end="url(#iom2-a)"/>
-      <!-- Req Fetcher → Monitor → User Alert -->
-      <line x1="430" y1="258" x2="430" y2="282" stroke="#888" stroke-width="1.5" marker-end="url(#iom2-a)"/>
-      <line x1="430" y1="338" x2="430" y2="395" stroke="#888" stroke-width="1.5" marker-end="url(#iom2-a)"/>
-      <!-- User Alert → Req Generator (change re-triggers generation) -->
-      <path d="M522,418 L780,418 L780,228 L790,228" fill="none" stroke="#888" stroke-width="1.5" marker-end="url(#iom2-a)"/>
-      <!-- Req Generator → JAMA API gate (green) + Copy Paste (orange) -->
-      <line x1="857" y1="258" x2="857" y2="465" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom2-g)"/>
-      <path d="M920,258 L920,330 L1030,330 L1030,395" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#iom2-o)"/>
-      <!-- JAMA API → Known Folder (green) + Auto Automation (orange) -->
-      <path d="M820,511 L725,511 L725,548" fill="none" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom2-g)"/>
-      <path d="M857,511 L892,511 L892,630" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#iom2-o)"/>
-      <!-- Known Folder → Auto Correct -->
-      <line x1="725" y1="594" x2="725" y2="630" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom2-g)"/>
-      <!-- Test Generator → JAMA API gate (green) + Copy Paste (orange) -->
-      <line x1="1307" y1="258" x2="1307" y2="465" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom2-g)"/>
-      <path d="M1370,258 L1370,330 L1470,330 L1470,395" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#iom2-o)"/>
-      <!-- JAMA API → Known Folder (green) + Auto Automation (orange) -->
-      <path d="M1270,511 L1175,511 L1175,548" fill="none" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom2-g)"/>
-      <path d="M1307,511 L1340,511 L1340,630" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#iom2-o)"/>
-      <!-- Known Folder → Auto Correct -->
-      <line x1="1175" y1="594" x2="1175" y2="630" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom2-g)"/>
-    </svg>
-  </div>
-  <span class="slide-number">15</span>
-</section>
-
-<!-- ============================================================
-  15 — INPUT-OUTPUT MAP (FULL — WITH ADD-ONS)
-============================================================ -->
-<section class="slide slide-white" id="slide-10">
-  <div class="section-eyebrow reveal">Proposed Solution</div>
-  <h2 class="reveal reveal-delay-1">Input–Output Map — With Add-ons</h2>
-  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); margin-bottom:0;">
-    The full vision — additional capabilities unlocked as access and trust are established. Dashed nodes are ideal iterations.
-  </p>
-  <div class="reveal reveal-delay-3" style="margin-top: 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden;">
+  <h2 class="reveal reveal-delay-1">How the Systems Connect</h2>
+  <div class="reveal reveal-delay-2" style="margin-top:16px; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); overflow:hidden;">
     <svg viewBox="0 0 1680 610" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
       <defs>
-        <marker id="iom-a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#888"/></marker>
-        <marker id="iom-g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#43A047"/></marker>
-        <marker id="iom-o" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#FB8C00"/></marker>
-        <marker id="iom-t" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#4DD0E1"/></marker>
+        <marker id="pm-a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#888"/></marker>
+        <marker id="pm-g" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#43A047"/></marker>
+        <marker id="pm-o" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#FB8C00"/></marker>
       </defs>
 
-      <!-- ── SWIMLANE BACKGROUNDS ── -->
-      <!-- User Input: y=0-165 (expanded for arrow breathing room) -->
+      <!-- SWIMLANE BACKGROUNDS -->
       <rect x="0" y="0" width="1680" height="165" fill="#D6EEF8"/>
-      <!-- Tooling: y=165-365 -->
       <rect x="0" y="165" width="1680" height="200" fill="#ECE8F8"/>
-      <!-- Output Destination: y=365-610 (expanded) -->
       <rect x="0" y="365" width="1680" height="245" fill="#D0F0EE"/>
       <line x1="115" y1="165" x2="1680" y2="165" stroke="#C0C0C0" stroke-width="1"/>
       <line x1="115" y1="365" x2="1680" y2="365" stroke="#C0C0C0" stroke-width="1"/>
 
-      <!-- ── LANE LABELS ── -->
+      <!-- LANE LABELS -->
       <rect x="0" y="0" width="115" height="165" fill="#9AC0D8"/>
-      <text x="57" y="74" fill="#102030" font-size="15" font-weight="700" text-anchor="middle">User</text>
-      <text x="57" y="93" fill="#102030" font-size="15" font-weight="700" text-anchor="middle">Input</text>
+      <text x="57" y="74" fill="#102030" font-size="14" font-weight="700" text-anchor="middle">User</text>
+      <text x="57" y="92" fill="#102030" font-size="14" font-weight="700" text-anchor="middle">Input</text>
       <rect x="0" y="165" width="115" height="200" fill="#B8A8DC"/>
-      <text x="57" y="265" fill="#201040" font-size="15" font-weight="700" text-anchor="middle">Tooling</text>
+      <text x="57" y="268" fill="#201040" font-size="14" font-weight="700" text-anchor="middle">Tooling</text>
       <rect x="0" y="365" width="115" height="245" fill="#70B8B2"/>
-      <text x="57" y="480" fill="#082828" font-size="13" font-weight="700" text-anchor="middle">Output</text>
-      <text x="57" y="499" fill="#082828" font-size="13" font-weight="700" text-anchor="middle">Destination</text>
+      <text x="57" y="478" fill="#082828" font-size="12" font-weight="700" text-anchor="middle">Output</text>
+      <text x="57" y="496" fill="#082828" font-size="12" font-weight="700" text-anchor="middle">Destination</text>
 
-      <!-- ── USER INPUT HEXAGONS (light blue fill, text vertically centered) ── -->
-      <!-- C1 cx=255 -->
+      <!-- SYSTEM 2 REGION (teal) — user input + tooling only -->
+      <rect x="117" y="4" width="488" height="257" rx="6" fill="rgba(50,149,189,0.08)" stroke="#3295BD" stroke-width="2"/>
+      <text x="132" y="20" fill="#1A6080" font-size="10" font-weight="700" letter-spacing="1">SYSTEM 2: AUTOMATED GATHERING</text>
+
+      <!-- SYSTEM 3 REGION (gold) — extends through Output Destination to cover user alert -->
+      <rect x="117" y="270" width="488" height="176" rx="5" fill="rgba(220,173,102,0.10)" stroke="#DCAD66" stroke-width="2"/>
+      <text x="132" y="284" fill="#9A7010" font-size="10" font-weight="700">SYSTEM 3: CHANGE MANAGEMENT</text>
+
+      <!-- SYSTEM 1 REGION — extends through entire output destination zone -->
+      <rect x="612" y="4" width="1062" height="600" rx="6" fill="rgba(165,72,139,0.06)" stroke="#A5488B" stroke-width="1.5"/>
+      <text x="627" y="20" fill="#7A2870" font-size="10" font-weight="700" letter-spacing="1">SYSTEM 1: AUTOMATED CREATION</text>
+
+      <!-- USER INPUT HEXAGONS -->
+      <!-- C1 cx=255 — Paste link to Google Doc -->
       <polygon points="193,50 213,30 297,30 317,50 317,66 297,86 213,86 193,66" fill="#C5E4F5" stroke="#5BA4D5" stroke-width="2"/>
-      <text x="255" y="52" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">Paste link to</text>
-      <text x="255" y="67" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">google doc</text>
-      <!-- C2 cx=455 -->
+      <text x="255" y="52" fill="#1A4878" font-size="10" font-weight="600" text-anchor="middle">Paste link to</text>
+      <text x="255" y="67" fill="#1A4878" font-size="10" font-weight="600" text-anchor="middle">Google Doc</text>
+
+      <!-- C2 cx=455 — Paste link to requirement -->
       <polygon points="393,50 413,30 497,30 517,50 517,66 497,86 413,86 393,66" fill="#C5E4F5" stroke="#5BA4D5" stroke-width="2"/>
-      <text x="455" y="52" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">Paste link to</text>
-      <text x="455" y="67" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">requirement</text>
-      <!-- C3 cx=680 (text centered to match C1/C2) -->
-      <polygon points="604,50 624,30 736,30 756,50 756,66 736,86 624,86 604,66" fill="#C5E4F5" stroke="#5BA4D5" stroke-width="2"/>
-      <text x="680" y="52" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">Directly paste original</text>
-      <text x="680" y="67" fill="#1A4878" font-size="11" font-weight="600" text-anchor="middle">requirement into tool</text>
+      <text x="455" y="52" fill="#1A4878" font-size="10" font-weight="600" text-anchor="middle">Paste link to</text>
+      <text x="455" y="67" fill="#1A4878" font-size="10" font-weight="600" text-anchor="middle">requirement</text>
 
-      <!-- ── ACCESS GATES (red rectangles, shifted down for arrow space) ── -->
-      <!-- C1: Google Drive Access, y=116-160 (30px below hex bottom at y=86) -->
-      <rect x="219" y="116" width="72" height="44" rx="4" fill="#E53935"/>
-      <text x="255" y="133" fill="white" font-size="10" font-weight="700" text-anchor="middle">Google Drive</text>
-      <text x="255" y="148" fill="white" font-size="10" font-weight="700" text-anchor="middle">Access</text>
-      <!-- C2: Git Access, y=116-156 -->
-      <rect x="422" y="116" width="66" height="40" rx="4" fill="#E53935"/>
-      <text x="455" y="131" fill="white" font-size="10" font-weight="700" text-anchor="middle">Git</text>
-      <text x="455" y="145" fill="white" font-size="10" font-weight="700" text-anchor="middle">Access</text>
+      <!-- C3 cx=850 — Directly paste original (centred above Req Generator) -->
+      <polygon points="774,50 794,30 906,30 926,50 926,66 906,86 794,86 774,66" fill="#C5E4F5" stroke="#5BA4D5" stroke-width="2"/>
+      <text x="850" y="52" fill="#1A4878" font-size="10" font-weight="600" text-anchor="middle">Directly paste original</text>
+      <text x="850" y="67" fill="#1A4878" font-size="10" font-weight="600" text-anchor="middle">requirement into tool</text>
 
-      <!-- ── TOOLING ROW 1 ── -->
-      <!-- C1: PRD Fetcher (DASHED) -->
-      <rect x="172" y="198" width="165" height="60" rx="6" fill="#DDD0F5" stroke="#9878DC" stroke-width="1.5" stroke-dasharray="7,4"/>
-      <text x="255" y="223" fill="#38186A" font-size="11" font-weight="700" text-anchor="middle">PRD Fetcher</text>
-      <text x="255" y="238" fill="#38186A" font-size="11" text-anchor="middle">(bulk requirements)</text>
-      <!-- C2: Requirement Fetcher (SOLID) -->
-      <rect x="360" y="198" width="190" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
-      <text x="455" y="223" fill="#281858" font-size="11" font-weight="700" text-anchor="middle">Requirement Fetcher</text>
-      <text x="455" y="238" fill="#281858" font-size="11" text-anchor="middle">(single requirement detail)</text>
-      <!-- C3: Requirements Generator (SOLID) -->
-      <rect x="590" y="198" width="180" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
-      <text x="680" y="223" fill="#281858" font-size="11" font-weight="700" text-anchor="middle">Requirements Generator</text>
-      <text x="680" y="238" fill="#281858" font-size="11" text-anchor="middle">(plain english)</text>
-      <!-- C4: Requirement Quality Identifier (DASHED) -->
-      <rect x="908" y="198" width="184" height="60" rx="6" fill="#DDD0F5" stroke="#9878DC" stroke-width="1.5" stroke-dasharray="7,4"/>
-      <text x="1000" y="223" fill="#38186A" font-size="11" font-weight="700" text-anchor="middle">Requirement Quality</text>
-      <text x="1000" y="238" fill="#38186A" font-size="11" text-anchor="middle">Identifier</text>
-      <!-- C5: Test Generator (SOLID) -->
-      <rect x="1187" y="198" width="165" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
-      <text x="1270" y="232" fill="#281858" font-size="12" font-weight="700" text-anchor="middle">Test Generator</text>
-      <!-- Sidebar: Multiple Test Case Suggestion (DASHED) -->
-      <rect x="1420" y="193" width="155" height="70" rx="6" fill="#DDD0F5" stroke="#9878DC" stroke-width="1.5" stroke-dasharray="7,4"/>
-      <text x="1498" y="217" fill="#38186A" font-size="10" font-weight="700" text-anchor="middle">Multiple Test Case</text>
-      <text x="1498" y="231" fill="#38186A" font-size="10" font-weight="700" text-anchor="middle">Suggestion:</text>
-      <text x="1498" y="245" fill="#38186A" font-size="10" text-anchor="middle">(Suggesting ideal test</text>
-      <text x="1498" y="258" fill="#38186A" font-size="10" text-anchor="middle">case amount)</text>
+      <!-- ACCESS GATES -->
+      <!-- Google Drive: cx=255 -->
+      <rect x="219" y="104" width="72" height="44" rx="4" fill="#E53935"/>
+      <text x="255" y="121" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">Google Drive</text>
+      <text x="255" y="136" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">Access</text>
 
-      <!-- ── TOOLING ROW 2 ── -->
-      <!-- C2: Requirements Monitor (SOLID) -->
-      <rect x="360" y="282" width="190" height="56" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
-      <text x="455" y="315" fill="#281858" font-size="11" font-weight="700" text-anchor="middle">Requirements Monitor</text>
+      <!-- Git: cx=455 -->
+      <rect x="422" y="110" width="66" height="40" rx="4" fill="#E53935"/>
+      <text x="455" y="126" fill="white" font-size="10" font-weight="700" text-anchor="middle">Git</text>
+      <text x="455" y="141" fill="white" font-size="10" font-weight="700" text-anchor="middle">Access</text>
 
-      <!-- ── OUTPUT NODES ── -->
-      <!-- C2: User alert this requirement changed -->
+      <!-- TOOLING ROW 1 (y=182–242) -->
+      <!-- PRD Fetcher (DASHED): cx=255 -->
+      <rect x="172" y="182" width="165" height="60" rx="6" fill="#DDD0F5" stroke="#9878DC" stroke-width="1.5" stroke-dasharray="7,4"/>
+      <text x="255" y="207" fill="#38186A" font-size="10" font-weight="700" text-anchor="middle">PRD Fetcher</text>
+      <text x="255" y="222" fill="#38186A" font-size="10" text-anchor="middle">(bulk requirements)</text>
+
+      <!-- Requirement Fetcher (SOLID): cx=455 -->
+      <rect x="360" y="182" width="190" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
+      <text x="455" y="207" fill="#281858" font-size="10" font-weight="700" text-anchor="middle">Requirement Fetcher</text>
+      <text x="455" y="222" fill="#281858" font-size="10" text-anchor="middle">(single requirement)</text>
+
+      <!-- Requirements Generator (SOLID): cx=850 — shifted right into System 1 space -->
+      <rect x="760" y="182" width="180" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
+      <text x="850" y="207" fill="#281858" font-size="10" font-weight="700" text-anchor="middle">Requirements Generator</text>
+      <text x="850" y="222" fill="#281858" font-size="10" text-anchor="middle">(plain english)</text>
+
+      <!-- Test Generator (SOLID): cx=1400 — far right to use full width -->
+      <rect x="1318" y="182" width="165" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
+      <text x="1400" y="217" fill="#281858" font-size="11" font-weight="700" text-anchor="middle">Test Generator</text>
+
+      <!-- TOOLING ROW 2 — Requirements Monitor: cx=455 (inside System 3 region) -->
+      <rect x="360" y="285" width="190" height="54" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
+      <text x="455" y="316" fill="#281858" font-size="10" font-weight="700" text-anchor="middle">Requirements Monitor</text>
+
+      <!-- OUTPUT NODES — System 2/3 column -->
+      <!-- User alert — requirement changed: cx=455 -->
       <rect x="363" y="390" width="184" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="455" y="409" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">User alert: this</text>
-      <text x="455" y="424" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">requirement changed</text>
-      <!-- C3: Copy Paste into JAMA (orange path) -->
-      <rect x="770" y="390" width="120" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="830" y="409" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">Copy Paste</text>
-      <text x="830" y="424" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">into JAMA</text>
-      <!-- C3: JAMA API Access gate -->
-      <rect x="620" y="405" width="74" height="46" rx="4" fill="#E53935"/>
-      <text x="657" y="424" fill="white" font-size="10" font-weight="700" text-anchor="middle">JAMA API</text>
-      <text x="657" y="438" fill="white" font-size="10" font-weight="700" text-anchor="middle">Access</text>
-      <!-- C3: Known Folder Structure gate (pushed down for arrow space) -->
-      <rect x="488" y="475" width="74" height="46" rx="4" fill="#E53935"/>
-      <text x="525" y="492" fill="white" font-size="10" font-weight="700" text-anchor="middle">Known</text>
-      <text x="525" y="506" fill="white" font-size="10" font-weight="700" text-anchor="middle">Folder</text>
-      <text x="525" y="519" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">Structure</text>
-      <!-- C3: Auto post correct folder -->
-      <rect x="452" y="536" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="526" y="554" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">Automatically post to</text>
-      <text x="526" y="567" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">JAMA in correct</text>
-      <text x="526" y="580" fill="#083028" font-size="9.5" text-anchor="middle">folder/location</text>
-      <!-- C3: Auto post automation folder -->
-      <rect x="618" y="536" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="692" y="554" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">Automatically post to</text>
-      <text x="692" y="567" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">JAMA in "automation"</text>
-      <text x="692" y="580" fill="#083028" font-size="9.5" text-anchor="middle">folder</text>
-      <!-- C4: User Alert: Identifying poor data -->
-      <rect x="920" y="390" width="160" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="1000" y="409" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">User Alert:</text>
-      <text x="1000" y="424" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">Identifying poor data</text>
-      <!-- C5: Copy Paste into JAMA (orange path) -->
-      <rect x="1350" y="390" width="120" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="1410" y="409" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">Copy Paste</text>
-      <text x="1410" y="424" fill="#083028" font-size="11" font-weight="700" text-anchor="middle">into JAMA</text>
-      <!-- C5: JAMA API Access gate -->
-      <rect x="1210" y="405" width="74" height="46" rx="4" fill="#E53935"/>
-      <text x="1247" y="424" fill="white" font-size="10" font-weight="700" text-anchor="middle">JAMA API</text>
-      <text x="1247" y="438" fill="white" font-size="10" font-weight="700" text-anchor="middle">Access</text>
-      <!-- C5: Known Folder Structure gate (pushed down for arrow space) -->
-      <rect x="1078" y="475" width="74" height="46" rx="4" fill="#E53935"/>
-      <text x="1115" y="492" fill="white" font-size="10" font-weight="700" text-anchor="middle">Known</text>
-      <text x="1115" y="506" fill="white" font-size="10" font-weight="700" text-anchor="middle">Folder</text>
-      <text x="1115" y="519" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">Structure</text>
-      <!-- C5: Auto post correct folder -->
-      <rect x="1041" y="536" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="1115" y="554" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">Automatically post to</text>
-      <text x="1115" y="567" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">JAMA in correct</text>
-      <text x="1115" y="580" fill="#083028" font-size="9.5" text-anchor="middle">folder/location</text>
-      <!-- C5: Auto post automation folder -->
-      <rect x="1206" y="536" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
-      <text x="1280" y="554" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">Automatically post to</text>
-      <text x="1280" y="567" fill="#083028" font-size="9.5" font-weight="700" text-anchor="middle">JAMA in "automation"</text>
-      <text x="1280" y="580" fill="#083028" font-size="9.5" text-anchor="middle">folder</text>
+      <text x="455" y="409" fill="#083028" font-size="10" font-weight="700" text-anchor="middle">User alert: this</text>
+      <text x="455" y="424" fill="#083028" font-size="10" font-weight="700" text-anchor="middle">requirement changed</text>
 
-      <!-- ── CONNECTIONS ── -->
-      <!-- C1: hex (bottom y=86) → Google Drive gate (y=116, 30px gap) → PRD Fetcher (y=198) -->
-      <line x1="255" y1="86" x2="255" y2="116" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <line x1="255" y1="160" x2="255" y2="198" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <!-- C2: hex (bottom y=86) → Git Access gate (y=116, 30px gap) → Req Fetcher (y=198) -->
-      <line x1="455" y1="86" x2="455" y2="116" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <line x1="455" y1="156" x2="455" y2="198" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <!-- C3: hex (bottom y=86) → Requirements Generator (y=198, no gate) -->
-      <line x1="680" y1="86" x2="680" y2="198" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <!-- Tooling horizontal main flow (y=228) -->
-      <line x1="337" y1="228" x2="360" y2="228" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#iom-a)"/>
-      <line x1="550" y1="228" x2="590" y2="228" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <line x1="770" y1="228" x2="908" y2="228" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#iom-a)"/>
-      <line x1="1092" y1="228" x2="1187" y2="228" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#iom-a)"/>
-      <!-- Test Generator ↔ Multiple Test Case Suggestion (bidirectional) -->
-      <line x1="1352" y1="223" x2="1420" y2="223" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#iom-a)"/>
-      <line x1="1420" y1="238" x2="1352" y2="238" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#iom-a)"/>
-      <!-- Requirement Fetcher → Requirements Monitor -->
-      <line x1="455" y1="258" x2="455" y2="282" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
+      <!-- OUTPUT NODES — System 1, Req Generator side (cx≈850) -->
+      <!-- JAMA API gate: cx=820 -->
+      <rect x="783" y="405" width="74" height="46" rx="4" fill="#E53935"/>
+      <text x="820" y="424" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">JAMA API</text>
+      <text x="820" y="438" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">Access</text>
+
+      <!-- Copy Paste into JAMA — Req Gen: cx=1000 -->
+      <rect x="940" y="390" width="120" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
+      <text x="1000" y="409" fill="#083028" font-size="10" font-weight="700" text-anchor="middle">Copy Paste</text>
+      <text x="1000" y="424" fill="#083028" font-size="10" font-weight="700" text-anchor="middle">into JAMA</text>
+
+      <!-- Known Folder gate — Req Gen: cx=700 -->
+      <rect x="663" y="474" width="74" height="46" rx="4" fill="#E53935"/>
+      <text x="700" y="491" fill="white" font-size="9" font-weight="700" text-anchor="middle">Known</text>
+      <text x="700" y="504" fill="white" font-size="9" font-weight="700" text-anchor="middle">Folder</text>
+      <text x="700" y="516" fill="white" font-size="8.5" font-weight="700" text-anchor="middle">Structure</text>
+
+      <!-- Auto-post correct folder (Req Gen): cx=700 -->
+      <rect x="626" y="538" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
+      <text x="700" y="557" fill="#083028" font-size="9" font-weight="700" text-anchor="middle">Auto-post to JAMA</text>
+      <text x="700" y="569" fill="#083028" font-size="9" text-anchor="middle">in correct folder</text>
+
+      <!-- Auto-post automation folder (Req Gen): cx=870 -->
+      <rect x="796" y="538" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
+      <text x="870" y="557" fill="#083028" font-size="9" font-weight="700" text-anchor="middle">Auto-post to JAMA</text>
+      <text x="870" y="569" fill="#083028" font-size="9" text-anchor="middle">in "automation" folder</text>
+
+      <!-- OUTPUT NODES — System 1, Test Generator side (cx≈1400) -->
+      <!-- JAMA API gate: cx=1370 -->
+      <rect x="1333" y="405" width="74" height="46" rx="4" fill="#E53935"/>
+      <text x="1370" y="424" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">JAMA API</text>
+      <text x="1370" y="438" fill="white" font-size="9.5" font-weight="700" text-anchor="middle">Access</text>
+
+      <!-- Copy Paste into JAMA — Test Gen: cx=1545 -->
+      <rect x="1485" y="390" width="120" height="46" rx="23" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
+      <text x="1545" y="409" fill="#083028" font-size="10" font-weight="700" text-anchor="middle">Copy Paste</text>
+      <text x="1545" y="424" fill="#083028" font-size="10" font-weight="700" text-anchor="middle">into JAMA</text>
+
+      <!-- Known Folder gate — Test Gen: cx=1250 -->
+      <rect x="1213" y="474" width="74" height="46" rx="4" fill="#E53935"/>
+      <text x="1250" y="491" fill="white" font-size="9" font-weight="700" text-anchor="middle">Known</text>
+      <text x="1250" y="504" fill="white" font-size="9" font-weight="700" text-anchor="middle">Folder</text>
+      <text x="1250" y="516" fill="white" font-size="8.5" font-weight="700" text-anchor="middle">Structure</text>
+
+      <!-- Auto-post correct folder (Test Gen): cx=1250 -->
+      <rect x="1176" y="538" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
+      <text x="1250" y="557" fill="#083028" font-size="9" font-weight="700" text-anchor="middle">Auto-post to JAMA</text>
+      <text x="1250" y="569" fill="#083028" font-size="9" text-anchor="middle">in correct folder</text>
+
+      <!-- Auto-post automation folder (Test Gen): cx=1430 -->
+      <rect x="1356" y="538" width="148" height="48" rx="24" fill="#80DEEA" stroke="#26A69A" stroke-width="1.5"/>
+      <text x="1430" y="557" fill="#083028" font-size="9" font-weight="700" text-anchor="middle">Auto-post to JAMA</text>
+      <text x="1430" y="569" fill="#083028" font-size="9" text-anchor="middle">in "automation" folder</text>
+
+      <!-- CONNECTIONS -->
+      <!-- C1 hex → Google Drive gate -->
+      <line x1="255" y1="86" x2="255" y2="104" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
+      <!-- Google Drive gate → PRD Fetcher -->
+      <line x1="255" y1="148" x2="255" y2="182" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
+      <!-- C2 hex → Git Access gate -->
+      <line x1="455" y1="86" x2="455" y2="110" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
+      <!-- Git Access → Req Fetcher -->
+      <line x1="455" y1="150" x2="455" y2="182" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
+      <!-- C3 hex → Req Generator (direct paste, straight down) -->
+      <line x1="850" y1="86" x2="850" y2="182" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
+
+      <!-- PRD Fetcher → Req Fetcher (dashed) -->
+      <line x1="337" y1="212" x2="360" y2="212" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#pm-a)"/>
+      <!-- Req Fetcher → Req Generator (crosses into System 1) -->
+      <line x1="550" y1="212" x2="760" y2="212" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
+      <!-- Req Generator → Test Generator (dashed — gated by approval) -->
+      <line x1="940" y1="212" x2="1318" y2="212" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#pm-a)"/>
+
+      <!-- Req Fetcher → Requirements Monitor (down) -->
+      <line x1="455" y1="242" x2="455" y2="285" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
       <!-- Requirements Monitor → User alert changed -->
-      <line x1="455" y1="338" x2="455" y2="390" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <!-- User alert changed → Requirements Generator (change triggers re-generation) -->
-      <path d="M547,413 L567,413 L567,228 L590,228" fill="none" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <!-- C3 Req Generator → green (JAMA API gate) + orange (Copy Paste) -->
-      <line x1="657" y1="258" x2="657" y2="405" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom-g)"/>
-      <path d="M720,258 L720,330 L830,330 L830,390" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#iom-o)"/>
-      <!-- C3 JAMA API → Known Folder (left, 24px gap) + Auto Automation (down) -->
-      <path d="M620,451 L525,451 L525,475" fill="none" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom-g)"/>
-      <path d="M657,451 L692,451 L692,536" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#iom-o)"/>
-      <!-- C3 Known Folder → Auto Correct (15px gap) -->
-      <line x1="525" y1="521" x2="525" y2="536" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom-g)"/>
-      <!-- C4 Quality Identifier → User Alert poor data -->
-      <line x1="1000" y1="258" x2="1000" y2="390" stroke="#888" stroke-width="1.5" marker-end="url(#iom-a)"/>
-      <!-- C5 Test Generator → green (JAMA API gate) + orange (Copy Paste) -->
-      <line x1="1247" y1="258" x2="1247" y2="405" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom-g)"/>
-      <path d="M1310,258 L1310,330 L1410,330 L1410,390" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#iom-o)"/>
-      <!-- C5 JAMA API → Known Folder (left, 24px gap) + Auto Automation (down) -->
-      <path d="M1210,451 L1115,451 L1115,475" fill="none" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom-g)"/>
-      <path d="M1247,451 L1280,451 L1280,536" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#iom-o)"/>
-      <!-- C5 Known Folder → Auto Correct (15px gap) -->
-      <line x1="1115" y1="521" x2="1115" y2="536" stroke="#43A047" stroke-width="1.5" marker-end="url(#iom-g)"/>
+      <line x1="455" y1="339" x2="455" y2="390" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
+      <!-- User alert → Req Generator (change re-triggers generation) -->
+      <path d="M547,413 L600,413 L600,212 L760,212" fill="none" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
+
+      <!-- Req Generator → JAMA API gate (green, straight down) -->
+      <line x1="820" y1="242" x2="820" y2="405" stroke="#43A047" stroke-width="1.5" marker-end="url(#pm-g)"/>
+      <!-- Req Generator → Copy Paste (orange, right and down) -->
+      <path d="M920,242 L920,320 L1000,320 L1000,390" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#pm-o)"/>
+
+      <!-- JAMA API (Req) → Known Folder gate (green, left then down) -->
+      <path d="M783,451 L700,451 L700,474" fill="none" stroke="#43A047" stroke-width="1.5" marker-end="url(#pm-g)"/>
+      <!-- JAMA API (Req) → Auto automation folder (orange, right then down) -->
+      <path d="M820,451 L870,451 L870,538" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#pm-o)"/>
+      <!-- Known Folder (Req) → Auto correct folder (green) -->
+      <line x1="700" y1="520" x2="700" y2="538" stroke="#43A047" stroke-width="1.5" marker-end="url(#pm-g)"/>
+
+      <!-- Test Generator → JAMA API gate (green, straight down) -->
+      <line x1="1370" y1="242" x2="1370" y2="405" stroke="#43A047" stroke-width="1.5" marker-end="url(#pm-g)"/>
+      <!-- Test Generator → Copy Paste (orange, right and down) -->
+      <path d="M1445,242 L1480,242 L1480,320 L1545,320 L1545,390" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#pm-o)"/>
+
+      <!-- JAMA API (Test) → Known Folder gate (green, left then down) -->
+      <path d="M1333,451 L1250,451 L1250,474" fill="none" stroke="#43A047" stroke-width="1.5" marker-end="url(#pm-g)"/>
+      <!-- JAMA API (Test) → Auto automation folder (orange, right then down) -->
+      <path d="M1370,451 L1430,451 L1430,538" fill="none" stroke="#FB8C00" stroke-width="1.5" marker-end="url(#pm-o)"/>
+      <!-- Known Folder (Test) → Auto correct folder (green) -->
+      <line x1="1250" y1="520" x2="1250" y2="538" stroke="#43A047" stroke-width="1.5" marker-end="url(#pm-g)"/>
     </svg>
+  </div>
+  <span class="slide-number">14</span>
+</section>
+
+<!-- ============================================================
+  15 — SYSTEM 1: REQUIREMENTS CREATION
+============================================================ -->
+<section class="slide slide-white" id="slide-system-1">
+  <div class="section-eyebrow reveal">System 1 · Priority</div>
+  <h2 class="reveal reveal-delay-1">Requirements Creation</h2>
+  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:760px;">
+    Turns raw SWRD content into structured, plain-English JAMA entries — and drafts SWQTs (test cases) once a requirement is approved. Both go into JAMA.
+  </p>
+
+  <div class="reveal reveal-delay-3" style="margin-top:28px;">
+    <div style="font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-med-gray); margin-bottom:12px;">Access tiers — how much automation is possible</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;">
+      <div style="background:var(--surface-page); border-radius:var(--radius-md); padding:20px; border-top:3px solid var(--atomic-teal); box-shadow:var(--shadow-sm);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-teal); margin-bottom:8px;">✓ Works today</div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:8px;">Paste → Review → Copy</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.6;">User pastes raw SWRD text. Tool generates a plain-English SWRD entry + SWQT draft. User copies both outputs into JAMA manually.</div>
+        <div style="margin-top:10px; font-size:12px; color:var(--atomic-teal); font-weight:600;">No access dependencies</div>
+      </div>
+      <div style="background:var(--surface-page); border-radius:var(--radius-md); padding:20px; border-top:3px solid var(--atomic-gold); box-shadow:var(--shadow-sm);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-gold); margin-bottom:8px;">With JAMA API</div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:8px;">Auto-Post to Staging</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.6;">Tool writes both the SWRD entry and SWQT directly (if desired) into JAMA — no copy-paste. Posts to a holding "automation" folder for review before moving to the right location.</div>
+        <div style="margin-top:10px; font-size:12px; color:var(--atomic-gold); font-weight:600;">Needs: JAMA API access</div>
+      </div>
+      <div style="background:var(--surface-page); border-radius:var(--radius-md); padding:20px; border-top:3px solid var(--atomic-med-gray); box-shadow:var(--shadow-sm);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-med-gray); margin-bottom:8px;">With JAMA API + folder map</div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:8px;">Auto-Post to Correct Location</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.6;">With known folder structure, both the SWRD entry and SWQT route directly to their correct locations in JAMA — fully hands-off from generation to filing.</div>
+        <div style="margin-top:10px; font-size:12px; color:var(--atomic-med-gray); font-weight:600;">Needs: JAMA API + known folder structure</div>
+      </div>
+    </div>
+  </div>
+
+  <span class="slide-number">15</span>
+</section>
+
+
+<!-- ============================================================
+  16 — SYSTEM 2: AUTOMATED GATHERING
+============================================================ -->
+<section class="slide slide-default" id="slide-system-2">
+  <div class="section-eyebrow reveal">System 2</div>
+  <h2 class="reveal reveal-delay-1">Automated Gathering</h2>
+  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:760px;">
+    Instead of hunting through Git and Google Docs one requirement at a time, the tool reads the quarterly PRD and batch-imports every in-scope SWRD at once.
+  </p>
+
+  <div class="reveal reveal-delay-3" style="margin-top:28px;">
+    <div style="font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-med-gray); margin-bottom:12px;">Access tiers — what unlocks at each level</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;">
+      <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px; border-top:3px solid var(--atomic-teal); box-shadow:var(--shadow-sm);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-teal); margin-bottom:8px;">With Git access</div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:8px;">Single SWRD Fetch</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.6;">User pastes a Git link to a specific SWRD. Tool fetches the content directly from the repo and queues it for System 1 — no manual copy from GitHub.</div>
+        <div style="margin-top:10px; font-size:12px; color:var(--atomic-teal); font-weight:600;">Needs: Git read access</div>
+      </div>
+      <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px; border-top:3px solid #1a7aa0; box-shadow:var(--shadow-sm);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#1a7aa0; margin-bottom:8px;">With Git + Google Drive access</div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:8px;">User-Initiated Batch</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.6;">User pastes the PRD link. Tool reads the PRD from Google Drive, follows every SWRD link into Git, and queues them all for System 1 — a full quarter's intake in one action.</div>
+        <div style="margin-top:10px; font-size:12px; color:#1a7aa0; font-weight:600;">Needs: Git + Google Drive read access</div>
+      </div>
+      <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px; border-top:3px solid var(--atomic-gold); box-shadow:var(--shadow-sm);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-gold); margin-bottom:8px;">With Drive webhook or polling</div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:8px;">Auto-Triggered on PRD Approval</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.6;">When the PRD moves to "approved" in Google Drive, batch import kicks off automatically — no user action needed. Cadence matches the quarterly release cycle.</div>
+        <div style="margin-top:10px; font-size:12px; color:var(--atomic-gold); font-weight:600;">Needs: Drive webhook or polling + Git access</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="metaphor-box reveal reveal-delay-4" style="margin-top:24px;">
+    <p><strong>Key dependency:</strong> System 3 is an extension of this — it uses the same access layer to watch for changes. <span class="highlight-teal">The faster we get Git and Drive access, the faster both Systems 2 and 3 unlock.</span></p>
   </div>
   <span class="slide-number">16</span>
 </section>
 
+
 <!-- ============================================================
-  16 — ACCESS-TIERED ARCHITECTURE
+  17 — SYSTEM 3: CHANGE MANAGEMENT
 ============================================================ -->
-<section class="slide slide-default" id="slide-access-tiers">
-  <div class="section-eyebrow reveal">Architecture</div>
-  <h2 class="reveal reveal-delay-1">Access Unlocks Automation</h2>
-  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:720px;">
-    Every input and output path has a minimum viable baseline — no access needed to start. Additional access expands what the tool can do automatically.
+<section class="slide slide-white" id="slide-system-3">
+  <div class="section-eyebrow reveal">System 3</div>
+  <h2 class="reveal reveal-delay-1">Change Management</h2>
+  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:760px;">
+    Watches Toyota's SWRD files for mid-quarter updates and alerts the right engineers before the impact is missed.
   </p>
 
-  <div class="reveal reveal-delay-3" style="margin-top: 28px; display:flex; flex-direction:column; gap:20px;">
-
-    <!-- Input Paths -->
-    <div>
-      <div style="font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-med-gray); margin-bottom:12px;">Input — How requirements enter the tool</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;">
-        <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px 20px 16px; border-top:3px solid var(--atomic-teal); box-shadow:var(--shadow-sm);">
-          <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-teal); margin-bottom:8px;">✓ Guaranteed</div>
-          <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Paste Raw Text</div>
-          <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.5;">User pastes SWRD text directly into the tool. No system access required — works on day one.</div>
-        </div>
-        <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px 20px 16px; border-top:3px solid var(--atomic-gold); box-shadow:var(--shadow-sm);">
-          <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-gold); margin-bottom:8px;">Needs GitHub Access</div>
-          <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Paste a Link</div>
-          <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.5;">User pastes a GitHub or doc URL. Tool fetches content automatically if read access is granted.</div>
-        </div>
-        <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px 20px 16px; border-top:3px solid var(--atomic-med-gray); box-shadow:var(--shadow-sm);">
-          <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-med-gray); margin-bottom:8px;">Needs GitHub + PRD Access</div>
-          <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Batch Import via PRD</div>
-          <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.5;">Tool reads the PRD, discovers all linked SWRDs, and imports them in bulk — no individual copy-paste required.</div>
-        </div>
-      </div>
+  <div class="grid grid-2 reveal reveal-delay-3" style="margin-top:28px;">
+    <div class="card" style="border-top-color:var(--atomic-teal);">
+      <span class="card-icon">🔍</span>
+      <h4>How It Works</h4>
+      <p>A background job polls the Git repository on a set cadence (nightly, weekly — TBD with Hannah). When a SWRD file changes, it diffs old vs. new and surfaces what specifically changed — interface, specification, or reason section.</p>
+      <p style="margin-top:10px;">Engineers get a digest: which SWRDs changed, what changed, link to the diff. The change can re-trigger System 1 processing for the affected requirement.</p>
     </div>
-
-    <!-- Output Paths -->
-    <div>
-      <div style="font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-med-gray); margin-bottom:12px;">Output — How results reach JAMA</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
-        <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px 20px 16px; border-top:3px solid var(--atomic-teal); box-shadow:var(--shadow-sm);">
-          <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-teal); margin-bottom:8px;">✓ Guaranteed</div>
-          <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Manual Copy from Tool</div>
-          <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.5;">User reviews generated content and pastes it into JAMA manually. No API access required.</div>
-        </div>
-        <div style="background:var(--surface-card); border-radius:var(--radius-md); padding:20px 20px 16px; border-top:3px solid var(--atomic-gold); box-shadow:var(--shadow-sm);">
-          <div style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--atomic-gold); margin-bottom:8px;">Needs JAMA API Access</div>
-          <div style="font-size:17px; font-weight:700; color:var(--atomic-black); margin-bottom:6px;">Auto-Post via API</div>
-          <div style="font-size:14px; color:var(--atomic-med-gray); line-height:1.5;">Tool writes directly to JAMA using the existing Python REST client. Faster, no user effort needed.</div>
-        </div>
-      </div>
+    <div class="card" style="border-top-color:var(--atomic-gold);">
+      <span class="card-icon">⚙️</span>
+      <h4>Access Dependencies</h4>
+      <p>System 3 extends System 2's access layer — it uses the same Git integration to watch for changes rather than batch-import them. No new access is required beyond what System 2 establishes.</p>
+      <p style="margin-top:10px;">Polling cadence and notification channel (Slack, email) are open questions to confirm with Hannah.</p>
+      <div style="margin-top:12px; font-size:13px; color:var(--atomic-gold); font-weight:600;">Scope may narrow depending on what Reqtify already covers →</div>
     </div>
-
   </div>
 
-  <div class="metaphor-box reveal reveal-delay-4">
-    <p><strong>Key principle:</strong> The paste-text → manual-copy path is <span class="highlight-teal">useful immediately, with zero access dependencies.</span> Every layer of access we obtain makes it faster and more automatic — but it's never blocked.</p>
-  </div>
   <span class="slide-number">17</span>
 </section>
 
+
 <!-- ============================================================
-  16 — SOLUTION ARCHITECTURE
+  18 — REQTIFY
 ============================================================ -->
-<section class="slide slide-default" id="slide-11">
-  <div class="section-eyebrow reveal">Architecture</div>
-  <h2 class="reveal reveal-delay-1">How It Works</h2>
-  <div class="process-steps reveal reveal-delay-2">
-    <div class="process-step">
-      <div class="step-circle">1</div>
-      <div class="step-title">Provide Input</div>
-      <div class="step-desc">User opens tool and provides SWRD — paste text, paste a link, or batch import via PRD</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">2</div>
-      <div class="step-title">Parse &amp; Translate</div>
-      <div class="step-desc">Tool structures the raw SWRD and converts it to plain English simultaneously — no separate step</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">3</div>
-      <div class="step-title">Review &amp; Curate</div>
-      <div class="step-desc">User reviews the output, flags issues, and approves or edits before anything is written</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">4</div>
-      <div class="step-title">Submit Requirement to JAMA</div>
-      <div class="step-desc">Approved SWRD entry goes into JAMA — manually or via API — with source link and version timestamp</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">5</div>
-      <div class="step-title">Generate Test Cases</div>
-      <div class="step-desc">After CA/product approval, LLM generates SWQT candidates — user reviews and curates</div>
-    </div>
-    <div class="process-step">
-      <div class="step-circle">6</div>
-      <div class="step-title">Submit Test Case to JAMA</div>
-      <div class="step-desc">Curated SWQT is written to JAMA linked to its parent SWRD — completing the traceability chain</div>
-    </div>
-  </div>
-  <div class="metaphor-box reveal reveal-delay-3">
-    <p><strong>Build philosophy — Read-Only First:</strong> The system starts by <span class="highlight-teal">reading and surfacing</span> — change detection, notifications, translations — before it ever writes anything to JAMA. Humans validate before automation takes over. Test case generation is gated by upstream CA/product sign-off; the tool never creates tests for SWRDs that haven't been approved. This sequencing builds trust before it builds dependency.</p>
+<section class="slide slide-default" id="slide-reqtify">
+  <div class="section-eyebrow reveal">System 3 · Context</div>
+  <h2 class="reveal reveal-delay-1">Where Does Reqtify Fit?</h2>
+  <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:760px;">
+    Julia flagged Reqtify as a tool to look into. Based on initial research, it solves a different — but complementary — problem. We recommend getting a demo before fully scoping System 3.
+  </p>
+  <div class="table-wrap reveal reveal-delay-3">
+    <table>
+      <thead>
+        <tr>
+          <th>Hannah's Pain Point</th>
+          <th>Our Tool</th>
+          <th>Reqtify</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Copy SWRDs from Git → JAMA manually</td>
+          <td style="color:#1E8A4A; font-weight:600;">Solves (automated ingestion + structuring)</td>
+          <td style="color:var(--atomic-red); font-weight:600;">Does not solve — links existing entries, doesn't create new ones</td>
+        </tr>
+        <tr>
+          <td>Translate raw SWRDs to plain English</td>
+          <td style="color:#1E8A4A; font-weight:600;">Solves (LLM translation)</td>
+          <td style="color:var(--atomic-red); font-weight:600;">Does not solve — no content transformation</td>
+        </tr>
+        <tr>
+          <td>Generate SWQT test cases from SWRDs</td>
+          <td style="color:#1E8A4A; font-weight:600;">Solves (LLM generation)</td>
+          <td style="color:var(--atomic-red); font-weight:600;">Does not solve — traces existing tests, doesn't generate new ones</td>
+        </tr>
+        <tr>
+          <td>Detect when upstream SWRDs change</td>
+          <td style="color:#C89A00; font-weight:600;">Partially solves (requirements monitor)</td>
+          <td style="color:#1E8A4A; font-weight:600;">Solves well — suspicious link detection, change tracking across 100+ connectors</td>
+        </tr>
+        <tr>
+          <td>Trace requirements → tests → implementation</td>
+          <td style="color:var(--atomic-red); font-weight:600;">Does not solve (not in scope)</td>
+          <td style="color:#1E8A4A; font-weight:600;">Solves well — this is its core purpose</td>
+        </tr>
+        <tr>
+          <td>Coverage / impact reporting</td>
+          <td style="color:var(--atomic-red); font-weight:600;">Does not solve</td>
+          <td style="color:#1E8A4A; font-weight:600;">Solves well</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <span class="slide-number">18</span>
 </section>
 
 <!-- ============================================================
-  16 — THREE-COLUMN UI
+  PROOF OF CONCEPT DEMO
 ============================================================ -->
 <section class="slide slide-default" id="slide-three-col">
-  <div class="section-eyebrow reveal">User Interface</div>
-  <h2 class="reveal reveal-delay-1">What the Tool Looks Like</h2>
+  <div class="section-eyebrow reveal">Proof of Concept · System 1</div>
+  <h2 class="reveal reveal-delay-1">What We've Built</h2>
   <p class="reveal reveal-delay-2" style="font-size:19px; color:var(--atomic-med-gray); max-width:700px;">
-    A three-column view — requirement in, plain English in the middle, test case draft on the right. One click to send to JAMA.
+    A working System 1 prototype: paste in a raw SWRD, get plain-English output and a test case draft — ready to copy into JAMA. <span class="highlight-teal" style="font-weight:600;">We'll demo this live.</span>
   </p>
 
   <!-- Wireframe mockup -->
@@ -1383,74 +1298,91 @@
   20 — SECTION: NEXT STEPS
 ============================================================ -->
 <section class="slide slide-section" id="slide-13">
-  <h2 class="reveal">Next Steps</h2>
+  <h2 class="reveal">Where We Go Next</h2>
   <p class="key-message reveal reveal-delay-1">
-    Resolve infrastructure unknowns first. Then build the sandbox POC.
+    System 1 is working. The questions below determine how fast we can build Systems 2 and 3.
   </p>
   <span class="slide-number" style="color:rgba(255,255,255,0.35);">20</span>
 </section>
 
 <!-- ============================================================
-  21 — IN / OUT OF SCOPE
+  NEXT STEPS CONTENT
 ============================================================ -->
-<section class="slide slide-white" id="slide-14">
-  <div class="section-eyebrow reveal">Phase 1 Boundaries</div>
-  <h2 class="reveal reveal-delay-1">What's In and What's Out</h2>
-  <div class="column-cards reveal reveal-delay-2">
-    <div class="col-card good">
-      <div class="col-header">✓ In Scope (Pilot)</div>
-      <ul style="padding-left:20px;">
-        <li style="font-size:18px; margin-bottom:10px;">Lane change SWRDs from Git repository</li>
-        <li style="font-size:18px; margin-bottom:10px;">Automated SWRD extraction and JAMA population</li>
-        <li style="font-size:18px; margin-bottom:10px;">Change detection via polling (daily cadence)</li>
-        <li style="font-size:18px; margin-bottom:10px;">Change notification to Hannah and systems engineers</li>
-        <li style="font-size:18px; margin-bottom:10px;">Gated test case (SWQT) generation via LLM</li>
-        <li style="font-size:18px; margin-bottom:10px;">JAMA source linkage and version history</li>
-        <li style="font-size:18px; margin-bottom:10px;">Sandbox POC with mock data before production integration</li>
-      </ul>
+<section class="slide slide-white" id="slide-next-steps">
+  <div class="section-eyebrow reveal">Next Steps</div>
+  <h2 class="reveal reveal-delay-1">Immediate Actions</h2>
+  <div class="reveal reveal-delay-2" style="margin-top:28px; display:flex; flex-direction:column; gap:14px;">
+
+    <div style="display:flex; align-items:flex-start; gap:18px; background:var(--surface-card); border-radius:var(--radius-md); padding:18px 22px; box-shadow:var(--shadow-sm);">
+      <div style="min-width:32px; height:32px; border-radius:50%; background:var(--atomic-teal); color:white; font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center;">1</div>
+      <div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black);">Confirm alignment on System 1</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); margin-top:4px; line-height:1.6;">Based on the demo: does the approach match what the team needs? Confirm the translation model, output format, and whether a standalone UI is the right call before building further.</div>
+      </div>
     </div>
-    <div class="col-card bad">
-      <div class="col-header">✗ Out of Scope (Pilot)</div>
-      <ul style="padding-left:20px;">
-        <li style="font-size:18px; margin-bottom:10px;">SBRDs and TPIDs (separate workflow)</li>
-        <li style="font-size:18px; margin-bottom:10px;">Multi-source consolidation beyond Git</li>
-        <li style="font-size:18px; margin-bottom:10px;">SWRD quality filtering or upstream prioritization</li>
-        <li style="font-size:18px; margin-bottom:10px;">Scope translation: system-of-systems → IPA</li>
-        <li style="font-size:18px; margin-bottom:10px;">Integration with CA/Toyota upstream systems</li>
-        <li style="font-size:18px; margin-bottom:10px;">Architecture diagram generation (separate PRD)</li>
-        <li style="font-size:18px; margin-bottom:10px;">Bottom-up requirements backfilling from existing code</li>
-      </ul>
+
+    <div style="display:flex; align-items:flex-start; gap:18px; background:var(--surface-card); border-radius:var(--radius-md); padding:18px 22px; box-shadow:var(--shadow-sm);">
+      <div style="min-width:32px; height:32px; border-radius:50%; background:var(--atomic-teal); color:white; font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center;">2</div>
+      <div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black);">Usability test with Hannah</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); margin-top:4px; line-height:1.6;">Validate the translation approach and interface model before locking in System 1's final form.</div>
+      </div>
     </div>
+
+    <div style="display:flex; align-items:flex-start; gap:18px; background:var(--surface-card); border-radius:var(--radius-md); padding:18px 22px; box-shadow:var(--shadow-sm);">
+      <div style="min-width:32px; height:32px; border-radius:50%; background:var(--atomic-purple); color:white; font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center;">3</div>
+      <div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black);">Clarify JAMA API access and folder structure</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); margin-top:4px; line-height:1.6;">Key dependency for Systems 2 and 3. Who owns JAMA admin access at Woven?</div>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:flex-start; gap:18px; background:var(--surface-card); border-radius:var(--radius-md); padding:18px 22px; box-shadow:var(--shadow-sm);">
+      <div style="min-width:32px; height:32px; border-radius:50%; background:var(--atomic-purple); color:white; font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center;">4</div>
+      <div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black);">Ask Julia about Wovey API and system access</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); margin-top:4px; line-height:1.6;">Wovey may already have Git and Drive access baked in — a single integration that sidesteps every individual access request.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:flex-start; gap:18px; background:var(--surface-card); border-radius:var(--radius-md); padding:18px 22px; box-shadow:var(--shadow-sm);">
+      <div style="min-width:32px; height:32px; border-radius:50%; background:var(--atomic-gold); color:white; font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center;">1</div>
+      <div>
+        <div style="font-size:17px; font-weight:700; color:var(--atomic-black);">Get a Reqtify demo</div>
+        <div style="font-size:14px; color:var(--atomic-med-gray); margin-top:4px; line-height:1.6;">Before fully scoping System 3, see what Reqtify handles. If it covers change-linking, System 3's scope narrows significantly.</div>
+      </div>
+    </div>
+
   </div>
   <span class="slide-number">21</span>
 </section>
 
 <!-- ============================================================
-  22 — BLOCKING QUESTIONS
+  AREAS TO EXPLORE
 ============================================================ -->
 <section class="slide slide-white" id="slide-17">
-  <div class="section-eyebrow reveal">Open Questions</div>
-  <h2 class="reveal reveal-delay-1">Must Answer Before Building</h2>
+  <div class="section-eyebrow reveal">Areas to Explore</div>
+  <h2 class="reveal reveal-delay-1">What We Need to Figure Out</h2>
   <div style="margin-top:28px;" class="reveal reveal-delay-2">
     <div class="question-item">
-      <p><strong>Source integration layer:</strong> Can we access Git repositories directly for SWRDs, or must we go through Woven's documentation layer (PRD Google Docs from PDM team)? This shapes the entire integration architecture.</p>
-      <div class="question-status blocking">🔴 Blocking — no infrastructure access confirmed yet</div>
+      <p><strong>JAMA access — API and structure:</strong> What API access is available, and what is the folder/container structure we'd need to write into? Is there any JAMA widget or extension capability we could build into — rather than a separate tool?</p>
+      <div class="question-status blocking">🔴 Key dependency for Systems 2 and 3</div>
     </div>
     <div class="question-item">
-      <p><strong>JAMA structure and import configuration:</strong> How is JAMA configured for this project? What are its data validation rules? How does automation target the correct container in the hierarchy?</p>
-      <div class="question-status blocking">🔴 Blocking — hierarchy known, containers undefined</div>
+      <p><strong>System access — for the AI, not just us:</strong> What systems (Git, Google Drive, JAMA) can an automated agent access inside Woven's environment? What approval process exists for this? Who owns it?</p>
+      <div class="question-status blocking">🔴 Key dependency for Systems 2 and 3</div>
     </div>
     <div class="question-item">
-      <p><strong>AI service API access:</strong> Can the system call external AI APIs (Claude, ChatGPT, OpenAI) inside Woven's environment? Are there restrictions, approval processes, or preferred alternatives?</p>
-      <div class="question-status blocking">🔴 Blocking — no evidence this has been explored</div>
+      <p><strong>Wovey API:</strong> Wovey is already deployed inside Woven and likely has access to many of these systems. Does it have an API we can call? If so, it may be the fastest path to Systems 2 and 3 — single integration, no new access requests.</p>
+      <div class="question-status">🟡 Julia — who do we talk to about this?</div>
     </div>
     <div class="question-item">
-      <p><strong>GitHub/Stargate access for Atomic team:</strong> Will the team be granted access to Woven's requirements repositories? Access request is planned for week of 2026-03-09.</p>
-      <div class="question-status blocking">🔴 Blocking — access not yet requested</div>
+      <p><strong>Usability test with Hannah:</strong> System 1 is working. We need to sit down with Hannah to validate the translation approach, interface model, and whether plain-English output is actually what she wants — or if she'd prefer structured-but-untranslated.</p>
+      <div class="question-status">🟡 Next step — test before we build further</div>
     </div>
     <div class="question-item">
-      <p><strong>Solution interface model:</strong> Is this a UI, a CLI, or a fully automatic background service? How does Hannah manually trigger test case generation when ready?</p>
-      <div class="question-status">🟡 Open — no UX/interface decisions made yet</div>
+      <p><strong>Reqtify demo:</strong> Before fully scoping System 3, it's worth seeing what Reqtify can and can't do firsthand. If it handles traceability and change-linking well, System 3's scope narrows significantly.</p>
+      <div class="question-status">🟡 Open — get a demo, then decide</div>
     </div>
   </div>
   <span class="slide-number">22</span>
@@ -1464,7 +1396,7 @@
   <p class="key-message reveal reveal-delay-1">
     Reference material.
   </p>
-  <span class="slide-number" style="color:rgba(255,255,255,0.35);">24</span>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">23</span>
 </section>
 
 <!-- ============================================================
@@ -1507,9 +1439,12 @@
       <div class="question-item" style="border-left-color:var(--atomic-med-gray);">
         <p><strong>TSS-4</strong> — Toyota Safety System 4. Legacy rules-based production system; its outdated prescriptive requirements still appear in incoming SWRDs despite Woven's ML approach.</p>
       </div>
+      <div class="question-item" style="border-left-color:var(--atomic-med-gray);">
+        <p><strong>Reqtify</strong> — Third-party tool that links artifacts across systems (e.g. requirements in JAMA ↔ test cases). Links existing items — does not move or author content between systems. Potentially complementary to System 3.</p>
+      </div>
     </div>
   </div>
-  <span class="slide-number">23</span>
+  <span class="slide-number">24</span>
 </section>
 
 <script>
@@ -1522,20 +1457,68 @@
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  // Nav pill — current slide counter
+  // Nav pill — slide counter + progress bar
   const slides = document.querySelectorAll('.slide');
-  const navPill = document.getElementById('nav-pill');
+  const slideCounter = document.getElementById('slide-counter');
+  const slideProgressFill = document.getElementById('slide-progress-fill');
+  const totalSlides = slides.length;
+  slideCounter.textContent = `1 / ${totalSlides}`;
 
-  const slideObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const idx = Array.from(slides).indexOf(entry.target) + 1;
-        navPill.textContent = `${idx} / ${slides.length}`;
-      }
+  function getCurrentSlideIndex() {
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+    for (let i = 0; i < slides.length; i++) {
+      const slideTop = slides[i].offsetTop;
+      const slideBottom = slideTop + slides[i].offsetHeight;
+      if (scrollPosition >= slideTop && scrollPosition < slideBottom) return i;
+    }
+    return 0;
+  }
+
+  function updateSlideIndicator() {
+    const idx = getCurrentSlideIndex();
+    slideCounter.textContent = `${idx + 1} / ${totalSlides}`;
+    const pct = totalSlides > 1 ? (idx / (totalSlides - 1)) * 100 : 100;
+    slideProgressFill.style.width = Math.max(2, pct) + '%';
+  }
+
+  function throttle(fn, ms) {
+    let last = 0;
+    return function(...args) {
+      const now = Date.now();
+      if (now - last >= ms) { last = now; fn(...args); }
+    };
+  }
+
+  window.addEventListener('scroll', throttle(updateSlideIndicator, 100));
+  updateSlideIndicator();
+
+  // 30-minute countdown timer (auto-starts; double-click pill to reset)
+  (function() {
+    const DURATION = 30 * 60;
+    let remaining = DURATION;
+    const timerEl = document.getElementById('countdown-timer');
+
+    function updateDisplay() {
+      const m = Math.ceil(remaining / 60);
+      timerEl.textContent = `${m}m`;
+      const pct = remaining / DURATION;
+      if (pct > 0.5) timerEl.style.color = 'var(--atomic-med-gray)';
+      else if (pct > 0.25) timerEl.style.color = 'var(--atomic-gold)';
+      else timerEl.style.color = 'var(--atomic-red)';
+    }
+
+    const intervalId = setInterval(function() {
+      if (remaining > 0) { remaining--; updateDisplay(); }
+      else clearInterval(intervalId);
+    }, 1000);
+
+    document.getElementById('slide-nav').addEventListener('dblclick', function() {
+      remaining = DURATION;
+      updateDisplay();
     });
-  }, { threshold: 0.5 });
 
-  slides.forEach(s => slideObserver.observe(s));
+    updateDisplay();
+  })();
 </script>
 
 </body>
