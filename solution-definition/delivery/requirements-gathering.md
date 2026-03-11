@@ -261,41 +261,41 @@ The solution is structured as three independent systems in priority order. Each 
 1. **Can an automated agent access Git and Google Drive?** This is distinct from whether the Atomic team has access — what can a deployed tool or agent access inside Woven's environment? What approval process exists for granting a system (not a person) read access to internal repos and Drive? **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
    - **Status: Open — blocking for System 2.** No infrastructure access confirmed yet. Access request planned for week of 2026-03-09.
 
-6. **How do we get access to new PRDs each quarter?** The PRD is a Google Doc that gets replaced every quarter. The tool needs a way to discover and read each new one automatically — not just the current one we can find manually **(2026-03-10-slide-deck-debrief.md)**
+2. **How do we get access to new PRDs each quarter?** The PRD is a Google Doc that gets replaced every quarter. The tool needs a way to discover and read each new one automatically — not just the current one we can find manually **(2026-03-10-slide-deck-debrief.md)**
    - **Status: Open — blocking for batch import.**
 
-7. **Does Wovey already have access to Git and Google Drive?** Wovey is already deployed inside Woven and likely has access to many internal systems. If it exposes an API, that's a single integration point that sidesteps every individual access request. Who does Julia point us to? **(FigJam Solution Scope sticky; 2026-03-10-slide-deck-debrief.md)**
+3. **Does Wovey already have access to Git and Google Drive?** Wovey is already deployed inside Woven and likely has access to many internal systems. If it exposes an API, that's a single integration point that sidesteps every individual access request. Who does Julia point us to? **(FigJam Solution Scope sticky; 2026-03-10-slide-deck-debrief.md)**
    - **Status: Open.** Julia is the contact; worth asking before requesting access separately. The specific repo may be `bev_document` (referenced on FigJam board; needs validation).
 
-8. **Agent authentication patterns:** Does Woven have MCP (Model Context Protocol) server implementations or patterns for AI agent authentication across their tools? **(2026-03-02-2_julia-interview-debrief.md)**
+4. **Agent authentication patterns:** Does Woven have MCP (Model Context Protocol) server implementations or patterns for AI agent authentication across their tools? **(2026-03-02-2_julia-interview-debrief.md)**
    - **Status: Open.** No evidence in any interview that this has been explored.
 
 ### System 3 — Change Management
 
-9. **What polling cadence does Hannah want?** Julia said requirements change "every single day" mid-quarter — but nightly alerts may create noise. Nightly, weekly, or something else? TBD with Hannah based on what's actually manageable for her team **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
+1. **What polling cadence does Hannah want?** Julia said requirements change "every single day" mid-quarter — but nightly alerts may create noise. Nightly, weekly, or something else? TBD with Hannah based on what's actually manageable for her team **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
    - **Status: Open.** Both polling and webhook (PR merge trigger) models are viable; polling is the safer MVP.
 
-10. **What notification channel?** Where does the change digest go — Slack, email, or surfaced directly inside JAMA? Who needs to be notified: Hannah, systems engineers, developers — and at what point in the change? **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
+2. **What notification channel?** Where does the change digest go — Slack, email, or surfaced directly inside JAMA? Who needs to be notified: Hannah, systems engineers, developers — and at what point in the change? **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
     - **Status: Open.** No channel decision made yet.
 
-11. **Does Reqtify's change tracking cover enough that we don't need to build System 3?** Reqtify handles suspicious-link detection and change tracking across 100+ connectors. Before fully scoping System 3, get a demo — if Reqtify already covers this well and isn't expensive, System 3 may narrow significantly **(FigJam Solution Scope sticky; 2026-02-23-1_release-tools-deepdive.md; 2026-03-10-slide-deck-debrief.md)**
+3. **Does Reqtify's change tracking cover enough that we don't need to build System 3?** Reqtify handles suspicious-link detection and change tracking across 100+ connectors. Before fully scoping System 3, get a demo — if Reqtify already covers this well and isn't expensive, System 3 may narrow significantly **(FigJam Solution Scope sticky; 2026-02-23-1_release-tools-deepdive.md; 2026-03-10-slide-deck-debrief.md)**
     - **Status: Open.** Andrea hasn't deeply investigated Reqtify yet. Clifton (Woven) works on process, JAMA structure, and traceability and was noted as a contact for this tool.
 
 ### Important (Should be answered during implementation)
 
-12. **SWRD format consistency and headings:** Do all lane change SWRDs share a consistent format? What are the section headings to extract? **(FigJam Solution Scope sticky — Dan)**
+1. **SWRD format consistency and headings:** Do all lane change SWRDs share a consistent format? What are the section headings to extract? **(FigJam Solution Scope sticky — Dan)**
     - **Status: Hypothesis (largely answered, needs validation for non-Git sources).** Nick confirmed a consistent format for Git-sourced SWRDs: header block → reason → description → interface (if applicable) → specification. But some capability groups use JAMA directly with potentially different formats.
 
-13. **What is "agreement" for gating test case creation?** Julia clarified that test cases should only be created after upstream "agreement" on the requirement. What entity grants this approval (CA, product team, behavior team)? What is the mechanism or signal? **(2026-03-05_standup.md)**
+2. **What is "agreement" for gating test case creation?** Julia clarified that test cases should only be created after upstream "agreement" on the requirement. What entity grants this approval (CA, product team, behavior team)? What is the mechanism or signal? **(2026-03-05_standup.md)**
     - **Status: Open.**
 
-14. **SBRD and SWRD overlap and deduplication:** If SBRDs and SWRDs specify the same requirement/scenario, how should they be managed together? **(2026-03-05_discovery-sync.md)**
+3. **SBRD and SWRD overlap and deduplication:** If SBRDs and SWRDs specify the same requirement/scenario, how should they be managed together? **(2026-03-05_discovery-sync.md)**
     - **Status: Open.**
 
-15. **Non-Git SWRD sources and field structures:** Some capability groups use JAMA directly or Google Docs as SWRD sources. What are the exact field structures for these non-Git sources? **(2026-03-05_standup.md)**
+4. **Non-Git SWRD sources and field structures:** Some capability groups use JAMA directly or Google Docs as SWRD sources. What are the exact field structures for these non-Git sources? **(2026-03-05_standup.md)**
     - **Status: Open.**
 
-16. **Behavior team maturity and availability:** The in-lane behavior team has no assigned developer yet (as of 2026-03-04). Will developers be available to review/approve SWRDs and test cases? **(2026-03-04-3_nick-user-interview.md)**
+5. **Behavior team maturity and availability:** The in-lane behavior team has no assigned developer yet (as of 2026-03-04). Will developers be available to review/approve SWRDs and test cases? **(2026-03-04-3_nick-user-interview.md)**
     - **Status: Open.**
 
 ### Future (Can be deferred to later iterations)
@@ -310,7 +310,49 @@ The solution is structured as three independent systems in priority order. Each 
 
 ## 8. Solution Architecture (Conceptual)
 
-### Problem & Solution Flow
+The solution is structured as three independent systems in priority order. System 1 delivers value immediately with no infrastructure dependencies. Systems 2 and 3 unlock progressively as Git, Google Drive, and JAMA API access is established.
+
+### Architecture: System 1 — Requirements Creation
+
+**Inputs:** Raw SWRD content (pasted or fetched by System 2)
+
+**Process:**
+
+1. **Structure:** Parse SWRD sections (reason, description, interface, specification) into JAMA-compatible format
+2. **Transform (open question):** Optionally run LLM to translate/reformat content — faithful copy-paste vs. intelligent transcription TBD with Hannah
+3. **JAMA population:** Programmatically create JAMA requirement entries with source link, version/commit, and timestamp
+4. **Test case generation (gated):** Once upstream approval is granted, use LLM to generate initial SWQT structure; output to JAMA for manual curation
+
+**Outputs:** Structured JAMA requirements with source linkage; SWQT drafts for manual review
+
+### Architecture: System 2 — Automated Gathering
+
+**Inputs:** Git link (single SWRD) or PRD Google Doc link (batch)
+
+**Process:**
+
+1. **Single SWRD fetch:** User pastes a Git link; tool fetches content directly from repo and queues for System 1
+2. **Batch import from PRD:** Tool reads the quarterly PRD, follows every SWRD link into Git, queues all for System 1 — a full quarter's intake in one action
+3. **Auto-triggered batch (ideal):** When PRD moves to "approved" in Google Drive, batch import kicks off automatically
+
+**Outputs:** SWRD content queue for System 1
+
+### Architecture: System 3 — Change Management
+
+**Inputs:** Git repository (same access as System 2)
+
+**Process:**
+
+1. **Polling:** Background job checks Git on a set cadence (TBD with Hannah) for SWRD changes
+2. **Diff:** Old vs. new comparison; surfaces what changed by section
+3. **Notification:** Change digest to designated stakeholders (channel TBD — Slack, email, or JAMA flag)
+4. **Re-trigger:** Changed SWRD can re-queue through System 1 for updated JAMA entries
+
+**Outputs:** Change digests; flagged JAMA requirements; re-queued SWRDs
+
+> **Note:** System 3 scope may narrow depending on what Reqtify already handles. Get a demo before fully speccing this system.
+
+### Problem & Solution Flow (Legacy — pre three-system framing)
 
 **Inputs (Discrete):**
 - **PRD (Product Requirements Document):** Quarterly scoped document (Google Doc or Git-hosted) listing which SWRDs will be developed this quarter

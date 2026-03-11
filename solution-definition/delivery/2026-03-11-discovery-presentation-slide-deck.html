@@ -487,6 +487,44 @@
       .process-steps { flex-direction: column; gap: 24px; }
       .process-step::after { display: none; }
     }
+
+    /* === PRINT / PDF EXPORT === */
+    @media print {
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+
+      body {
+        overflow: visible;
+      }
+
+      .slide-nav {
+        display: none !important;
+      }
+
+      .slide {
+        min-height: 100vh;
+        height: 100vh;
+        page-break-after: always;
+        break-after: page;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+
+      .slide:last-of-type {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      /* Force all animated elements to their visible state */
+      .reveal,
+      .reveal.visible {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 <body>
