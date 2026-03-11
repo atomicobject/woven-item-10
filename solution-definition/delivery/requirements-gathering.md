@@ -237,60 +237,65 @@ The solution is structured as three independent systems in priority order. Each 
 ## 7. Open Questions
 
 > **Cross-reference note (2026-03-09):** Questions below have been cross-referenced against the FigJam Solutioning board (Solution Scope stickies) and all interview summaries/assertions. Status reflects evidence found across the full KB but has **not been validated with stakeholders** — "hypothesis" status means we have supporting evidence from interviews but the answer has not been confirmed.
+>
+> **Updated 2026-03-10:** Questions reorganized by system following slide deck debrief. Per-system priority order reflects the three-system solution model.
 
-### Blocking (Must be answered before implementation)
+### System 1 — Requirements Creation
 
-1. **Source integration layer:** Can the system integrate directly with Git repositories where SWRDs are stored, or must it work through Woven's documentation layer (PRD documents from the PDM team)? If Git is accessible, what webhook and GitHub Actions capabilities are available? If not, what APIs or access points does the documentation layer expose? This decision fundamentally shapes the integration architecture **(2026-03-06_solutioning.md)**
-   - **Status: Open.** FigJam board includes specific sub-questions: "Can we rely on the Git documentation as our only source of truth for right now? Or do we need to ingest the URD Google Sheet?" (Gus) and "What interfaces can connect GitHub to LLM to JAMA? What APIs exist? What tooling can we reuse? What is Reqtify?" (Gus). No interview has resolved the infrastructure access question.
-   - **Hypothesis:** The URD Google Sheet is a secondary reference source (Nick uses it for context with Japanese + English descriptions) but is not the primary ingestion target for the pilot. Git-sourced SWRDs remain the assumed primary source. The specific repo may be `bev_document` (referenced on FigJam board; needs validation).
+1. **Copy-paste automation or intelligent transcription?** Is the tool's job to faithfully move SWRD content into JAMA as-is — just faster — or should it actively improve what lands there: translating jargon, reformatting for readability, filling in structure? This also determines whether there's a gate: does everything flow in automatically, or does Hannah review before anything lands in JAMA? Hannah currently does this transformation manually, but she may prefer to keep that control rather than trust an LLM to interpret intent **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
+   - **Status: Open — key question to validate with Hannah usability test.**
+   - **Hypothesis (pre-debrief):** The "translate to plain English" step is a core pipeline requirement — the system must not only extract raw content from Git but also run LLM-based clarification/translation before populating JAMA. This is distinct from raw extraction. However, debrief raised the broader question of whether the transformation should happen at all versus faithful transcription.
 
-2. **JAMA structure, containers, and import configuration:** How is JAMA configured for this project? What are its data validation rules? What format should automated requirements follow? Can the system programmatically post/update JAMA entries? Who/what creates the JAMA Requirement container, and how does the automation target the correct location in the hierarchy? **(2026-03-06_solutioning.md; FigJam Solution Scope stickies)**
-   - **Status: Partially answered.** JAMA hierarchy is documented as project → component → set → folder → item (Andrea interview). Hannah and Andrea manually create entries today. But the process for creating *containers* for a new quarter/feature — and how automation would target the correct location — remains undefined.
-   - **Hypothesis:** JAMA structure follows a consistent hierarchy (project → component → set → folder → item) based on Andrea's interview. Components are high-level containers (e.g., Emergency Braking System); sets group a single item type (e.g., System Requirements, Verification Tests); items (requirements, test cases) live inside sets. Automation must know the target set/folder to populate correctly.
+2. **Do we even need a front end?** Is this a standalone UI, a CLI, or something that lives inside JAMA as a widget? Julia has flagged a preference for fewer tools — if JAMA supports extensions or widget capability, building inside JAMA rather than alongside it may be the right call **(FigJam Solution Scope sticky; 2026-03-10-slide-deck-debrief.md)**
+   - **Status: Open.** No UX/interface decisions made. Explore JAMA widget capability before building a standalone UI.
 
-3. **AI service API access:** Can the system access external AI APIs (Claude, ChatGPT, OpenAI) for automated test case generation? Are there restrictions, approval processes, or alternative services Woven prefers? **(2026-03-06_solutioning.md)**
+3. **JAMA structure, containers, and import configuration:** How is JAMA configured for this project? What format should automated requirements follow? Can the system programmatically post/update JAMA entries? How does automation target the correct location in the hierarchy? **(2026-03-06_solutioning.md)**
+   - **Status: Partially answered.** JAMA hierarchy documented as project → component → set → folder → item (Andrea interview). But the process for creating containers for a new quarter/feature — and how automation targets the correct location — remains undefined.
+   - **Hypothesis:** Automation must know the target set/folder to populate correctly; this requires either a configuration step or a naming convention the system can follow.
+
+4. **AI service API access:** Can the system access external AI APIs (Claude, ChatGPT, OpenAI) for LLM-based structuring and test case generation? Are there restrictions, approval processes, or alternative services Woven prefers? **(2026-03-06_solutioning.md)**
    - **Status: Open.** No evidence in any interview that this has been resolved.
 
-4. **Hannah's manual process detail:** What exactly are the steps Hannah follows to create JAMA requirements from Git SWRDs? What can be automated vs. what requires human judgment? What validation does she perform? **(2026-03-06_solutioning.md)**
-   - **Status: Hypothesis (largely answered from interviews, not validated as complete).** Hannah's interview and the FigJam user story map document a step-by-step journey: Opens PRD Google Doc → Opens URD Google Doc → Opens Git Documentation → Reads sections to build context → Creates new empty JAMA requirement container → Fills in relevant bits from SWRD context → Reviews with development team → Drafts test cases in LLM → Cleans up LLM output → Reviews test cases → Manually reviews for changes to SWRD. Key insight: Hannah uses LLMs (Gemini via Wovey) at ~90% effectiveness for language clarification and test case drafting, then manually curates.
-   - **Hypothesis:** The "translate to plain English" step is a core pipeline requirement — the system must not only extract raw content from Git but also run LLM-based clarification/translation before populating JAMA. This is distinct from raw extraction.
+### System 2 — Automated Gathering
 
-5. **GitHub/Stargate access for Atomic team:** Will Nate Papes (and team) be granted access to Woven's requirements repositories in GitHub for architecture and requirements work? Access has not yet been requested — target is week of 2026-03-09 **(2026-03-06_solutioning.md)**
-   - **Status: Open.** Access request has not been submitted yet; planned for this week.
+1. **Can an automated agent access Git and Google Drive?** This is distinct from whether the Atomic team has access — what can a deployed tool or agent access inside Woven's environment? What approval process exists for granting a system (not a person) read access to internal repos and Drive? **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
+   - **Status: Open — blocking for System 2.** No infrastructure access confirmed yet. Access request planned for week of 2026-03-09.
 
-6. **Agent authentication patterns:** Does Woven have MCP (Model Context Protocol) server implementations or patterns for AI agent authentication across their tools? What infrastructure exists to enable automated document access? **(2026-03-02-2_julia-interview-debrief.md)**
+6. **How do we get access to new PRDs each quarter?** The PRD is a Google Doc that gets replaced every quarter. The tool needs a way to discover and read each new one automatically — not just the current one we can find manually **(2026-03-10-slide-deck-debrief.md)**
+   - **Status: Open — blocking for batch import.**
+
+7. **Does Wovey already have access to Git and Google Drive?** Wovey is already deployed inside Woven and likely has access to many internal systems. If it exposes an API, that's a single integration point that sidesteps every individual access request. Who does Julia point us to? **(FigJam Solution Scope sticky; 2026-03-10-slide-deck-debrief.md)**
+   - **Status: Open.** Julia is the contact; worth asking before requesting access separately. The specific repo may be `bev_document` (referenced on FigJam board; needs validation).
+
+8. **Agent authentication patterns:** Does Woven have MCP (Model Context Protocol) server implementations or patterns for AI agent authentication across their tools? **(2026-03-02-2_julia-interview-debrief.md)**
    - **Status: Open.** No evidence in any interview that this has been explored.
 
-7. **Solution interface model:** Is the solution a UI, a CLI, or a fully automatic background service? How does Hannah trigger test case generation when she's ready? **(FigJam Solution Scope sticky: "Is this a UI interface? Command line interface? Automatic thing magically create JAMA artifact?" — Gus)**
-   - **Status: Open.** No UX/interface decisions made. The solutioning meeting assumed API-driven automation (GitHub Actions + LLM + JAMA API), and the FigJam board's orange sticky suggests Hannah "manually triggers" test case generation when ready — implying the pipeline is not fully automatic end-to-end. But the actual interface for validation/triggering has not been designed.
+### System 3 — Change Management
 
-8. **Change management model — push vs. pull:** Is change detection push-based (event-triggered, e.g., PR merge webhook) or pull-based (polling)? How often does the system need to run? Is there a trigger when a PR is merged that the system can tie into? **(2026-03-06_solutioning.md; FigJam Solution Scope stickies)**
-   - **Status: Open.** Both models identified as viable. FigJam board asks specifically about PR merge triggers. Quarterly release cadence is clear, but Julia noted requirements change "every single day" mid-quarter. The Change Requirement Board (CRB) process is being formalized but detection frequency is TBD.
+9. **What polling cadence does Hannah want?** Julia said requirements change "every single day" mid-quarter — but nightly alerts may create noise. Nightly, weekly, or something else? TBD with Hannah based on what's actually manageable for her team **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
+   - **Status: Open.** Both polling and webhook (PR merge trigger) models are viable; polling is the safer MVP.
+
+10. **What notification channel?** Where does the change digest go — Slack, email, or surfaced directly inside JAMA? Who needs to be notified: Hannah, systems engineers, developers — and at what point in the change? **(2026-03-06_solutioning.md; 2026-03-10-slide-deck-debrief.md)**
+    - **Status: Open.** No channel decision made yet.
+
+11. **Does Reqtify's change tracking cover enough that we don't need to build System 3?** Reqtify handles suspicious-link detection and change tracking across 100+ connectors. Before fully scoping System 3, get a demo — if Reqtify already covers this well and isn't expensive, System 3 may narrow significantly **(FigJam Solution Scope sticky; 2026-02-23-1_release-tools-deepdive.md; 2026-03-10-slide-deck-debrief.md)**
+    - **Status: Open.** Andrea hasn't deeply investigated Reqtify yet. Clifton (Woven) works on process, JAMA structure, and traceability and was noted as a contact for this tool.
 
 ### Important (Should be answered during implementation)
 
-9. **SWRD format consistency and headings:** Do we have a set format for SWRD? What are the headings we want separated out? **(FigJam Solution Scope sticky — Dan)**
-   - **Status: Hypothesis (largely answered, needs validation for non-Git sources).** Nick confirmed a consistent format for Git-sourced SWRDs: header block → reason → description → interface (if applicable) → specification. But some capability groups use JAMA directly with potentially different formats. Julia indicated she would link alternative-format examples — worth confirming whether that happened.
+12. **SWRD format consistency and headings:** Do all lane change SWRDs share a consistent format? What are the section headings to extract? **(FigJam Solution Scope sticky — Dan)**
+    - **Status: Hypothesis (largely answered, needs validation for non-Git sources).** Nick confirmed a consistent format for Git-sourced SWRDs: header block → reason → description → interface (if applicable) → specification. But some capability groups use JAMA directly with potentially different formats.
 
-10. **Human review scope and design:** How much human "review" is desired by Hannah? How much is necessary? **(FigJam Solution Scope sticky — Dan)**
-    - **Status: Hypothesis (answered from interviews, not validated as design requirement).** Hannah's interview confirms review cannot be eliminated but can be optimized. She already uses LLMs (~90% effective) and manually validates. The goal is to make review faster, not remove it. Nick similarly expects to "manually review and curate output" from LLM-generated test cases.
-
-11. **What is "agreement" for gating test case creation?** Julia clarified that test cases should only be created after upstream "agreement" on the requirement. What entity grants this approval (CA, product team, behavior team)? What is the mechanism/signal? **(2026-03-05_standup.md)**
+13. **What is "agreement" for gating test case creation?** Julia clarified that test cases should only be created after upstream "agreement" on the requirement. What entity grants this approval (CA, product team, behavior team)? What is the mechanism or signal? **(2026-03-05_standup.md)**
     - **Status: Open.**
 
-12. **Reqtify/Rectify tool evaluation:** FigJam board asks "What is Reqtify?" (Gus). This is almost certainly the same tool as "Rectify" mentioned in Andrea's interview and the release tools deep-dive — a traceability tool Woven is considering that may aggregate requirements from different sources and enable cross-requirement linkage. Could it be more capable than or complementary to Atomic Object's solution? **(FigJam Solution Scope sticky; 2026-02-26-1_andrea-interview.md; 2026-02-23-1_release-tools-deepdive.md)**
-    - **Status: Open.** Andrea hasn't deeply investigated it yet. Clifton (Woven) works on process, JAMA structure, and traceability and was noted as a contact for this tool.
-
-13. **SBRD and SWRD overlap and deduplication:** If SBRDs (Scenario-Based Requirements Documents) and SWRDs specify the same requirement/scenario, how should they be managed together? Should SBRDs live in JAMA or remain separate? Is this out of scope or future scope? **(2026-03-05_discovery-sync.md)**
+14. **SBRD and SWRD overlap and deduplication:** If SBRDs and SWRDs specify the same requirement/scenario, how should they be managed together? **(2026-03-05_discovery-sync.md)**
     - **Status: Open.**
 
-14. **Non-Git SWRD sources and field structures:** Some capability groups use JAMA directly or Google Docs as SWRD sources. What are the exact field structures and formats for these non-Git sources? How different are they from the Git markdown structure? **(2026-03-05_standup.md)**
+15. **Non-Git SWRD sources and field structures:** Some capability groups use JAMA directly or Google Docs as SWRD sources. What are the exact field structures for these non-Git sources? **(2026-03-05_standup.md)**
     - **Status: Open.**
 
-15. **Internal architecture definition:** Will Woven establish an official internal architecture defining component relationships (perception, planning, controller, etc.) shared across capability groups? This is needed for component-level requirement decomposition (SCRD generation). Timeline? **(2026-03-04-3_nick-user-interview.md)**
-    - **Status: Open.**
-
-16. **Behavior team maturity and availability:** The in-lane behavior team has no assigned developer yet (as of 2026-03-04). Will developers be available to review/approve SWRDs and test cases in the timeline needed? How mature are other teams (urban, roll-out) compared to lane change? **(2026-03-04-3_nick-user-interview.md)**
+16. **Behavior team maturity and availability:** The in-lane behavior team has no assigned developer yet (as of 2026-03-04). Will developers be available to review/approve SWRDs and test cases? **(2026-03-04-3_nick-user-interview.md)**
     - **Status: Open.**
 
 ### Future (Can be deferred to later iterations)
