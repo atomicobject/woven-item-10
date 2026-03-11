@@ -193,7 +193,7 @@ The full vision — additional capabilities unlocked as access and trust are est
 
 Adds to the core map:
 - **PRD Fetcher** *(dashed — ideal)* — Batch import via Google Doc link
-- **Requirement Quality Identifier** *(dashed — ideal)* — Flags poor data before review
+- **Requirement Quality Identifier** *(dashed — ideal add-on)* — Sits between the Requirements Generator and Test Generator. Before test cases are generated, this step surfaces potential issues in the requirement for the user to review: TBD-heavy language, over-prescriptive specifications written for TSS-4's rules-based approach (not Woven's ML system), ambiguous scope, or other quality signals. The user sees the flags and decides whether to proceed to test generation, send the requirement back, or override. This prevents the Test Generator from producing test cases against a poorly formed requirement — and gives Nick-type reviewers a systematic way to pre-filter bad inputs rather than catching them manually post-generation.
 - **Multiple Test Case Suggestion** *(dashed — ideal)* — Suggests ideal test case count per SWRD
 
 ---

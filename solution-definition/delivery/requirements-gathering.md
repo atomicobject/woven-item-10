@@ -122,7 +122,7 @@ The solution is structured as three independent systems in priority order. Each 
 
 - **Multi-source consolidation (beyond Git):** Pilot focuses on Git-based lane change SWRDs. Other capability groups may use JAMA directly or Google Docs as sources; multi-source aggregation is deferred to Phase 2 **(2026-03-05_standup.md)**
 
-- **SWRD filtering and prioritization:** The system will not attempt to assess requirement quality or filter out problematic SWRDs upstream. That remains a human decision. However, the system can surface metadata (presence of TBDs, over-prescriptive sections) to aid manual filtering **(2026-03-04-4_nick-debrief.md)**
+- **Automated SWRD filtering and prioritization (blocking):** The system will not block or auto-reject SWRDs based on quality signals. That decision remains with the user. However, a **Requirement Quality Identifier** add-on (see Section 8) is designed to surface quality issues to the user before test case generation — flagging TBD-heavy language, over-prescriptive specification written for legacy TSS-4's rules-based approach, and other signals — so the user can decide whether to proceed. This is planned as an ideal iteration beyond the pilot. **(2026-03-04-4_nick-debrief.md)**
 
 - **Requirement translation/reinterpretation:** System will not translate SWRDs from system-of-systems scope to internal product (IPA) scope. That translation remains a human task (Julia's team responsibility) **(2026-03-02-1_julia-interview.md)**
 
@@ -329,6 +329,7 @@ The solution is structured as three independent systems in priority order. Each 
 - **JAMA API client:** Programmatically creates/updates requirements in JAMA
 - **Notification system:** Sends digests to stakeholders (Slack, email)
 - **LLM integration:** Calls AI service to generate test case structure
+- **Requirement Quality Identifier** *(ideal add-on, post-pilot):* Sits between the Requirements Generator and Test Generator in the pipeline. Before test cases are generated, this component analyzes the structured requirement and surfaces potential quality issues to the user: TBD density, over-prescriptive language written for TSS-4's rules-based system rather than Woven's ML approach, ambiguous scope, or missing interface/specification sections. The user sees the flags and can decide to proceed to test generation, revise the requirement, or override. This prevents low-quality requirements from producing misleading test cases and gives reviewers a systematic early-warning layer. It does not block or reject — it informs.
 - **Validation & error handling:** Ensures data quality; surfaces issues for manual review
 
 ### Proof-of-Concept Plan

@@ -741,7 +741,6 @@
       <ul style="padding-left:20px;">
         <li style="font-size:18px; margin-bottom:10px;">SBRDs and TPIDs (separate workflow)</li>
         <li style="font-size:18px; margin-bottom:10px;">Multi-source consolidation beyond Git</li>
-        <li style="font-size:18px; margin-bottom:10px;">SWRD quality filtering or upstream prioritization</li>
         <li style="font-size:18px; margin-bottom:10px;">Scope translation: system-of-systems → IPA</li>
         <li style="font-size:18px; margin-bottom:10px;">Integration with CA/Toyota upstream systems</li>
         <li style="font-size:18px; margin-bottom:10px;">Bottom-up requirements backfilling from existing code</li>
@@ -939,6 +938,12 @@
       <text x="850" y="207" fill="#281858" font-size="10" font-weight="700" text-anchor="middle">Requirements Generator</text>
       <text x="850" y="222" fill="#281858" font-size="10" text-anchor="middle">(plain english)</text>
 
+      <!-- Requirement Quality Identifier (DASHED): cx=1125 — optional add-on between Req Gen and Test Gen -->
+      <rect x="1045" y="182" width="160" height="60" rx="6" fill="#DDD0F5" stroke="#9878DC" stroke-width="1.5" stroke-dasharray="7,4"/>
+      <text x="1125" y="203" fill="#38186A" font-size="9.5" font-weight="700" text-anchor="middle">Requirement Quality</text>
+      <text x="1125" y="218" fill="#38186A" font-size="9.5" font-weight="700" text-anchor="middle">Identifier</text>
+      <text x="1125" y="233" fill="#38186A" font-size="8.5" font-style="italic" text-anchor="middle">(flags issues to user)</text>
+
       <!-- Test Generator (SOLID): cx=1400 — far right to use full width -->
       <rect x="1318" y="182" width="165" height="60" rx="6" fill="#C8B4EC" stroke="#7858CC" stroke-width="1.5"/>
       <text x="1400" y="217" fill="#281858" font-size="11" font-weight="700" text-anchor="middle">Test Generator</text>
@@ -1023,8 +1028,10 @@
       <line x1="337" y1="212" x2="360" y2="212" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#pm-a)"/>
       <!-- Req Fetcher → Req Generator (crosses into System 1) -->
       <line x1="550" y1="212" x2="760" y2="212" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
-      <!-- Req Generator → Test Generator (dashed — gated by approval) -->
-      <line x1="940" y1="212" x2="1318" y2="212" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#pm-a)"/>
+      <!-- Req Generator → Requirement Quality Identifier (dashed — optional step) -->
+      <line x1="940" y1="212" x2="1045" y2="212" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#pm-a)"/>
+      <!-- Requirement Quality Identifier → Test Generator (dashed — gated by approval) -->
+      <line x1="1205" y1="212" x2="1318" y2="212" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#pm-a)"/>
 
       <!-- Req Fetcher → Requirements Monitor (down) -->
       <line x1="455" y1="242" x2="455" y2="285" stroke="#888" stroke-width="1.5" marker-end="url(#pm-a)"/>
@@ -1098,9 +1105,27 @@
   <span class="slide-number">15</span>
 </section>
 
+<!-- ============================================================
+  16 — SYSTEM 1: OPEN QUESTIONS
+============================================================ -->
+<section class="slide slide-white" id="slide-system-1-q">
+  <div class="section-eyebrow reveal">System 1</div>
+  <h2 class="reveal reveal-delay-1">Open Questions</h2>
+  <div style="margin-top:28px;" class="reveal reveal-delay-2">
+    <div class="question-item">
+      <p><strong>Copy-paste automation or intelligent transcription?</strong> Is the tool's job to faithfully move SWRD content into JAMA as-is — just faster — or should it actively improve what lands there: translating jargon, reformatting for readability, filling in structure? Hannah currently does this transformation manually, but she may prefer to keep that control rather than trust an LLM to interpret intent.</p>
+      <div class="question-status">🟡 Confirm with Hannah — test with System 1 prototype</div>
+    </div>
+    <div class="question-item">
+      <p><strong>Do we even need a front end?</strong> Is this a standalone UI, a CLI, or something that lives inside JAMA as a widget? Julia has flagged a preference for fewer tools — if JAMA supports extensions, building inside JAMA rather than alongside it may be the right call.</p>
+      <div class="question-status">🟡 Open — explore JAMA widget capability before building a UI</div>
+    </div>
+  </div>
+  <span class="slide-number">16</span>
+</section>
 
 <!-- ============================================================
-  16 — SYSTEM 2: AUTOMATED GATHERING
+  17 — SYSTEM 2: AUTOMATED GATHERING
 ============================================================ -->
 <section class="slide slide-default" id="slide-system-2">
   <div class="section-eyebrow reveal">System 2</div>
@@ -1136,12 +1161,34 @@
   <div class="metaphor-box reveal reveal-delay-4" style="margin-top:24px;">
     <p><strong>Key dependency:</strong> System 3 is an extension of this — it uses the same access layer to watch for changes. <span class="highlight-teal">The faster we get Git and Drive access, the faster both Systems 2 and 3 unlock.</span></p>
   </div>
-  <span class="slide-number">16</span>
+  <span class="slide-number">17</span>
 </section>
 
+<!-- ============================================================
+  18 — SYSTEM 2: OPEN QUESTIONS
+============================================================ -->
+<section class="slide slide-default" id="slide-system-2-q">
+  <div class="section-eyebrow reveal">System 2</div>
+  <h2 class="reveal reveal-delay-1">Open Questions</h2>
+  <div style="margin-top:28px;" class="reveal reveal-delay-2">
+    <div class="question-item">
+      <p><strong>Can an automated agent access Git and Google Drive?</strong> This is distinct from whether we have access — what can a deployed tool or agent access inside Woven's environment? What's the approval process for granting a system (not a person) read access to internal repos and Drive?</p>
+      <div class="question-status blocking">🔴 Blocking — no infrastructure access confirmed yet</div>
+    </div>
+    <div class="question-item">
+      <p><strong>How do we get access to new PRDs each quarter?</strong> The PRD is a Google Doc that gets replaced every quarter. The tool needs a way to discover and read each new one automatically — not just the current one we can find manually.</p>
+      <div class="question-status blocking">🔴 Blocking for batch import</div>
+    </div>
+    <div class="question-item">
+      <p><strong>Does Wovey already have access to Git and Google Drive?</strong> If Wovey is already deployed at Woven and has access to these systems, and it exposes an API, that's a single integration point that sidesteps every individual access request. Who does Julia point us to?</p>
+      <div class="question-status">🟡 Open — Julia is the contact; worth asking before requesting access separately</div>
+    </div>
+  </div>
+  <span class="slide-number">18</span>
+</section>
 
 <!-- ============================================================
-  17 — SYSTEM 3: CHANGE MANAGEMENT
+  19 — SYSTEM 3: CHANGE MANAGEMENT
 ============================================================ -->
 <section class="slide slide-white" id="slide-system-3">
   <div class="section-eyebrow reveal">System 3</div>
@@ -1166,12 +1213,34 @@
     </div>
   </div>
 
-  <span class="slide-number">17</span>
+  <span class="slide-number">19</span>
 </section>
 
+<!-- ============================================================
+  20 — SYSTEM 3: OPEN QUESTIONS
+============================================================ -->
+<section class="slide slide-white" id="slide-system-3-q">
+  <div class="section-eyebrow reveal">System 3</div>
+  <h2 class="reveal reveal-delay-1">Open Questions</h2>
+  <div style="margin-top:28px;" class="reveal reveal-delay-2">
+    <div class="question-item">
+      <p><strong>What polling cadence does Hannah want?</strong> Julia said requirements change "every single day" mid-quarter — but nightly alerts may create noise. Nightly, weekly, or something else? TBD with Hannah based on what's actually manageable for her team.</p>
+      <div class="question-status">🟡 Confirm with Hannah — affects infrastructure load and alert fatigue</div>
+    </div>
+    <div class="question-item">
+      <p><strong>What notification channel?</strong> Where does the change digest go — Slack, email, or surfaced directly inside JAMA? Who needs to be notified: Hannah, systems engineers, developers — and at what point in the change?</p>
+      <div class="question-status">🟡 Open — no channel decision made yet</div>
+    </div>
+    <div class="question-item">
+      <p><strong>Does Reqtify's change tracking cover enough that we don't need to build System 3?</strong> Reqtify handles suspicious-link detection and change tracking across 100+ connectors. Before fully scoping System 3, get a demo — if Reqtify already covers this well and isn't expensive, System 3 may narrow significantly.</p>
+      <div class="question-status">🟡 Get a Reqtify demo before scoping System 3</div>
+    </div>
+  </div>
+  <span class="slide-number">20</span>
+</section>
 
 <!-- ============================================================
-  18 — REQTIFY
+  21 — REQTIFY
 ============================================================ -->
 <section class="slide slide-default" id="slide-reqtify">
   <div class="section-eyebrow reveal">System 3 · Context</div>
@@ -1222,7 +1291,7 @@
       </tbody>
     </table>
   </div>
-  <span class="slide-number">18</span>
+  <span class="slide-number">21</span>
 </section>
 
 <!-- ============================================================
@@ -1291,7 +1360,7 @@
       <button style="background:var(--atomic-teal); color:white; border:none; border-radius:6px; padding:8px 20px; font-size:14px; font-weight:600; cursor:pointer; font-family:var(--font-body);">Send to JAMA ↑</button>
     </div>
   </div>
-  <span class="slide-number">19</span>
+  <span class="slide-number">22</span>
 </section>
 
 <!-- ============================================================
@@ -1302,13 +1371,13 @@
   <p class="key-message reveal reveal-delay-1">
     System 1 is working. The questions below determine how fast we can build Systems 2 and 3.
   </p>
-  <span class="slide-number" style="color:rgba(255,255,255,0.35);">20</span>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">23</span>
 </section>
 
 <!-- ============================================================
   NEXT STEPS CONTENT
 ============================================================ -->
-<section class="slide slide-white" id="slide-next-steps">
+<section class="slide slide-white" id="slide-next-steps-sec">
   <div class="section-eyebrow reveal">Next Steps</div>
   <h2 class="reveal reveal-delay-1">Immediate Actions</h2>
   <div class="reveal reveal-delay-2" style="margin-top:28px; display:flex; flex-direction:column; gap:14px;">
@@ -1346,7 +1415,7 @@
     </div>
 
     <div style="display:flex; align-items:flex-start; gap:18px; background:var(--surface-card); border-radius:var(--radius-md); padding:18px 22px; box-shadow:var(--shadow-sm);">
-      <div style="min-width:32px; height:32px; border-radius:50%; background:var(--atomic-gold); color:white; font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center;">1</div>
+      <div style="min-width:32px; height:32px; border-radius:50%; background:var(--atomic-gold); color:white; font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center;">5</div>
       <div>
         <div style="font-size:17px; font-weight:700; color:var(--atomic-black);">Get a Reqtify demo</div>
         <div style="font-size:14px; color:var(--atomic-med-gray); margin-top:4px; line-height:1.6;">Before fully scoping System 3, see what Reqtify handles. If it covers change-linking, System 3's scope narrows significantly.</div>
@@ -1354,7 +1423,7 @@
     </div>
 
   </div>
-  <span class="slide-number">21</span>
+  <span class="slide-number">24</span>
 </section>
 
 <!-- ============================================================
@@ -1385,7 +1454,7 @@
       <div class="question-status">🟡 Open — get a demo, then decide</div>
     </div>
   </div>
-  <span class="slide-number">22</span>
+  <span class="slide-number">25</span>
 </section>
 
 <!-- ============================================================
@@ -1396,7 +1465,7 @@
   <p class="key-message reveal reveal-delay-1">
     Reference material.
   </p>
-  <span class="slide-number" style="color:rgba(255,255,255,0.35);">23</span>
+  <span class="slide-number" style="color:rgba(255,255,255,0.35);">26</span>
 </section>
 
 <!-- ============================================================
@@ -1444,7 +1513,7 @@
       </div>
     </div>
   </div>
-  <span class="slide-number">24</span>
+  <span class="slide-number">27</span>
 </section>
 
 <script>
