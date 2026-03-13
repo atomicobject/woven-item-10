@@ -1,0 +1,92 @@
+Dan
+00:00
+Okay, I see that. Awesome, thank you.
+
+Nate
+00:11
+Alright. Mahesh, are you still in the middle of something right now? Are you able for us to get this off for you?
+
+Mahesh
+00:43
+Mahesh? I'm sorry, I think I'm trying to connect my headphones, but I lost audio. Now I can hear you guys. Okay, you lost your headphones? Okay. Can you hear me? Yes. Yes, I can.
+
+Nate
+01:06
+All right. Um, so I'm gonna go ahead and get this kicked off if you are okay with that. Yes. Okay, so I'm Nate Papas. I'm here with the atomic object team. We're working on the tools and metric side of woven, particularly to help certain stakeholders deal with requirements and how they're changing from day to day. and they're looking for some like polling based system that can do a change detection and then they could ultimately filter like what is a signal and what is noise so then think and figure out like what to put in jama like that's like the end goal they want clean requirements of jama and it's not super obvious what's like how the software's changed um and what things they should be spending their time on if it's
+
+Mahesh
+02:06
+It's going to change within the next two months or so. So we're trying to hook into that process and those teams. So it's my understanding that you're more on the engineering side of the organization. Is that correct? Yeah, I can give some introduction. So I'm working with the SVMD. It's mainly with requirements and validation, but right now we're focusing more on validation. Okay, validation. Okay.
+
+Nate
+02:50
+So here's a little slide deck. Gus and Dan have been doing some interviews with some other people at Woven and basically seeing what their job looks like. They're getting these requirement packets. from Japan, and then they have to basically figure out how to deduplicate them and figure out what ones are stable in terms of components and their features being ready. Because it's our understanding that the platform's consistently being built, and it's being deployed to cars, and they're running it, and people are kind of tweaking the software and the teams are slicing different like levels just like in lane assistance there's like lane transition then there's acceleration or something like that yeah there's like and what like Julia which is like the stakeholder we're working with is looking for just like okay we need this to know like high level like notifications of when one of those systems has changed. So like down to the like level in the code base, you know, we just need to have like these kind of low fidelity diagrams of how these systems work. And they, she's interested in like having some kind of tooling that could, I don't know how it would work, but I imagine it would do some kind of static code analysis, maybe figure out what are the hot paths in the code and like build up like, like these small components, you know, we don't need to know every function name, but we need to know like, a bunch of these functions together is basically achieving this task, and these five, these five methods together then achieve this task like and then a lane change happens. So like that level of fidelity is kind of what the core problem is, and then they want to bake that into like the requirements documents. Okay, so, um, so yeah, as I said, This is kind of going backwards. Here's the deck we've been running with the teams who've been doing the grunt work, for less of a better word, of taking these requirements that come at like a quarterly basis and look through them and then put them into JAMA and then decide what test cases should be written or not. And let's see. Here's one example, you know, lane change SWRDs managed usually by Hanna. There's 600 of those, so that's kind of a painful job. Well, the one interesting stat that we recognized was like Hanna was able to use like an LLM to do 90% of that kind of work, which I think is really neat using Wovi to basically, once you have these right prompts, it can get the documentation from one format to a format that, you know, JAMA can ingest. Here's this kind of team we're working with. Yeah, and we had a, there's like three proposed solutions that we had built out. We had like proposed. and then ask some questions in view. Just go way past it.
+
+Dan
+06:50
+Nate, can you hear me? Yeah, yeah, I can. That's the older deck. Are you able to see the newer one? Oh, is that one? Yeah, let me check that out. Sorry about that. I just noticed that as we speak. Sorry, I'm also plugging my computer in. Did you commit them? Dan, was that 12? Yep, it's committed. It's a different title. Oh, okay. Do you want me to give it the name of it? Is it present? Yeah, I have a same, but. It's in solution definition delivery. And there you go, right there. Oh, oh, oh, nope. It was right there. That one. Side deck. Yep. Oh, that's PDF, but it's that one. Yep.
+
+Nate
+08:16
+All right, so here's one way to kind of think of it. I don't know if you're familiar with how requirements are managed by Woven and the developers. We've been kind of looking into that too and seeing how we can to your organization. So it sounds like these requirements come in at some rhythm, some cadence. Maybe it's once every quarter. Maybe it's earlier than that. But then they're like saved to like Git and then saved to like Google Drive. Maybe it's like saved as like a Slack message to like Google Doc or something like that. And so there's all sorts of different data sources that are for intake. So what we have here is like a system that basically can do the bare minimum, which is everything on the right hand side. If you look at that chart, like here split down, system one is like something that can be built kind of without any fancy API integrations where it's like they take, the person would hunt down where the documentation is. and then copy it in verbatim, paste it into a tool that we would develop, and then it would output the format that JAMA needs to basically persist that as a requirement. And it does some of the tedious work, such as creating what are some good example test cases. And the human's always in the loop throughout this process, so if there's some test that just seem redundant or just unnecessary, then the human would just, we don't even, they're just, nope, don't post that to JAMA, but do post this. And then there'd be a way to do change management on it too. So then like say they have requirements, they're put to the source truth, but then online software has changed, well then they need to be notified of when that change happened. And that's where like that multiple data source component needs to be hooked up. And that is a problem of just getting access mostly. But that is not like the starting point for all this. System three, change management. This is in the form of a user alert. So at the very end, we could have something that can post to or ping them on a Slack channel after some kind of CI run that can do this smart change detection. We gotta make sure we got absolutely down right before adding any more noise to any Slack channel. Because yeah, we don't want this to end up becoming another source that they have to like, you know, look at to compare against. So does that give you kind of the... Yeah, thank you for that introduction. So I think it's today's topic like are we discussing architecture or I think you mentioned briefly that we would trace some of the signal flows Yeah, so that's okay. Yeah, so that would be like the part where I need to figure out who I need to talk to to figure like to do that part of the work, like to do the the static code analysis part. I imagine you would have an idea of how this has been done at Toyota in the past or at Wolven in the past.
+
+Mahesh
+11:57
+Yeah, I can share something how it was done, but I'm trying to find the past documentation. Basically, we maintain the connections through a file called EFDL or scheduling files, which basically tells what component is connected to what component. And if you just analyze those, you can basically draw a picture of it. This used to be a tool we have to do that. But I think when you move the repositories, we don't really I think what I was imagining was with every software all the static files are kind of defined already before you when you build so you should be able to draw a picture of what the signal flow looks like so if you change in the next build or in the next commit should be pretty like you should be able to point out okay this one input has changed or there is a new component now in the in the system
+
+Nate
+12:58
+Perfect. Yeah, that sounds exactly like what we're looking for here. And that exists today in some form in a Git repository? Or is that attached? It's part of the code base, but I don't think we are generating image as a part of our build process. Okay. So, if you don't mind me asking, what piece of the software is your responsibility at Woven? Is it part of any of this at all, like the self-driving?
+
+Mahesh
+13:59
+So we don't write software, but this is mainly the application layer software.
+
+Nate
+14:04
+Yeah.
+
+Mahesh
+14:05
+Yeah.
+
+Nate
+14:07
+Yeah. Yeah. I was just curious where, like what was the core, like, I don't know, code base you work in on like a day-to-day basis. And if there's like any good examples of like, yeah, here's one example where we had to take, you know, something that was absolutely and it's code and we had to show someone higher up to put it in like a requirements file so they understand how that system works. Like getting out like an example of where that was ever done within like the scope of your work that you do. And if like they could point me to like a Git repo or something that has that like built in, that'd be really
+
+Mahesh
+15:00
+I mean the get triple let me share that So this is the Git report that... So we don't really work in it directly. This is the autonomy team or developer team. But what I wanted to show is that our architecture is kind of documented through the static files. So if I go to node files. I think you might have seen this repository. But this is the internal product autonomy is we call it IPA. Yes, I've seen this. But I don't think it is currently documenting all the architecture or anything. It just has the static files. I'm trying to figure out which one is the... where it is right now. Yeah, I think I saw some dependency for.biz or something like that that seems like it might be doing some mark some diagramming but i'm not for certain if it was this repo or a different one so let's say this is our entire app that we say uh we call it hyperion or in driver and if i go to this scheduling file pftl it will basically tell me that this component What are the components? We call it node. I think this is just a nomenclature. But they should tell us what is the connection that is happening. So the camera node is connected to this process. It basically tells all the connections in the system. If we just read all these files, it should be looked forward to draw something. and there would be somewhere like a map fusion will have its own ifdx file so if you want to go deeper if they have like multiple sub nodes or i i think i don't know the exact nomenclature but they call it a collection of functions a node and something can be like a collection of nodes also yeah if you just read this you should be like it basically shows like where the planning is connected where perception is connected how the and this static file should be and then there's a main schedule of how do you allocate resources on the hardware. That's perfect. That's really good. Yeah, yeah, at that level kind of puts it all together and then being able to focus on like maybe a one sensor level I think would be very beneficial to or maybe not like one like a component maybe like like the LiDAR like what does the LiDAR do like in terms of what's with these outputs and then you can build up a complicated system that way um based on the pieces of hardware that you support. Yeah and then you can go to this so this so just as an example they have a node for camera schedule and if I there will be a separate file for it because they might have defined this camera node in detail and you can see each node it will tell you what resources it is consuming How fast it is supposed to run should be something like Hertz. Okay. This is this is defines how the how each node is supposed to take the resources. Okay. All right. EFDL files. That's great. I don't have any other questions. I don't know if Gus or you do or Mahesh, if you have any questions for us, happy to... Yeah, I wish I had, I think there was a tool we had this, you know, so it's not there yet, but it basically drew a picture of all these things before. So one thing I'm looking for is, let's say, if a map component input output or something changes, we can track the requirement or maybe maybe the requirement says that okay you don't need this input anymore or you probably need one more output because downstream components needs it but we are not able to easily visualize it in the software unless you track like a specific code or specific like um the cpc file cp file dot cp file so one one wish list or at least what julia had in mind was um if because we already have this in in information if we can build some tooling around
+
+Nate
+20:57
+So this could be the developers or we can take this information outside of this repo and maintain our own version based on each comment. Yeah, I would say keep it in repo for now then see what we can do with it. Because we'll start out with just like, you know, we'll create our own branch and it's right like some that then produces something to show that too. and see what she thinks and be like okay then if that produces something she likes then we can talk about like yeah where does it make sense to them and host this like and we want to kick it off on every single like github like action every build every release like kind of we want to hook it into because I know that's also you want to be wise about that because I imagine I was reading through the documentation about the nightly builds and the training and the simulations that goes through so it's like you know at the you have something that's like here's a release candidate ready to be chopped and be deployed to a device might be a time to deploy a new diagram at that point and then do like a get defined or whatever some kind of way to dip it changed all right well thank you so much for your time me helpful yeah really really quickly is there anything else
+
+Dan
+22:25
+I'm just trying to gut check all of it because I only understand like half of this. Is there anything else on the like details statement of work that would be helpful to go through or it sounds like you got a good thought on all of them? Does that make sense as a question? Like epic one versus epic two? Specifically epic two. Like as it relates to epic two, any other questions from Mahesh on there? I need to open up that document and read it again.
+
+Nate
+22:55
+I think I covered. Sweet. Yeah, I figured just as a double check. Yeah, it doesn't hurt. Okay, here we go. And so it talks about the current IP stack and then planned future IP stack.
+
+Mahesh
+23:26
+What else is there? Something about creating SCRDs? Software, what are those SCRDs? Yes, software component requirements. So I think when we get SWRD, they are at the whole IPA level. And as I showed, there are multiple components like map, camera, some others. and the goal is to decompose it to SCRT or component requirements.
+
+Nate
+24:00
+Component Requirements. Yeah, I think we covered it. I think what changes is just the... like what is the thing that like triggers this and like how do you tie it to a requirement and to a team right because we could have this thing run it could like run it like like a cron job at the the very dumbest thing to do like cron job nightly and it just does a quick and like code analysis of the code base to then produce like these diagrams at the component level and those component levels will then help build up the requirements in JAMA for the SWRDs, QTs. And then some kind of pinging mechanism, so maybe a Slack webhook or something like that, where it's like, there's been a significant change that's happened within this module. There's people being continued to it, function names. I figure we got hashed some files to see if there's...
+
+Mahesh
+25:18
+these are the four files that he's ever changed the hash breaks like let's fly up because who knows there might be something big there and then yeah i would recommend have you guys in touch with uh are you guys in touch with brian hampton we had we tried to talk to him yesterday he was he was too busy but because he's yeah he's the he's the main uh he's the lead architect or i don't know software architect and he can control a lot of decisions in the repository so uh i i think if we are interfacing him, it would be better to keep him in the loop.
+
+Nate
+25:53
+Sure. Well, absolutely. Yeah, it was a bar we didn't get a chance to talk to him yesterday, but he was busy. I think he does like a workshop too for the new onboarded people for like the Git workflow and all that. So I need to join one of those still. Yeah, I'm good with all those answers. Thank you for the advice that clarified some things. I didn't know about those. I don't know what the app file station is called, like the LFDI, I remember, LFDL files, and I want to see what that is and if that should be the leverage that going forward, and especially if that's what's being used in other repositories as well.
+
+Speaker 4
+26:47
+All right, have a good afternoon, gentlemen. Thank you so much for your time. See you.
+
